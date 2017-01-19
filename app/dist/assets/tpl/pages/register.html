@@ -1,0 +1,102 @@
+  <div class="row" ng-show="flagError">
+    <div class="col-lg-12">
+      <div class="bs-component">
+        <div class="alert alert-dismissible alert-warning">
+          <button type="button" ng-click="close()" class="close">×</button>
+          <h4>Ha ocurrido un problema!</h4>
+          <p>{{msgError}}
+          <!-- <a href="" class="alert-link">vel scelerisque nisl consectetur et</a>. -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row center" ng-show="flagSuccess" style="margin:5% auto;">
+    <div class="col-lg-4 col-lg-offset-4">
+      <div class="card bordered">
+        <div class="card-header alert alert-success">
+          <span class="card-title">Registro Completado</span>
+        </div>
+        <div class="card-content">
+          <p>Se ha registrado satisfactoriamente, ya puede hacer uso de nuestros servicios.</p>
+        </div>
+        <div class="card-action clearfix">
+          <div class="pull-right">
+            <a href="" ui-sref="anon.login" class="btn btn-link black-text">Ir a Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="center" ng-show="!flagSuccess">
+    <div class="card bordered z-depth-2"  style="margin:5% auto; max-width:500px;">
+      <div class="card-header" style="padding: 15px;">
+        <div class="brand-logo">
+          <!-- <div id="logo">
+            <div class="foot1"></div>
+            <div class="foot2"></div>
+            <div class="foot3"></div>
+            <div class="foot4"></div>
+          </div> -->
+          <b>Negocios Exchange</b>
+        </div>
+      </div>
+      <div class="card-content">
+        <section class="forms-validation">
+  <div class="page-header" style="margin-bottom:0">
+    <h1>
+      <i class="md md-input"></i>
+      Registro de Nuevo Usuario
+    </h1>
+    <p class="lead">
+      Registrate ahora mismo para poder realizar operacions de cambios de divisas de manera rapida.
+    </p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div id="forms-validation-container">
+        <form class="form-floating" name="form" ng-submit="signUp(form)" novalidate="">
+          <fieldset>
+            <div class="form-group">
+              <label class="control-label">Nombre de Usuario</label>
+              <input type="text" name="username" class="form-control" ng-model="user.username" required-err-type="fieldRequired" required>
+              <!-- <p \
+              g-show="form.username.$invalid && !form.username.$pristine" class="help-block">El defaultErrorMessageResolverusuardefaultErrorMessageResolverdefaultErrorMessageResolverio de ser un nombre alphanumerico de al menos 4 caracteres.</p> -->
+            </div>
+             <div class="form-group">
+              <label class="control-label">Nombre Completo</label>
+              <input type="text" class="form-control" ng-model="user.first_name" required-err-type="fieldRequired" required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Correo Electronico</label>
+              <input type="email" class="form-control" ng-model="user.email" required-err-type="fieldRequired" email-err-type="emailValidate" required>
+              <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
+            </div>
+            <div class="form-group">
+              <label class="control-label">Contrasena</label>
+              <input type="password" class="form-control" ng-model="user.password" required-err-type="fieldRequired" required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Telefono</label>
+              <input type="text" class="form-control" ng-model="user.phone_1" ng-pattern="/[0-9]/" required-err-type="fieldRequired" required>
+            </div><!-- 
+            <div class="form-group">
+              <label class="control-label normal">Date</label>
+              <input type="date" class="form-control" ng-model="model.date" required>
+            </div> -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Registrarse</button>
+              <a ui-sref="anon.login" class="btn btn-link black-text pull-right">Ir a Login</a>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+      </div>
+    </div>
+  </div>

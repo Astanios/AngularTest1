@@ -1,0 +1,172 @@
+<header class="navbar navbar-default" ng-class="{scroll: (scroll>10)}">
+  <div class="container-fluid">
+    <div class="navbar-header pull-left">
+      <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
+    </div>
+    <ul class="nav navbar-nav navbar-right navbar-right-no-collapse">
+      <li class="dropdown pull-right">
+        <ui-select ng-model="mode.selected" theme="select2" title="Modo" search-enabled="false">
+          <ui-select-match placeholder="Modo de Usuario">{{$select.selected.title}}</ui-select-match>
+          <ui-select-choices repeat="item in modes | filter: $select.search">
+            <div ng-bind-html="item.title | highlight: $select.search"></div>
+            <!-- <small ng-bind-html="item.email | highlight: $select.search"></small> -->
+          </ui-select-choices>
+        </ui-select>
+      </li>
+    </ul>
+  </div>
+</header>
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1>
+      <b>Términos y condiciones de uso</b>
+    </h1>
+  </div>
+</div>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+  </ol>
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <img src="img/emptyMME.gif" alt="Chania">
+    </div>
+
+    <div class="item">
+      <img src="img/emptyMME.gif" alt="Chania">
+    </div>
+
+    <div class="item">
+      <img src="img/emptyMME.gif" alt="Flower">
+    </div>
+
+    <div class="item">
+      <img src="img/emptyMME.gif" alt="Flower">
+    </div>
+  </div>
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only"></span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only"></span>
+  </a>
+</div>
+
+<div class="center">
+  <div class="card bordered z-depth-2"  style="margin: 0; width:100%;">
+    <div>
+      <div class="row">
+          <div class="col-md-12 p-r-60 p-l-30 p-t-40 p-b-40">
+            <h2 class="no-m-t">Subtítulo</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+      </div>      
+      <div class="row">
+          <div class="col-md-12 p-r-60 p-l-30 p-t-40 p-b-40">
+            <h2 class="no-m-t">Subtítulo</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-12 p-r-60 p-l-30 p-t-40 p-b-40">
+            <h2 class="no-m-t">Subtítulo</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+      </div>       
+    </div>
+  </div>
+</div>
+
+  <div class="card bordered z-depth-1"  style="margin: 0;">
+  <section class="p-20">
+
+    <div class="p-b-20" style="text-align: center;">
+      <button type="button" class="btn btn-primary btn-lg">
+        Aceptar
+      </button>
+
+    </div>
+
+  </section>
+  </div>
+
+<footer class="well white site-footer">
+  <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
+    <div class="col-lg-5">
+      <ul class="nav navbar-nav">
+        <li class="pull-left">
+          <button ng-click="toggleSearch()" class="btn btn-sm btn-link pull-left withoutripple">
+            <img src="img/social_network/facebook.png" width="48">
+          </button>
+        </li>
+        <li class="pull-left">
+          <button ng-click="toggleSearch()" class="btn btn-sm btn-link pull-left withoutripple">
+            <img src="img/social_network/twitter.png" width="48">
+          </button>
+        </li>
+        <li class="pull-left">
+          <button ng-click="toggleSearch()" class="btn btn-sm btn-link pull-left withoutripple">
+            <img src="img/social_network/instagram.png" width="48">
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="col-lg-7">
+        <ul class="nav navbar-nav" style="float: right;">
+        <li class="pull-left">
+          <a href="">
+            <b>FAQ</b>
+          </a>
+        </li>
+        <li class="pull-left">
+          <a href="">
+           <b>
+             Quienes somos?
+           </b> 
+          </a>
+        </li>
+        <li class="pull-left">
+          <a href="">
+            <b> Contacto </b>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <ul class="nav navbar-nav">
+        <li class="pull-left">
+          <a href="">Copyright 2015 - NoEsperesColas</a> 
+        </li>
+        <li class="pull-left">
+          <a href="">Politicas de Privacidad</a> 
+        </li>
+        <li class="pull-left">
+          <a href="">Terminos Legales</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>

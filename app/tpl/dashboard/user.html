@@ -1,0 +1,213 @@
+ 
+<div class="dashboard grey lighten-3" ng-controller="ListTransactionsCtrl">
+  <div class="row no-gutter">
+    <div class="col-sm-12 col-md-12 col-lg-9" style="background:#F9F9F9;">
+      <div class="p-20 clearfix">
+        <div class="page-header" style=" margin-bottom: 0;
+">
+            <h1>
+              <i class="md md-dashboard"></i>
+              Panel Principal (Usuario)
+            </h1>
+            <p class="lead">
+              Verifique el status de sus transacciones y genere una nueva transaccion.
+            </p>
+          </div>
+      </div>
+
+  <div class="row p-20" style="padding-top: 0">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-image">
+          <img src="img/photos/1.jpg" />
+          <span class="card-title">Cambiar Dolares a Bolivares</span>
+        </div>
+        <div class="card-content">
+          <p>Cambie dolares por bolivares de forma rapida y confiable en un proceso seguro y sencillo.</p>
+        </div>
+        <div class="card-action clearfix" style="padding-top: 0">
+          <div class="pull-right">
+          <!-- ng-disabled="transactions.length" -->
+            <button  ng-click="loadTransaction1()" data-placement="bottom" data-title="{{tooltip}}" ng-class="" bs-tooltip="" class="btn btn-link orange-text">Comenzar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-image">
+          <img src="img/photos/2.jpg" />
+          <span class="card-title">Cambiar Bolivares a Dolares</span>
+        </div>
+        <div class="card-content">
+          <p>Usted puede cambiar la cantidad de bolivares que desee a dolares de forma rapida y confiable.</p>
+        </div>
+        <div class="card-action clearfix" style="padding-top: 0">
+          <div class="pull-right">
+            <button ng-click="loadTransaction2()" data-placement="bottom" data-title="{{tooltip}}" bs-tooltip="" class="btn btn-link orange-text">Comenzar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div class="p-20 no-p-t">
+        <div class="row gutter-14">
+          <div class="col-md-12">
+<div>
+    <div class="table-responsive well no-padding white no-margin">
+      <h3 class="table-title">Transacciones </h3>
+      <table class="table table-full m-b-60" id="table-area-1" fsm-big-data="data of data take 30">
+        <thead>
+        <tr fsm-sticky-header scroll-body="'#table-area-1'" scroll-stop="64">
+          <!-- <th><input type="checkbox" class="relative" ng-model="selectAll" ng-click="checkAll()" /></th> -->
+          <th>Icon</th>
+          <th fsm-sort="firstname">Tipo</th>
+          <th fsm-sort="lastname">Usuario</th>
+          <th>Destino</th>
+          <th>Status</th>
+          <th class="text-right">Preliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key, item) in transactions" ng-click="item.selected=!item.selected" ui-sref="master.transaction({id:item.id})">
+            <!-- <td><input type="checkbox" class="relative" ng-model="item.selected" ng-click="$event.stopPropagation()" /></td> -->
+            <td class="f20">
+              <i class="md md-transform"></i>
+            </td>
+            <td>{{ item.transaction_type.transaction_type }}</td>
+            <td>{{ item.user.email }}</td>
+            <td>{{ item.bank_2.bank.bank}} {{item.wallet_2.type_wallet.type_wallet}}</td>
+            <td><b ng-class="{'text-complete': item.transaction_status.transaction_status=='Finalizada'}">{{ item.transaction_status.transaction_status }}</b></td>
+            <td class="text-right" ng-click="$event.stopPropagation()">
+              <!-- <button type="button" class="btn btn-link btn-round" data-title="Edit item"  ng-click="editItem(item)"><i class="md md-edit"></i></button> -->
+              <button type="button" class="btn btn-link btn-round" data-title="View item" ng-click="editItem(item)"><i class="md md-search"></i></button>
+              <!-- <button type="button" class="btn btn-link btn-round" data-title="Delete item" ng-click="remove(item)"><i class="md md-delete"></i></button> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div> 
+          </div>
+        </div>
+
+        
+      </div>
+      <div class="grey-text small p-t-20" ng-cloak>Todos los derechos reservados - 
+        Negocios Exchange</div>
+    </div>
+    <div class="col-lg-3 col-md-12 notifications-panel">
+      <div class="p-t-20 p-b-0 p-l-20 p-r-20">
+        <div class="pull-right">
+          <ul class="list-unstyled">
+            <li class="dropdown">
+              <button type="button" class="btn btn-round-sm btn-link ng-scope" bs-dropdown="dropdown" aria-haspopup="true" aria-expanded="false" bs-tooltip="" title="">
+                <i class="fa fa-bell"></i>
+              </button>
+              <!-- data-template-url="tpl/partials/dropdown-list-example.html" data-animation="mat-grow-top-right"  -->
+            </li>
+        </ul></div>
+        <h4 class="grey-text m-b-10">Notificaciones</h4>
+      </div>
+
+      <div class="p-h-10">
+<!-- 
+        <div role="tabpanel">
+          <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+             <li role="presentation" class="active"><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Log</a></li> 
+            <li role="presentation" class=""><a ng-click="actionTab=1" aria-controls="home" role="tab" class="grey-text" data-toggle="tab">Notificaciones </a> </li>
+             <li role="presentation"><a ng-click="actionTab=3" aria-controls="home" role="tab" data-toggle="tab">Messages</a></li> 
+          </ul> -->
+          <div class="tab-content m-t-10">
+            <div>
+
+              <ul class="timeline" infinite-scroll='loadNotifications()' infinite-scroll-distance='3'>
+                <li class="timeline-inverted animate-repeat" ng-repeat="item in notifications" ng-click="openNotification(item.id,item.transaction.id)" style="cursor: pointer;">
+                  <div class="timeline-badge">
+                    <i class="icon-circle theme-secondary-border"></i>
+                    <!-- <i class="icon-circle green-border"></i> -->
+                    <!-- <i class="icon-circle red-border accent-1"></i> -->
+                    <!-- <i class="icon-circle theme-border"></i> -->
+                    <!-- <i class="icon-circle brown-border"></i> -->
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title" ng-class="{'bold-title':!item.viewed}"><i class="fa fa-envelope" ng-show="!item.viewed" aria-hidden="true"></i>
+                      <i class="fa fa-envelope-o" ng-show="item.viewed" aria-hidden="true"></i>
+                       Intercambio de {{item.transaction.transaction_type.transaction_type}}</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p ng-bind-html="item.title"></p>
+                      <!-- <small class="text-muted"><i class="md md-timer"></i> Hace 12 horas</small> -->
+                    </div>
+                  </div>
+                </li>
+               <!--  <li class="timeline-inverted">
+                  <div class="timeline-badge">
+                    <i class="icon-circle theme-secondary-border"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">Cambio de Bolivares a Dolares</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>Alexander Diaz solicito al Cajero Samuel Levis</p>
+                      <small class="text-muted"><i class="md md-timer"></i> Hace 12 horas</small>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="timeline-badge">
+                    <i class="icon-circle green-border"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">Operacion Tomada</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>El cajero Daniel Paez ha tomado la transaccion de Carolina Hernandez</p>
+                      <small class="text-muted"><i class="md md-timer"></i> Hace 13 horas</small>
+                    </div>
+                  </div>
+                </li>
+                <li class="timeline-inverted">
+                  <div class="timeline-badge">
+                    <i class="icon-circle red-border accent-1"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">Operacion Caida</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>Miguel Perez ha cancelado su transaccion</p>
+                      <small class="text-muted"><i class="md md-timer"></i> Hace 15 horas</small>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="timeline-badge">
+                    <i class="icon-circle theme-border"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">Operacion Completada</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>Eduardo Lopez ha completado la transaccion sastifactoriamente</p>
+                      <small class="text-muted"><i class="md md-timer"></i> Hace 16 horas</small>
+                    </div>
+                  </div>
+                </li> -->
+                
+              </ul>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+     

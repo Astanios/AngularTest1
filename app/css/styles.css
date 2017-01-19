@@ -1,0 +1,214 @@
+
+html{
+    overflow-x: hidden;
+}
+
+.help-block{
+	margin-bottom: 0!important;
+}
+
+.form-group{
+	margin-top: 20px!important;
+}
+
+.brand-logo{
+	min-height: 50px;
+	line-height: 50px;
+}
+
+.nav-tabs{
+	font-size: 1.15em;
+}
+
+.ui-select-multiple.ui-select-bootstrap {
+  position: relative;
+  min-height:29px;
+}
+.ui-select-multiple input.ui-select-search {
+  width: 100% !important;
+  position: absolute;
+}
+
+#logo{
+	position: relative;
+    height: 24px;
+    width: 48px;
+    margin: auto;
+    display: block;
+}
+
+.small-avatar{
+}
+
+.card .card-image .card-title2{
+  position: absolute;
+    bottom: 20px;
+    left: 0;
+    font-size: 2em;
+    padding: 20px;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+aside.sidebar .user-logged-in .content{
+	padding: 10px 20px;
+}
+
+section.cards{
+   margin: 20px!important;
+}
+
+.page-header{
+  margin-bottom: 20px;
+}
+
+.alert-complete{
+  background-color: #5cb85c!important;
+}
+
+.text-complete{
+  color: #5cb85c!important;
+}
+
+.timeline > li:hover {
+    border: 1px solid #ddd;
+}
+
+.notifications-panel{
+    position: fixed;
+    right: 0;
+    width: 275px;
+    background-color: rgb(238, 238, 238);
+    /* left: 0px; */
+    height: 100%;
+    /*z-index: 1037;*/
+    will-change: left;
+    font-size: 13px;
+    margin: 0px;
+    overflow: auto;
+    border-right: 1px solid rgba(0, 0, 0, 0.0666667);
+}
+
+
+.animate-repeat {
+    line-height:40px;
+    list-style:none;
+    /*box-sizing:border-box;*/
+    /*border-bottom: 1px solid white;*/
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+}
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+    opacity:0;
+    max-height:0;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+    opacity:1;
+    max-height:40px;
+}
+
+/**
+ * Stagger Leave (hide) animation
+ */
+.animate-repeat.ng-leave-stagger {
+    /* this will have a 100ms delay between each successive leave animation */
+    -webkit-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+
+    /* in case the stagger doesn't work then these two values
+     must be set to 0 to avoid an accidental CSS inheritance */
+    -webkit-transition-duration: 0s;
+    transition-duration: 0s;
+}
+
+/**
+ * Stagger ENTER ANIMATION
+ */
+.animate-repeat.ng-enter-stagger {
+    /* this will have a 100ms delay between each successive enter animation */
+    -webkit-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+
+    /* in case the stagger doesn't work then these two values
+     must be set to 0 to avoid an accidental CSS inheritance */
+    -webkit-transition-duration: 0s;
+    transition-duration: 0s;
+}
+
+.timeline-title{
+    font-weight: normal;
+}
+
+.bold-title{
+    font-weight: 600!important;
+}
+
+.img-bar-logo{
+    width: 12%;
+    margin-top: 10px;
+    display: block;
+    float: left;
+}
+
+.img-center-logo{
+    width: 15%;
+    margin: 40px auto;
+    display: block;
+}
+
+.title-bar{
+    font-weight: bold;
+    font-size: 1.25em;
+    float: left;
+    display: block;
+    line-height: 4em;
+    margin-left: 1em;
+}
+
+
+.site-footer {
+  /* .push must be the same height as footer */
+    height: auto;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.inner-center{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.white-text{
+    color: #fff!important;
+}
+
+.large-img{
+    width: 100%;
+    height: 350px;
+}
+
+.medium-img{
+    width: 100%;
+    height: 250px;
+}
+
+.border-light{
+    border: 1px solid #ddd;
+}
+
+.back-full-img{
+    background-image: url(../img/emptyMME.gif);
+}

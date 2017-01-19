@@ -1,0 +1,153 @@
+<section class="cards m-20">
+  <div class="page-header" style="margin: 20px;">
+    <h1>
+      <i class="md md-find-in-page"></i>
+      Detalle de la Transaccion
+    </h1>
+    <p class="lead">
+      Este apartado contiene toda la informacion referente a la transaccion y sus opciones disponibles.
+    </p>
+  </div>
+  <div class="row m-b-60">
+    <div class="col-md-3 col-md-push-9">
+      <h5>Tips de Interes</h5>
+      <p>Para nosotros es sumamente importante que mantenga actualizado todos sus datos ya que le mayor seguridad a sus transacciones.</p>
+    </div>
+    <div class="col-md-8 col-md-pull-3">
+      <div class="row">
+        <div class="col-md-12">
+         <div class="alert alert-dismissible alert-success" ng-class="{'alert-complete':transaction.transaction_status.transaction_status=='Finalizada'}" ng-show="flagSuccess">
+          <!--<button type="button" class="close" data-dismiss="alert">×</button>-->
+          <h4>Exito!</h4>
+          <!-- <strong>Well done!</strong>  -->
+          {{msgSuccess}}
+        </div>
+        <div class="alert  alert-warning" ng-show="flagError">
+          <!--<button type="button" class="close" data-dismiss="alert">×</button>-->
+          <h4>Ha ocurrido un problema!</h4>
+          <!-- <p>{{msgError}}</p> -->
+          {{msgError}}
+        </div>
+          <div class="card">
+            <!-- <div class="card-image"></div> -->
+            <div class="card-content">
+              <h3 class="table-title p-10">Informacion Especifica</h3>
+          <table class="table table-full table-full-small">
+            <colgroup>
+              <col style="width: 50%"/>
+            </colgroup>
+            <tbody>
+            <tr>
+              <td> <b> Codigo </b> </td>
+              <td> <b>{{transaction.code}}</b>
+              </td>
+            </tr>
+            <tr>
+              <td> <b style="color:#20b2aa"> STATUS </b> </td>
+              <td> <b ng-class="{'text-complete': transaction.transaction_status.transaction_status=='Finalizada'}">{{transaction.transaction_status.transaction_status}}</b>
+              </td>
+            </tr>
+            <tr>
+              <td> <b> Tipo de Cambio </b> </td>
+              <td> {{transaction.transaction_type.transaction_type}}</td>
+            </tr>
+            <tr>
+              <td> <b> Usuario </b> </td>
+              <td> {{transaction.user.username}}</td>
+            </tr>
+            <tr>
+              <td> <b> Correo Electronico </b> </td>
+              <td> {{transaction.user.email}}</td>
+            </tr>
+            </tbody>
+          </table>
+              <h5 class="no-p no-m-b">Datos del Deposito</h5>
+          <table class="table table-full table-full-small">
+            <colgroup>
+              <col style="width: 50%" />
+            </colgroup>
+            <tbody>
+            <tr ng-show="output.entity">
+              <td> <b> Entidad </b> </td>
+              <td> {{output.entity}}</td>
+            </tr>
+            <tr ng-show="output.username">
+              <td> <b> Usuario </b> </td>
+              <td> {{output.username}}</td>
+            </tr>
+            <tr ng-show="output.account">
+              <td> <b> Numero de Cuenta </b> </td>
+              <td> {{output.account}}</td>
+            </tr>
+            <tr ng-show="output.account_email">
+              <td> <b> Correo Electronico </b> </td>
+              <td> {{output.account_email}}</td>
+            </tr>
+            <tr ng-show="output.account_type">
+              <td> <b> Tipo de Cuenta </b> </td>
+              <td> {{output.account_type}}</td>
+            </tr>
+            <tr ng-show="output.amount">
+              <td> <b> Monto  </b> </td>
+              <td> 
+               {{output.amount | currency : transaction.transaction_type.coin_2.code : fractionSize}}
+               </td>
+            </tr>
+             <tr ng-show="output.id_transaction">
+              <td> <b> ID. de la Transaccion </b> </td>
+              <td> {{output.id_transaction}}</td>
+            </tr>
+            </tbody>
+          </table>
+              <h5 class="no-p no-m-b">Datos de la Transferencia</h5>
+          <table class="table table-full table-full-small">
+            <colgroup>
+              <col style="width: 50%" />
+            </colgroup>
+            <tbody>
+            <tr ng-show="input.entity">
+              <td> <b> Entidad </b> </td>
+              <td> {{input.entity}}</td>
+            </tr>
+            <tr ng-show="input.username">
+              <td> <b> Usuario </b> </td>
+              <td> {{input.username}} </td>
+            </tr>
+            <tr ng-show="input.account">
+              <td> <b> Numero de Cuenta </b> </td>
+              <td> {{input.account}}</td>
+            </tr>
+            <tr ng-show="input.account_email">
+              <td> <b> Correo Electronico </b> </td>
+              <td> {{input.account_email}}</td>
+            </tr>
+            <tr ng-show="input.account_type">
+              <td> <b> Tipo de Cuenta </b> </td>
+              <td> {{input.account_type}}</td>
+            </tr>
+            <tr ng-show="input.amount">
+              <td> <b> Monto  </b> </td>
+              <td> {{input.amount | currency : transaction.transaction_type.coin_1.code : fractionSize}} </td>
+            </tr>
+            <tr ng-show="input.id_transaction">
+              <td> <b> ID. de la Transaccion </b> </td>
+              <td> {{input.id_transaction}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <br>
+          <a href="#/dashboard" style="color: #fff;" class="btn btn-primary">Ir Atras</a>
+          <button style="float: right;"  ng-show="transaction.transaction_status.transaction_status=='Creada' && user.role.bitMask!=8 && user.role.bitMask!=2" class="btn btn-primary" ng-click="takeTransaction()">Tomar Transaccion</button>
+          <button style="float: right;"  ng-show="transaction.transaction_status.transaction_status=='Por Verificar Pago al Cliente' && user.role.bitMask!=8 && user.role.bitMask!=4" class="btn btn-primary" ng-click="confirmPayment()">Confirmar Pago</button>
+           <button style="float: right;" ng-show="(transaction.transaction_status.transaction_status=='En Proceso' && user.role.bitMask!=8 && user.role.bitMask!=4) || (transaction.transaction_status.transaction_status=='Por Verificar Pago del Cliente' && user.role.bitMask!=8 && user.role.bitMask!=2)" class="btn btn-primary" ng-click="confirmTransaction()">Confirmar Transaccion</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+

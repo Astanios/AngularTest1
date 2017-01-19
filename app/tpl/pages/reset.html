@@ -1,0 +1,83 @@
+
+  <div class="center">
+  <div class="row" ng-show="flagError">
+    <div class="col-lg-12">
+      <div class="bs-component">
+        <div class="alert alert-dismissible alert-warning">
+          <button type="button" ng-click="close()" class="close">×</button>
+          <h4>Ha ocurrido un problema!</h4>
+          <p>{{msgError}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row center" ng-show="flagSuccess" style="margin:5% auto;">
+    <div class="col-lg-4 col-lg-offset-4">
+      <div class="card bordered">
+        <div class="card-header alert alert-success">
+          <span class="card-title">Recuperacion de Contraseña</span>
+        </div>
+        <div class="card-content">
+          <p>Se ha enviado un correo electronico para restablecer la contraseña su cuenta. Complete los pasos para seguir disfrutando de nuestros servicios.</p>
+        </div>
+        <div class="card-action clearfix">
+          <div class="pull-right">
+            <a href="" ui-sref="anon.login" class="btn btn-link black-text">Ir a Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="card bordered z-depth-2"  ng-show="!flagSuccess"  style="margin:5% auto; max-width:500px;">
+      <div class="card-header">
+        <div class="brand-logo">
+          <!-- <div id="logo">
+            <div class="foot1"></div>
+            <div class="foot2"></div>
+            <div class="foot3"></div>
+            <div class="foot4"></div>
+          </div> -->
+          <b>Negocios Exchange</b>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="m-b-30">
+          <div class="card-title strong">
+            <h3> <i class="md md-input"></i> <span class="teal-text"> Recupere su contraseña </span></h3> 
+          </div>
+          <p class="card-title-desc">
+            Recupere su cuenta y disfrute de nuestros servicios
+          </p>
+        </div>
+        <form class="form-floating" name="form" ng-submit="recovery(form)" novalidate="">
+          <div class="form-group">
+            <label for="inputEmail" class="control-label">Correo Electronico</label>
+            <input type="text" ng-model="user.email" class="form-control" required-err-type="fieldRequired" required>
+          </div>
+         
+          <div class="pull-right">
+          <button type="submit" class="btn btn-primary">
+            Enviar
+          </button>
+        </div>
+        <br>
+      </div>
+     
+      </form>
+       <div class="card-action clearfix">
+        <div class="pull-left">
+          <a href="" ui-sref="anon.login" class="btn btn-link black-text">
+            Iniciar sesión
+          </a>
+        </div>
+        <div class="pull-right">
+          <a href="" ui-sref="anon.register" class="btn btn-link black-text">
+            Registrarse
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,105 @@
+<section class="cards">
+  <div class="page-header">
+    <h1 ng-show="type==1">
+      <i class="md md-transform"></i>
+      Iniciar Operacion de Dolares a Bolivares
+    </h1>
+    <h1 ng-show="type==2">
+      <i class="md md-transform"></i>
+      Iniciar Operacion de Bolivares a Dolares
+     </h1>
+    <p class="lead">
+      Realice una operacion de dolares a bolivares completando todos los datos del siguiente formulario.
+    </p>
+  </div>
+
+  <div class="row m-b-60">
+    <div class="col-md-3 col-md-push-9">
+      <h5>Tips de Interes</h5>
+      <p>La transaccion sera tomada a la brevedad posible segun la disponibilidad de nuestros cajeros, agradecemos su paciencia...</p>
+    </div>
+    <div class="col-md-8 col-md-pull-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-image" ng-show="type==1">
+              <img src="img/photos/1.jpg" />
+              <div class="card-title2">Dolares a Bolivares</div>
+            </div>
+            <div class="card-image" ng-show="type==2">
+              <img src="img/photos/2.jpg" />
+              <div class="card-title2">Bolivares a Dolares</div>
+            </div>
+            <div class="card-content">
+        <form class="form-floating" ng-submit="addTransaction(form)" name="form" novalidate="">
+          <fieldset>
+            <legend>Datos de la Operacion</legend>
+            
+            <div class="form-group">
+              <div class="radio-inline">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                  De Billetera a Banco 
+                </label>
+              </div>
+              <div class="radio-inline">
+                <label>
+                  <input type="radio" ng-disabled="true" name="optionsRadios" id="optionsRadios1" value="option1">
+                  De Banco a Banco
+                </label>
+              </div>
+            </div>
+
+              <div class="form-group">
+                <ui-select ng-model="input.selected" theme="select2" title="" search-enabled="false">
+                  <ui-select-match placeholder="{{input_title}}">{{$select.selected.name}} - {{$select.selected.type}}</ui-select-match>
+                  <ui-select-choices repeat="item in inputs | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                    <small ng-bind-html="item.type | highlight: $select.search"></small>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+
+              <div class="form-group">
+                <ui-select ng-model="output.selected" theme="select2" title="" search-enabled="false">
+                  <ui-select-match placeholder="{{output_title}}">{{$select.selected.name}} - {{$select.selected.type}} </ui-select-match>
+                  <ui-select-choices repeat="item in outputs | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                    <small ng-bind-html="item.type | highlight: $select.search"></small>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+
+               <div class="form-group">
+              <label for="inputEmail" class="control-label">({{trans_type.coin_2.code}}) = Monto en {{trans_type.coin_2.coin}} a solicitar
+              </label>
+              <input type="number" ng-model="trans.quantity" min="min" ng-change="infoTransaction()" class="form-control" required-err-type="fieldRequired" ng-disabled="!output.selected || !input.selected" required>
+              <p class="help-block has-error error-msg">{{msgErrorQuantity}}</p>
+            </div>
+
+              <div class="form-group">
+                <label for="inputEmail" class="control-label">{{trans_type.cashier_commission}}% de Comision por la transaccion ({{trans_type.coin_1.code}})</label>
+                <input type="number" ng-disabled="true" ng-model="trans.commission" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label for="inputEmail" class="control-label">Monto total a transferir ({{trans_type.coin_1.code}})</label>
+                <input type="number" ng-disabled="true" ng-model="trans.amount" class="form-control">
+              </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+          </fieldset>
+        </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+

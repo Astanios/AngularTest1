@@ -1,0 +1,173 @@
+
+ 
+<div class="dashboard grey lighten-3" ng-controller="DashboardController">
+  <div class="row no-gutter">
+    <div class="col-sm-12 col-md-12 col-lg-9" style="background:#F9F9F9;">
+       <div ui-view>
+         
+       </div>
+      <div class="grey-text small p-t-20" ng-cloak>Todos los derechos reservados - 
+        Negocios Exchange</div>
+    </div>
+
+    <div class="col-lg-3 col-md-12">
+
+      <!-- <div class="p-20">
+        <div class="pull-right">
+          <ul class="list-unstyled">
+            <li class="dropdown">
+              <button type="button"
+                      class="btn btn-round-sm btn-link"
+                      bs-dropdown="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      data-template-url="tpl/partials/dropdown-list-example.html"
+                      data-animation="mat-grow-top-right"
+                      bs-tooltip
+                      title="More stats">
+                <i class="md md-equalizer"></i>
+              </button>
+            </li>
+        </div>
+      </div> -->
+      <div class="p-h-10">
+        <div role="tabpanel">
+          <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+            <!-- <li role="presentation" class="active"><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Log</a></li> -->
+            <li role="presentation" class=""><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Notificaciones</a></li>
+            <!-- <li role="presentation"><a ng-click="actionTab=3" aria-controls="home" role="tab" data-toggle="tab">Messages</a></li> -->
+          </ul>
+          <div class="tab-content m-t-10">
+            <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==1}">
+
+              <ul class="timeline">
+                <li>
+                  <div class="timeline-badge">
+                    <i class="icon-circle theme-border"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">Cambio de Dolares a Bolivares</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>Junior Gerdet solicito al Cajero Simon Scott</p>
+                      <small class="text-muted"><i class="md md-timer"></i> Hace 11 horas</small>
+                    </div>
+                  </div>
+                </li>
+                <li class="timeline-inverted">
+                  <div class="timeline-badge">
+                    <i class="icon-circle theme-secondary-border"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">Cambio de Bolivares a Dolares</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>Alexander Diaz solicito al Cajero Samuel Levis</p>
+                      <small class="text-muted"><i class="md md-timer"></i> Hace 12 horas</small>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="timeline-badge">
+                    <i class="icon-circle green-border"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">Operacion Tomada</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>El cajero Daniel Paez ha tomado la transaccion de Carolina Hernandez</p>
+                      <small class="text-muted"><i class="md md-timer"></i> Hace 13 horas</small>
+                    </div>
+                  </div>
+                </li>
+                <li class="timeline-inverted">
+                  <div class="timeline-badge">
+                    <i class="icon-circle red-border accent-1"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">Operacion Caida</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>Miguel Perez ha cancelado su transaccion</p>
+                      <small class="text-muted"><i class="md md-timer"></i> Hace 15 horas</small>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="timeline-badge">
+                    <i class="icon-circle theme-border"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">Operacion Completada</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>Eduardo Lopez ha completado la transaccion sastifactoriamente</p>
+                      <small class="text-muted"><i class="md md-timer"></i> Hace 16 horas</small>
+                    </div>
+                  </div>
+                </li>
+                <!-- <li class="timeline-inverted">
+                  <div class="timeline-badge">
+                    <i class="icon-circle brown-border"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title">User payment</h4>
+                    </div>
+                    <div class="timeline-body">
+                      <p>A new user has payed a premium package</p>
+                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                    </div>
+                  </div>
+                </li> -->
+              </ul>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==2}">
+
+              <ul class="timeline" ng-init="(rows=[]).length=5;">
+                <li ng-repeat="i in rows track by $index">
+                  <div class="timeline-badge"><img placeholder-img class="img-responsive" /></div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title" placeholder-name></h4>
+                    </div>
+                    <div class="timeline-body">
+                      <span placeholder-p></span>
+                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==3}">
+              <ul class="timeline" ng-init="(rows=[]).length=5;">
+                <li ng-repeat="i in rows track by $index">
+                  <div class="timeline-badge" placeholder-icon></div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title" placeholder-name></h4>
+                    </div>
+                    <div class="timeline-body">
+                      <span spanlaceholder-p></span>
+                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+     

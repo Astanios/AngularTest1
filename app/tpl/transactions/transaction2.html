@@ -1,0 +1,54 @@
+<section class="forms-basic">
+  <div class="page-header">
+    <h1>
+      <i class="md md-input"></i>
+      Configuracion de Transaccion de Bolivares a Dolares
+    </h1>
+    <p class="lead">
+      Configure los datos necesarios y requeridos para la tranasaccion de Bolivares a Dolares.
+    </p>
+  </div>
+
+  <div class="row  m-b-40">
+    <div class="col-md-3 col-md-push-9">
+      <h5>Ayuda</h5>
+      <p>En este formulario puede actualizar las comisiones y tasas de cambios para la transaccion.</p>
+    </div>
+    <div class="col-md-8 col-md-pull-3">
+      <div class="well white">
+        <form class="form-floating" name="form" ng-submit="updateTrans(form)" novalidate="">
+          <fieldset>
+            <legend>Datos de la Transaccion</legend>
+            <span class="help-block">Verifique el status de los datos del formulario.</span>
+            <div class="form-group">
+              <label for="exampleInputAmount">Tasa de Cambio </label>
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input type="number" ng-model="trans_type.exchange_rate" class="form-control" placeholder="Monto en Dolares" required-err-type="fieldRequired" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputAmount">Porcentaje de Comision para el Cajero</label>
+              <div class="input-group">
+                <div class="input-group-addon">%</div>
+                <input type="number" class="form-control" ng-model="trans_type.cashier_commission" placeholder="Porcentaje" required-err-type="fieldRequired" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputAmount">Porcentaje de Comision para la Plataforma</label>
+              <div class="input-group">
+                <div class="input-group-addon">%</div>
+                <input type="number" class="form-control" ng-model="trans_type.transaction_commission" placeholder="Porcentaje" required-err-type="fieldRequired" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Actualizar</button>
+              <!-- <button type="reset" class="btn btn-default">Cancel</button> -->
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,23 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">{{msg.title}}</h4>
+      </div>
+      <div class="modal-body">
+        
+          <h4>Ingrese el codigo o descripcion unica de transferencia</h4>
+           <div class="form-group">
+              <!-- <label for="textArea" class="control-label">Codigo o Descripcion</label> -->
+              <textarea class="form-control vertical" ng-model="code"  id="textArea"></textarea>
+              <span class="help-block">{{msg.content}}</span>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="sendTransaction(code)">Enviar</button>
+        <button type="button" class="btn btn-primary" ng-click="$hide()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

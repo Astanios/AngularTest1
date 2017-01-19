@@ -1,0 +1,65 @@
+<div class="dashboard grey lighten-3">
+  <div class="row no-gutter">
+    <div class="col-sm-12 col-md-12 col-lg-12" style="background:#F9F9F9;">
+      <div class="p-l-20 p-r-20 p-t-10 p-b-10 clearfix">
+        <div class="page-header">
+            <h1>
+              <i class="md md-account-box"></i>
+              Gestion de Usuarios
+            </h1>
+            <p class="lead">
+              Administre los usuarios de la plataforma
+            </p>
+          </div>
+      </div>
+      <div class="p-20 no-p-t">
+        <div class="row gutter-14">
+          <div class="col-md-12">
+    <div>
+    <div class="table-responsive well no-padding white no-margin">
+      <h3 class="table-title">{{users.length}} Usuarios </h3>
+      <table class="table table-full m-b-60" id="table-area-1" fsm-big-data="data of data take 30">
+        <thead>
+        <tr fsm-sticky-header scroll-body="'#table-area-1'" scroll-stop="64">
+        <!--   <th><input type="checkbox" class="relative" ng-model="selectAll" ng-click="checkAll()" /></th> -->
+          <th>Avatar</th>
+          <th fsm-sort="firstname">Nombre de Usuario</th>
+          <th fsm-sort="lastname">Nombre</th>
+          <th>Correo</th>
+          <th class="text-right">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key, item) in users" ng-click="item.selected=!item.selected"  ng-dblclick="editItem(item)">
+            <!-- <td><input type="checkbox" class="relative" ng-model="item.selected" ng-click="$event.stopPropagation()" /></td> -->
+            <td ng-bind-html="item.icon" class="f20"></td>
+            <td>{{ item.username }}</td>
+            <td>{{ item.fullname }}</td>
+            <td>{{ item.email }}</td>
+            <td class="text-right" ng-click="$event.stopPropagation()">
+              <button type="button" class="btn btn-link btn-round" data-title="Edit item"  ng-click="editItem(item)"><i class="md md-edit"></i></button>
+              <button type="button" class="btn btn-link btn-round" data-title="View item" ng-click="viewItem(item)"><i class="md md-search"></i></button>
+              <button type="button" class="btn btn-link btn-round" data-title="Delete item" ng-click="confirmModal(item)"><i class="md md-delete"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer-buttons">
+      <div class="btn btn-primary btn-round btn-lg m-r-10 btn-footer" ng-show="(data|filter:{selected: true}).length" ng-click="remove()"  data-title="Remove {{(data|filter:{selected: true}).length}} item(s)" bs-tooltip><i class="md md-delete"></i></div>
+      <div class="btn btn-default btn-round btn-lg m-r-10 btn-footer" scroll-to="top" ng-hide="scroll<100" data-title="Ir Arriba" bs-tooltip><i class="md md-arrow-drop-up"></i></div>
+      <div class="btn btn-primary btn-round btn-lg" ng-click="new()" data-title="Crear Usuario {{settings.singular}}" bs-tooltip><i class="md md-add"></i></div>
+    </div>
+            </div> 
+          </div>
+        </div>
+        <div class="grey-text small p-t-20" ng-cloak>Todos los derechos reservados - 
+        Negocios Exchange</div>
+      </div>
+    </div>
+</div>
+</div>
+
+
+     

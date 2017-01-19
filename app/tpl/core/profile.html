@@ -1,0 +1,104 @@
+<section class="cards">
+  <div class="page-header">
+    <h1>
+      <i class="md md-account-box"></i>
+      Perfil de Usuario
+    </h1>
+    <p class="lead">
+      Modifique y actualice su perfil de usuario, mantenga al dia su datos
+    </p>
+  </div>
+  <div class="row m-b-60">
+    <div class="col-md-3 col-md-push-9">
+      <h5>Tips de Interes</h5>
+      <p>Para nosotros es sumamente importante que mantenga actualizado todos sus datos ya que le mayor seguridad a sus transacciones...</p>
+    </div>
+    <div class="col-md-8 col-md-pull-3">
+      <div class="row">
+        <div class="col-md-12">
+         <div class="alert alert-dismissible alert-success" ng-show="flagSuccess">
+          <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+          <h4>Exito!</h4>
+          <!-- <strong>Well done!</strong>  -->
+          {{msgSuccess}}
+        </div>
+        <div class="alert  alert-warning" ng-show="flagError">
+          <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+          <h4>Aviso!</h4>
+          <!-- <p>{{msgError}}</p> -->
+          {{msgError}}
+        </div>
+        
+          <div class="card">
+            <div class="card-image">
+              <img src="img/header/blue-abstract-background.jpg" />
+              <div class="card-title2">{{user.user.fullname}}</div>
+              <div class="card-title">{{user.user.email}}</div>
+            </div>
+            <div class="card-content">
+              <div class="card-profile pull-right"><img src="img/avatar_circle_blue_96pdp.png" alt="" style="width:75px;"></div>
+              <form class="form-floating" name="form" ng-submit="updateProfile(form)" novalidate="">
+          <fieldset>
+            <legend>Informacion Personal</legend>
+            <div class="form-group">
+              <label for="inputEmail" class="control-label">Nombre Completo</label>
+              <input type="text" ng-model="usr.fullname" class="form-control" required-err-type="fieldRequired" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmail" class="control-label">Correo Electronico</label>
+              <input type="email" ng-model="usr.email" ng-disabled="true" class="form-control" required-err-type="fieldRequired" email-err-type="emailValidate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmail" class="control-label">Telefono</label>
+              <input type="phone" ng-model="usr.phone_1" class="form-control" required-err-type="fieldRequired" required>
+            </div>
+
+            <div class="form-group filled">
+              <label class="control-label">Fecha de Nacimiento</label>
+              <input type="text" class="form-control" ng-model="birthdate" data-autoclose="1" bs-datepicker required-err-type="fieldRequired" required>
+            </div>
+
+            <!-- <div class="form-group">
+              <label for="textArea" class="control-label">Textarea</label>
+              <textarea class="form-control vertical" rows="3" id="textArea"></textarea>
+              <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+            </div> -->
+            <div class="form-group filled">
+              <label class="control-label">Pais</label>
+              <ui-select ng-model="location.selected" theme="select2" title="" search-enabled="false">
+                <ui-select-match placeholder="Seleccione su Pais">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="item in locations | filter: $select.search">
+                  <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  <!-- <small ng-bind-html="item.email | highlight: $select.search"></small> -->
+                </ui-select-choices>
+              </ui-select>
+            </div>
+
+          <!--   <div class="form-group">
+              <label for="inputPassword" class="control-label">Contraseña</label>
+              <input type="password" class="form-control" id="inputPassword">
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword" class="control-label">Confirmar Contraseña</label>
+              <input type="password" class="form-control" id="inputPassword">
+            </div> -->
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+          </fieldset>
+        </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+

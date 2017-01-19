@@ -1,0 +1,122 @@
+<script>
+$('#btn').toggle(
+  function() {
+    $('#mySidenav').css('width', '10px');
+    $('#main').css('margin-left', '0px');
+  }, function(){
+    $('#mySidenav').css('width', '250px');
+    $('#main').css('margin-left', '250px');
+});
+</script>
+
+<header class="navbar navbar-default"  style="z-index: 2;" ng-class="{scroll: (scroll>10)}">
+  <div class="container-fluid">
+    <div class="navbar-header pull-left">
+      <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
+    </div>
+    <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
+      <p class="">Hola "nombre de usuario"</p>
+    </div>
+  </div>
+</header>
+
+<div id="mySidenav" style="z-index: 0;" class="sidenav">
+
+  <div class="closebtn" id="btn" >&times;</div>
+    <a ui-sref="anon.profile">Perfil</a>
+    <a ui-sref="anon.record">Historial de pedidos</a>
+    <a ui-sref="anon.orders">Hacer pedido</a>
+    <a ui-sref="anon.login">Cerrar sesión</a>
+  </div>
+
+<div id="main" class="center" style=" min-height: 480px">
+  <div class="card bordered "  style="margin: 0; width:100%;">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="form-group text-center">
+          <tr>
+            <th>Fecha</th>
+            <th>ID Pedido</th>
+            <th>Estado</th>
+            <th>Precio</th>
+            <th>Hora de recogida</th>
+          </tr>
+          <tr>
+            <td>1/02/17</td>
+            <td>00274</td>
+            <td>En proceso</td>
+            <td>1,20€</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>27/01/17</td>
+            <td>00123</td>
+            <td>Entregado</td>
+            <td>2,15€</td>
+            <td>12:30</td>
+          </tr>
+        </table>
+      </div>
+      </div>
+    </div>
+  </div>
+
+<footer class="well white site-footer"  style="z-index: 2;">
+  <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
+    <div class="col-lg-5">
+      <ul class="nav navbar-nav">
+        <li class="pull-left">
+          <button ng-click="toggleSearch()" class="btn btn-sm btn-link pull-left withoutripple">
+            <img src="img/social_network/facebook.png" width="48">
+          </button>
+        </li>
+        <li class="pull-left">
+          <button ng-click="toggleSearch()" class="btn btn-sm btn-link pull-left withoutripple">
+            <img src="img/social_network/twitter.png" width="48">
+          </button>
+        </li>
+        <li class="pull-left">
+          <button ng-click="toggleSearch()" class="btn btn-sm btn-link pull-left withoutripple">
+            <img src="img/social_network/instagram.png" width="48">
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="col-lg-7">
+        <ul class="nav navbar-nav" style="float: right;">
+        <li class="pull-left">
+          <a href="">
+            <b>FAQ</b>
+          </a>
+        </li>
+        <li class="pull-left">
+          <a href="">
+           <b>
+             Quienes somos?
+           </b>
+          </a>
+        </li>
+        <li class="pull-left">
+          <a href="">
+            <b> Contacto </b>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <ul class="nav navbar-nav">
+        <li class="pull-left">
+          <a href="">Copyright 2015 - NoEsperesColas</a>
+        </li>
+        <li class="pull-left">
+          <a href="">Politicas de Privacidad</a>
+        </li>
+        <li class="pull-left">
+          <a href="">Terminos Legales</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>

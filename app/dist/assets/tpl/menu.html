@@ -1,0 +1,13 @@
+<main ng-controller="MenuController">
+    <div ng-include src="'assets/tpl/partials/sidebar.html'"></div>
+    <div class="main-container">
+      <div ng-include src="'assets/tpl/partials/topnav.html'"></div>
+      <div class="main-content" autoscroll="true" ng-cloak bs-affix-target init-ripples ui-view>
+      <!-- <div class="main-content" autoscroll="true" ng-cloak ng-view bs-affix-target init-ripples></div> -->
+      <!-- <div class="main-content" ui-view> -->
+        
+      <!-- </div> -->
+      <div class="alert-container-top-right"></div>
+    </div>
+  </div>
+</main>

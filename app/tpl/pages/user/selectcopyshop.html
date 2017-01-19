@@ -1,0 +1,136 @@
+<script>
+$('#btn').toggle(
+  function() {
+    $('#mySidenav').css('width', '10px');
+    $('#main').css('margin-left', '0px');
+  }, function(){
+    $('#mySidenav').css('width', '250px');
+    $('#main').css('margin-left', '250px');
+});
+</script>
+
+<header class="navbar navbar-default"  style="z-index: 2;" ng-class="{scroll: (scroll>10)}">
+  <div class="container-fluid">
+    <div class="navbar-header pull-left">
+      <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
+    </div>
+    <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
+      <p class="">Hola "nombre de usuario"</p>
+    </div>
+  </div>
+</header>
+
+<div id="mySidenav" style="z-index: 0;" class="sidenav">
+
+  <div class="closebtn" id="btn" >&times;</div>
+    <a ui-sref="anon.profile">Perfil</a>
+    <a ui-sref="anon.record">Historial de pedidos</a>
+    <a ui-sref="anon.orders">Hacer pedido</a>
+    <a ui-sref="anon.login">Cerrar sesión</a>
+  </div>
+
+  <div id="main" class="center">
+    <div class="card bordered z-depth-2"  style="margin: 0; width:100%;">
+     <div class="p-l-20">
+          <form class="search-form form-inline" ng-submit="submitNavbarSearch()">
+            <div class="form-group" style="width: 50%;">
+              <div class="input-group" style="width: 50%;">
+                <span class="input-group-addon no-p-r p-l-20" style="font-size: 25px;"><i class="zmdi zmdi-search-in-page zmdi-hc-3x"></i></span>
+                <label class="sr-only" for="search-input">Busqueda</label>
+                <input type="text" class="form-control" id="search-input" placeholder="Busqueda" autofocus="">
+              </div>
+            </div>
+          </form>
+     </div>
+     <hr class="no-m-b">
+      <div class="row" style="margin: auto;">
+        <div class="col-md-3 no-p border-light">
+          <img src="img/emptyMME.gif" class="img-responsive">
+        </div>
+        <div class="col-md-3 no-p border-light">
+          <img src="img/emptyMME.gif" class="img-responsive">
+        </div>
+        <div class="col-md-3 no-p border-light">
+          <img src="img/emptyMME.gif" class="img-responsive">
+        </div>
+        <div class="col-md-3 no-p border-light">
+          <img src="img/emptyMME.gif" class="img-responsive">
+        </div>
+
+        <div class="col-md-3 no-p border-light">
+          <img src="img/emptyMME.gif" class="img-responsive">
+        </div>
+        <div class="col-md-3 no-p border-light">
+          <img src="img/emptyMME.gif" class="img-responsive">
+        </div>
+        <div class="col-md-3 no-p border-light">
+          <img src="img/emptyMME.gif" class="img-responsive">
+        </div>
+        <div class="col-md-3 no-p border-light">
+          <img src="img/emptyMME.gif" class="img-responsive">
+        </div>
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+<footer class="well white site-footer"  style="z-index: 2;">
+  <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
+    <div class="col-lg-5">
+      <ul class="nav navbar-nav">
+        <li class="pull-left">
+          <button ng-click="toggleSearch()" class="btn btn-sm btn-link pull-left withoutripple">
+            <img src="img/social_network/facebook.png" width="48">
+          </button>
+        </li>
+        <li class="pull-left">
+          <button ng-click="toggleSearch()" class="btn btn-sm btn-link pull-left withoutripple">
+            <img src="img/social_network/twitter.png" width="48">
+          </button>
+        </li>
+        <li class="pull-left">
+          <button ng-click="toggleSearch()" class="btn btn-sm btn-link pull-left withoutripple">
+            <img src="img/social_network/instagram.png" width="48">
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="col-lg-7">
+        <ul class="nav navbar-nav" style="float: right;">
+        <li class="pull-left">
+          <a href="">
+            <b>FAQ</b>
+          </a>
+        </li>
+        <li class="pull-left">
+          <a href="">
+           <b>
+             Quienes somos?
+           </b>
+          </a>
+        </li>
+        <li class="pull-left">
+          <a href="">
+            <b> Contacto </b>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <ul class="nav navbar-nav">
+        <li class="pull-left">
+          <a href="">Copyright 2015 - NoEsperesColas</a>
+        </li>
+        <li class="pull-left">
+          <a href="">Politicas de Privacidad</a>
+        </li>
+        <li class="pull-left">
+          <a href="">Terminos Legales</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
