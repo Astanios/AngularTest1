@@ -46,7 +46,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         .state('anon.login', {
             url: '/login',
             templateUrl: 'tpl/pages/login.html',
-            controller: 'HomeController'
+            controller: 'SessionController'
         })
         .state('anon.recommend', {
             url: '/recomiendanos',

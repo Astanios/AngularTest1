@@ -1,4 +1,4 @@
-app.factory('Auth', function($http, $rootScope, HOST, $cookieStore){
+app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, defaultPromises){
 
     if ($cookieStore.get('app.cZDoADfr')) {
         var usr=JSON.parse($cookieStore.get('app.cZDoADfr'));
@@ -34,20 +34,17 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore){
             return user.role.title === userRoles.user.title || user.role.title === userRoles.master.title;
         },
         register: function(user, success, error) {
-            $http.post('/register', user).success(function(res) {
+            $http.post(HOST[HOST.ENV]+'api/students', user).success(function(res) {
                 changeUser(res);
-                success();
+                success(success);
             }).error(error);
         },
         login: function(user, success, error) {
             var payload={
-                client_secret:'106Dd3QazqMqcpKJK7zqqlm8WXt6ww0yrYqVBOtfwxVkjABoXuhmv1KLNYCoJo5Gwx8vgZiehcp7YNBPvCbDXt3No60WWbTTzZpUDS0lfyB3JbEyhDjbkVvJh1M5cFA1',
-                client_id:'z46XgA9W1Gn1vyIOFHyCRpeo0fFCRbSBUHARqe5H',
-                grant_type:'password',
                 username: user.username,
                 password: user.password
             }
-            $http.post(HOST[HOST.ENV]+'auth/token', $.param(payload),{
+            $http.post(HOST[HOST.ENV]+'token', $.param(payload),{
                 headers:{
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }

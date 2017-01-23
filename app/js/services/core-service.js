@@ -159,6 +159,45 @@ app.factory('UsersPublic', ['$resource', 'HOST', function ($resource, HOST) {
         headers: {'Content-Type': 'application/json'}
       }
     });
+}])
+.factory('webService', ['$http', 'HOST', function($http, HOST) {
+  return{
+    post:function(action, data) {
+      $http.post(HOST[HOST.ENV] + action, $.param(data),
+      {
+        headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+    },
+    get:function(url) {
+      $http.get(HOST[HOST.ENV])
+    }
+  };
+}])
+.factory('defaultPromises', ['$http', '$state', 'HOST', function($http, $state, HOST) {
+  return{
+    success:function(data, alert, message, state) {
+      return function(remoteData) {
+        data = remoteData;
+        alert.show = true;
+        alert.title=message.title;
+        alert.success = true;
+        alert.message = message ? message : alert.message;
+        if (state)
+        {
+          $state.go(state);
+        }
+      }
+    },
+    error:function(alert, title) {
+      alert.show = true;
+      alert.success = false;
+      return function(error) {
+        alert.message = error.message;
+      }
+    }
+  };
 }]);
 
 // .factory('Auth', function($http, $cookieStore, $rootScope){
