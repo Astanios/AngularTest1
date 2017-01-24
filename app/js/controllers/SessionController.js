@@ -1,4 +1,4 @@
-app.controller('SessionController', ['$scope', '$rootScope', '$state', '$location', 'Auth', 'defaultErrorMessageResolver', '$stateParams', 'defaultPromises', 'Activation', function($scope, $rootScope, $state, $location, Auth, defaultErrorMessageResolver, $stateParams, Activation, defaultPromises){
+app.controller('SessionController', ['$scope', '$rootScope', '$state', '$location', 'Auth', 'defaultErrorMessageResolver', '$stateParams', 'Activation', 'customPromises', 'customWebService', function($scope, $rootScope, $state, $location, Auth, defaultErrorMessageResolver, $stateParams, Activation, customPromises, customWebService){
 
     $scope.Loading = false;
 
@@ -27,7 +27,7 @@ app.controller('SessionController', ['$scope', '$rootScope', '$state', '$locatio
     }
 
     $scope.close = function(){
-        $scope.flagError=false;
+        $scope.alert.show=false;
     };
 
     $scope.flagError=false;
@@ -45,7 +45,7 @@ app.controller('SessionController', ['$scope', '$rootScope', '$state', '$locatio
             },
             function(res) {
                 $state.go('master.home');
-            }, defaultPromises.error($scope.alert));
+            }, customPromises.error($scope.alert));
         }
     };
 

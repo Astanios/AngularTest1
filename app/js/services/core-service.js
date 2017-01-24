@@ -159,8 +159,8 @@ app.factory('UsersPublic', ['$resource', 'HOST', function ($resource, HOST) {
         headers: {'Content-Type': 'application/json'}
       }
     });
-}])
-.factory('webService', ['$http', 'HOST', function($http, HOST) {
+}]);
+app.factory('customWebService', function($http, HOST) {
   return{
     post:function(action, data) {
       $http.post(HOST[HOST.ENV] + action, $.param(data),
@@ -174,8 +174,8 @@ app.factory('UsersPublic', ['$resource', 'HOST', function ($resource, HOST) {
       $http.get(HOST[HOST.ENV])
     }
   };
-}])
-.factory('defaultPromises', ['$http', '$state', 'HOST', function($http, $state, HOST) {
+})
+.factory('customPromises', function($http, $state, HOST) {
   return{
     success:function(data, alert, message, state) {
       return function(remoteData) {
@@ -191,14 +191,15 @@ app.factory('UsersPublic', ['$resource', 'HOST', function ($resource, HOST) {
       }
     },
     error:function(alert, title) {
-      alert.show = true;
-      alert.success = false;
       return function(error) {
+        alert.success = false;
+        alert.show = true;
+        alert.title="Error";
         alert.message = error.message;
       }
     }
   };
-}]);
+});
 
 // .factory('Auth', function($http, $cookieStore, $rootScope){
 //     if ($cookieStore.get('user')) {

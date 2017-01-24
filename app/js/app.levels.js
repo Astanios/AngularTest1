@@ -10,7 +10,8 @@
             'public',
             'user',
             'cashier',
-            'master'],
+            'master',
+            'student'],
 
         /*
         Build out all the access levels you want referencing the roles listed above
@@ -25,7 +26,8 @@
             'anon': ['public'],
             'user' : ['user', 'cashier', 'master'],
             'cashier': ['cashier', 'master'],
-            'master': ['master']
+            'master': ['master'],
+            'student': ['public', 'anon', 'user', 'cashier', 'master']
         }
 
     }
