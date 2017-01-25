@@ -9,14 +9,13 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
     }
 
     var accessLevels = routingConfig.accessLevels
-        , userRoles = routingConfig.userRoles
-        , currentUser = usr || { username: '', role: userRoles.public };
+        , userRoles = routingConfig.userRoles;
 
+    var currentUser = usr || { username: '', role: userRoles.public };
     // $cookieStore.remove('user');
 
     function changeUser(user) {
-        angular.extend(currentUser, user);
-        $cookieStore.put('app.cZDoADfr', JSON.stringify(user));
+        currentUser = user;
     }
 
     return {
@@ -29,9 +28,30 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
             }
             return user != undefined;
         },
-        register: function(user, success, error) {
-            $http.post(HOST[HOST.ENV]+'api/students', user).success(function(res) {
-                changeUser(res);
+        registerStudent: function(user, success, error) {
+            $http.post(HOST[HOST.ENV] + 'api/students', JSON.stringify(user), {
+                headers:{
+                    'Content-Type': 'application/json'
+                }}).success(function(res) {
+                changeUser(user);
+                success(success);
+            }).error(error);
+        },
+        registerCopySpace: function(user, success, error) {
+            $http.post(HOST[HOST.ENV] + 'api/copyspace', JSON.stringify(user), {
+                headers:{
+                    'Content-Type': 'application/json'
+                }}).success(function(res) {
+                changeUser(user);
+                success(success);
+            }).error(error);
+        },
+        registerCompany: function(user, success, error) {
+            $http.post(HOST[HOST.ENV] + 'api/companies', JSON.stringify(user), {
+                headers:{
+                    'Content-Type': 'application/json'
+                }}).success(function(res) {
+                changeUser(user);
                 success(success);
             }).error(error);
         },
@@ -49,7 +69,6 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
                 response["role"] = userRoles[response.user.type];
                 response["username"]=response.user.email;
                 response.acces_data = {access_token:response.token};
-                $http.defaults.headers.common.Authorization=response.token;                
                 changeUser(response);
                 success(response);
             }).error(error);

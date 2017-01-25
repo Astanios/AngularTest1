@@ -181,21 +181,21 @@ app.factory('customWebService', function($http, HOST) {
       return function(remoteData) {
         data = remoteData;
         alert.show = true;
-        alert.title=message.title;
+        alert.title= message ? message.title : alert.message;
         alert.success = true;
-        alert.message = message ? message : alert.message;
+        alert.message = message ? message.message : alert.message;
         if (state)
         {
           $state.go(state);
         }
       }
     },
-    error:function(alert, title) {
+    error:function(alert, title, message) {
       return function(error) {
         alert.success = false;
         alert.show = true;
-        alert.title="Error";
-        alert.message = error.message;
+        alert.title= title ? title : "Error";
+        alert.message = message ? message : error.message;
       }
     }
   };

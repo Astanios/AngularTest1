@@ -44,40 +44,91 @@ app.controller('SessionController', ['$scope', '$rootScope', '$state', '$locatio
                 password: $scope.user.password
             },
             function(res) {
-                $state.go('master.home');
+                switch(res.user.type){
+                    case "student":
+                        $state.go('anon.profile');
+                    break;
+                    case "company":
+                        $state.go('anon.companyprofile');
+                    break;
+                    default:
+                        $state.go('anon.copyshopprofile');
+                    break
+                }
             }, customPromises.error($scope.alert));
         }
     };
 
 }]);
 
-app.controller('SignUpController', ['$scope', '$rootScope', '$location', '$state', '$location', '$anchorScroll', 'Auth', 'defaultErrorMessageResolver', 'UsersPublic', function($scope, $rootScope, $location, $state, $location, $anchorScroll, Auth, defaultErrorMessageResolver, UsersPublic){
+app.controller('SignUpController', ['$scope', '$rootScope', '$location', '$state', '$location', '$anchorScroll', 'Auth', 'defaultErrorMessageResolver', 'UsersPublic', 'customPromises', function($scope, $rootScope, $location, $state, $location, $anchorScroll, Auth, defaultErrorMessageResolver, UsersPublic, customPromises){
 
     defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
         errorMessages['fieldRequired'] = 'Este campo es requerido.';
         errorMessages['emailValidate'] = 'Ingrese un correo electronico valido.';
     });
 
-    $scope.flagError=false;
-    $scope.flagSuccess=false;
-    $scope.msgError="";
-    $scope.user={dni:10};
+    
+    $scope.user={};
+    $scope.alert = {};
+    $scope.close = function(){
+        $scope.alert.show=false;
+    };
 
     $scope.signUp = function(form) {
         if (form.$valid) {
-            UsersPublic.save($scope.user, function(response){
-                $scope.flagSuccess=true;    
-                $scope.flagError=false;
-                $location.hash("top");        
-                $anchorScroll();
-            }, function(response){    
-                console.log(response);
-                var firstKey = Object.keys(response.data)[0];
-                $scope.msgError=response.data[firstKey][0];
-                $scope.flagError=true;    
-                $location.hash("top");        
-                $anchorScroll();
-            })
+            if ($scope.user.email == $scope.user.emailConfirmation && $scope.user.password == $scope.user.passwordConfirmation)
+            {
+                var user = jQuery.extend(true, {}, $scope.user);
+                user.interests = $.map(user.interest, function(el) { return el });
+                if (user.interests.length > 4)
+                {
+                    $scope.alert = {};
+                    delete user.interest;
+                    user.emailConfirmation = undefined;
+                    user.passwordConfirmation = undefined;
+                    user.legalterms = undefined;
+                    user.birthday = user.birthday.toJSON().split('T')[0];
+                    Auth.registerStudent(user, customPromises.success({}, $scope.alert, {}, 'anon.profile'), customPromises.error($scope.alert))
+                }else{
+                    customPromises.error($scope.alert, 'Error', 'Debe seleccionar al menos 5 de sus intereses')({});
+                }
+            }
+        }
+    };
+
+    $scope.signUpCompany = function(form) {
+        if (form.$valid) {
+            if ($scope.user.email == $scope.user.emailConfirmation && $scope.user.password == $scope.user.passwordConfirmation)
+            {
+                $scope.alert = {};
+                var user = jQuery.extend(true, {}, $scope.user);
+                user.emailConfirmation = undefined;
+                user.passwordConfirmation = undefined;
+                Auth.registerCompany(user, customPromises.success({}, $scope.alert, {}, 'anon.companyprofile'), customPromises.error($scope.alert))
+            }
+        }
+    };
+
+    $scope.signUpCopySpace = function(form) {
+        if (form.$valid) {
+            if ($scope.user.email == $scope.user.emailConfirmation && $scope.user.password == $scope.user.passwordConfirmation)
+            {
+                var user = jQuery.extend(true, {}, $scope.user);
+                user.interests = $.map(user.interest, function(el) { return el });
+                if (user.interests.length > 4)
+                {
+                    $scope.alert = {};
+                    delete user.interest;
+                    user.emailConfirmation = undefined;
+                    user.passwordConfirmation = undefined;
+                    user.legalterms = undefined;
+                    user.birthday = user.birthday.toJSON().split('T')[0];
+                    Auth.registerCopySpace(user, customPromises.success({}, $scope.alert, {}, 'anon.profile'), customPromises.error($scope.alert))
+                }else{
+                    customPromises.error($scope.alert, 'Error', 'Debe seleccionar al menos 5 de sus intereses')({});
+                }
+            }
         }
     };
 
