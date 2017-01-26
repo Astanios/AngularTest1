@@ -1,4 +1,4 @@
-app.factory('Auth', function($http, $rootScope, HOST, $cookieStore){
+app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromises){
 
     if ($cookieStore.get('app.cZDoADfr')) {
         var usr=JSON.parse($cookieStore.get('app.cZDoADfr'));
@@ -9,67 +9,66 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore){
     }
 
     var accessLevels = routingConfig.accessLevels
-        , userRoles = routingConfig.userRoles
-        , currentUser = usr || { username: '', role: userRoles.public };
+        , userRoles = routingConfig.userRoles;
 
+    var currentUser = usr || { username: '', role: userRoles.public };
     // $cookieStore.remove('user');
 
     function changeUser(user) {
-        angular.extend(currentUser, user);
-        $cookieStore.put('app.cZDoADfr', JSON.stringify(user));
+        currentUser = user;
     }
 
     return {
         authorize: function(accessLevel, role) {
-            if(role === undefined) {
-                role = currentUser.role;
-            }
-
-            return accessLevel.bitMask & role.bitMask;
+            return true;
         },
         isLoggedIn: function(user) {
             if(user === undefined) {
                 user = currentUser;
             }
-            return user.role.title === userRoles.user.title || user.role.title === userRoles.master.title;
+            return user != undefined;
         },
-        register: function(user, success, error) {
-            $http.post('/register', user).success(function(res) {
-                changeUser(res);
-                success();
+        registerStudent: function(user, success, error) {
+            $http.post(HOST[HOST.ENV] + 'api/students', JSON.stringify(user), {
+                headers:{
+                    'Content-Type': 'application/json'
+                }}).success(function(res) {
+                changeUser(user);
+                success(success);
+            }).error(error);
+        },
+        registerCopySpace: function(user, success, error) {
+            $http.post(HOST[HOST.ENV] + 'api/copyspace', JSON.stringify(user), {
+                headers:{
+                    'Content-Type': 'application/json'
+                }}).success(function(res) {
+                changeUser(user);
+                success(success);
+            }).error(error);
+        },
+        registerCompany: function(user, success, error) {
+            $http.post(HOST[HOST.ENV] + 'api/companies', JSON.stringify(user), {
+                headers:{
+                    'Content-Type': 'application/json'
+                }}).success(function(res) {
+                changeUser(user);
+                success(success);
             }).error(error);
         },
         login: function(user, success, error) {
             var payload={
-                client_secret:'106Dd3QazqMqcpKJK7zqqlm8WXt6ww0yrYqVBOtfwxVkjABoXuhmv1KLNYCoJo5Gwx8vgZiehcp7YNBPvCbDXt3No60WWbTTzZpUDS0lfyB3JbEyhDjbkVvJh1M5cFA1',
-                client_id:'z46XgA9W1Gn1vyIOFHyCRpeo0fFCRbSBUHARqe5H',
-                grant_type:'password',
-                username: user.username,
+                email: user.username,
                 password: user.password
             }
-            $http.post(HOST[HOST.ENV]+'auth/token', $.param(payload),{
+            $http.post(HOST[HOST.ENV]+'token', JSON.stringify(payload),{
                 headers:{
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json'
                 }
             }).success(function(response){
-
-                switch(response.user.group.name){
-                    case "root":
-                        response["role"]=userRoles.master;
-                        break;
-                    case "cashier":
-                        response["role"]=userRoles.cashier;
-                        break;
-                    case "user":
-                        response["role"]=userRoles.user;
-                        break;
-                    default:
-                        response["role"]=userRoles.user;
-                }
-
-                response["username"]=response.username;
-                $http.defaults.headers.common.Authorization="Bearer "+response.acces_data.access_token;
-                
+                var s="";
+                response["role"] = userRoles[response.user.type];
+                response["username"]=response.user.email;
+                response.acces_data = {access_token:response.token};
                 changeUser(response);
                 success(response);
             }).error(error);

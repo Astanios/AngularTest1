@@ -160,6 +160,46 @@ app.factory('UsersPublic', ['$resource', 'HOST', function ($resource, HOST) {
       }
     });
 }]);
+app.factory('customWebService', function($http, HOST) {
+  return{
+    post:function(action, data) {
+      $http.post(HOST[HOST.ENV] + action, $.param(data),
+      {
+        headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+    },
+    get:function(url) {
+      $http.get(HOST[HOST.ENV])
+    }
+  };
+})
+.factory('customPromises', function($http, $state, HOST) {
+  return{
+    success:function(data, alert, message, state) {
+      return function(remoteData) {
+        data = remoteData;
+        alert.show = true;
+        alert.title= message ? message.title : alert.message;
+        alert.success = true;
+        alert.message = message ? message.message : alert.message;
+        if (state)
+        {
+          $state.go(state);
+        }
+      }
+    },
+    error:function(alert, title, message) {
+      return function(error) {
+        alert.success = false;
+        alert.show = true;
+        alert.title= title ? title : "Error";
+        alert.message = message ? message : error.message;
+      }
+    }
+  };
+});
 
 // .factory('Auth', function($http, $cookieStore, $rootScope){
 //     if ($cookieStore.get('user')) {

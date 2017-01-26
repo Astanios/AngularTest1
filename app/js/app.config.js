@@ -46,7 +46,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         .state('anon.login', {
             url: '/login',
             templateUrl: 'tpl/pages/login.html',
-            controller: 'HomeController'
+            controller: 'SessionController'
         })
         .state('anon.recommend', {
             url: '/recomiendanos',
@@ -442,12 +442,16 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             $rootScope.error = "Seems like you tried accessing a route you don't have access to...";
             event.preventDefault();
             if(fromState.url === '^') {
-                if(Auth.isLoggedIn()) {
-                    $state.go('master.home');
-                } else {
-                    console.log("login");
-                    $rootScope.error = null;
-                    $state.go('anon.login');
+                if(!Auth.user.justVerified)
+                {
+                    Auth.user.justVerified = true;
+                    if(Auth.isLoggedIn()) {
+                        $state.go('master.home');
+                    } else {
+                        console.log("login");
+                        $rootScope.error = null;
+                        $state.go('anon.login');
+                    }
                 }
             }
         }

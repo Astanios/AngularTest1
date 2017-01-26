@@ -51,7 +51,7 @@
   </a>
 </div>
 
-<form class="form-floating" name="form" ng-submit="signUp(form)" novalidate="">
+<form class="form-floating" name="form" ng-submit="signUpCompany(form)" novalidate="">
   <fieldset>
     <div class="card bordered z-depth-1"  style="margin: 0; width:100%;">
 
@@ -69,42 +69,35 @@
 
                 <div class="form-group">
                   <label class="control-label">Nombre</label>
-                  <input type="text" name="companyname" class="form-control" ng-model="user.companyname" required-err-type="fieldRequired" required>
-                  <!-- <p \
-                  g-show="form.username.$invalid && !form.username.$pristine" class="help-block">El defaultErrorMessageResolverusuardefaultErrorMessageResolverdefaultErrorMessageResolverio de ser un nombre alphanumerico de al menos 4 caracteres.</p> -->
+                  <input type="text" name="comp_name" class="form-control" ng-model="user.comp_name" required-err-type="fieldRequired" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Email</label>
-                  <input type="email" class="form-control" ng-model="user.email" required-err-type="fieldRequired" email-err-type="emailValidate" required>
-                  <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
+                  <input type="email" name="comp_email" class="form-control" ng-model="user.comp_email" required-err-type="fieldRequired" email-err-type="emailValidate" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Dirección</label>
-                  <input type="address" class="form-control" ng-model="user.address" required-err-type="fieldRequired" required>
+                  <input type="text" name="comp_address" class="form-control" ng-model="user.comp_address" required-err-type="fieldRequired" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Provincia</label>
-                  <input type="province" class="form-control" ng-model="user.province"  required-err-type="fieldRequired" required>
+                  <input type="text" name="comp_province" class="form-control" ng-model="user.comp_province"  required-err-type="fieldRequired" required>
                 </div>
           </div>
         </div>
             <div class="col-md-4 col-md-offset-1">
     <div id="forms-validation-container">
-                 <div class="form-group">
-                  <label class="control-label">CIF</label>
-                  <input type="cif" class="form-control" ng-model="user.cif"  required-err-type="fieldRequired" required>
-                </div>
                 <div class="form-group">
                   <label class="control-label">Telefono</label>
-                  <input type="companyphone" class="form-control" ng-model="user.companyphone"  required-err-type="fieldRequired" required>
+                  <input type="text" name="comp_phone" class="form-control" ng-model="user.comp_phone"  required-err-type="fieldRequired" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Localidad</label>
-                  <input type="location" class="form-control" ng-model="user.location"  required-err-type="fieldRequired" required>
+                  <input type="text" name="comp_location" class="form-control" ng-model="user.comp_location"  required-err-type="fieldRequired" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Código postal</label>
-                  <input type="postalcode" class="form-control" ng-model="user.postalcode"  required-err-type="fieldRequired" required>
+                  <input type="text" name="comp_postal_code" class="form-control" ng-model="user.comp_postal_code"  required-err-type="fieldRequired" required>
                 </div>
           </div>
         </div>
@@ -121,23 +114,23 @@
             <div id="forms-validation-container">
                   <div class="form-group">
                     <label class="control-label">Nombre</label>
-                    <input type="text" name="name" class="form-control" ng-model="user.name" required-err-type="fieldRequired" required>
+                    <input type="text" name="resp_names" class="form-control" ng-model="user.resp_names" required-err-type="fieldRequired" required>
                     <!-- <p \
                     g-show="form.username.$invalid && !form.username.$pristine" class="help-block">El defaultErrorMessageResolverusuardefaultErrorMessageResolverdefaultErrorMessageResolverio de ser un nombre alphanumerico de al menos 4 caracteres.</p> -->
                   </div>
                   <div class="form-group">
                     <label class="control-label">DNI</label>
-                    <input type="id" class="form-control" ng-model="user.id" required-err-type="fieldRequired" required>
+                    <input type="text" class="form-control" name="resp_dni" ng-model="user.resp_dni" required-err-type="fieldRequired" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Email</label>
-                    <input type="email" class="form-control" ng-model="user.email" required-err-type="fieldRequired" email-err-type="emailValidate" required>
+                    <input type="email" class="form-control" name="email" ng-model="user.email" required-err-type="fieldRequired" email-err-type="emailValidate" required>
                     <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
                   </div>
 
                   <div class="form-group">
                     <label class="control-label">Contraseña</label>
-                    <input type="password" class="form-control" ng-model="user.password"  required-err-type="fieldRequired" required>
+                    <input type="password" class="form-control" name="password" ng-model="user.password"  required-err-type="fieldRequired" required>
                   </div>
             </div>
           </div>
@@ -145,19 +138,21 @@
       <div id="forms-validation-container">
                    <div class="form-group">
                     <label class="control-label">Apellidos</label>
-                    <input type="lastname" class="form-control" ng-model="user.lastname"  required-err-type="fieldRequired" required>
+                    <input type="text" class="form-control" name="resp_surnames" ng-model="user.resp_surnames"  required-err-type="fieldRequired" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Telefono</label>
-                    <input type="phone" class="form-control" ng-model="user.phone"  required-err-type="fieldRequired" required>
+                    <input type="text" class="form-control" name="resp_phone" ng-model="user.resp_phone"  required-err-type="fieldRequired" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Confirmación email</label>
-                    <input type="emailconf" class="form-control" ng-model="user.email"  required-err-type="fieldRequired" required>
+                    <input type="email" class="form-control" ng-model="user.emailConfirmation" name="emailConfirmation" required-err-type="fieldRequired" required>
+                    <div class="alert alert-danger" ng-if="(user.emailConfirmation != user.email)"><p>Emails deben coincidir</p></div>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Confirmacion contraseña</label>
-                    <input type="passwordconf" class="form-control" ng-model="user.password"  required-err-type="fieldRequired" required>
+                    <input type="password" class="form-control" ng-model="user.passwordConfirmation" name="passwordConfirmation" required-err-type="fieldRequired" required>
+                    <div class="alert alert-danger" ng-if="(user.passwordConfirmation != user.password)"><p>Contraseñas deben coincidir</p></div>
                   </div>
             </div>
           </div>
