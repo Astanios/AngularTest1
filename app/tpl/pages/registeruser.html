@@ -2,20 +2,16 @@
 <header class="navbar navbar-default" ng-class="{scroll: (scroll>10)}">
   <div class="container-fluid">
     <div class="navbar-header pull-left">
-      <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
+      <a ui-sref="anon.home">
+        <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
+      </a>
     </div>
-    <ul class="nav navbar-nav navbar-right navbar-right-no-collapse">
-      <li class="dropdown pull-right">
-        <ui-select ng-model="mode.selected" theme="select2" title="Modo" search-enabled="false">
-          <ui-select-match placeholder="Modo de Usuario">{{$select.selected.title}}</ui-select-match>
-          <ui-select-choices repeat="item in modes | filter: $select.search">
-            <div ng-bind-html="item.title | highlight: $select.search"></div>
-            <!-- <small ng-bind-html="item.email | highlight: $select.search"></small> -->
-          </ui-select-choices>
-        </ui-select>
-      </li>
-    </ul>
-  </div>
+      <ul class="nav navbar-nav navbar-right navbar-right-no-collapse">
+        <a ui-sref="anon.login" class="btn btn-primary white-text">
+          Iniciar Sesión
+        </a>
+      </ul>
+    </div>
 </header>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -90,7 +86,7 @@
 
                   <div class="form-group">
                     <label class="control-label">Contraseña</label>
-                    <input type="password" class="form-control" ng-model="user.password"  required-err-type="fieldRequired" required>
+                    <input type="password" class="form-control"  required-err-type="fieldRequired" required>
                   </div>
             </div>
           </div>
@@ -114,11 +110,11 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label">Confirmación email</label>
-                    <input type="emailconf" class="form-control" ng-model="user.email"  required-err-type="fieldRequired" required>
+                    <input type="emailconf" class="form-control"  required-err-type="fieldRequired" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Confirmacion contraseña</label>
-                    <input type="passwordconf" class="form-control" ng-model="user.password"  required-err-type="fieldRequired" required>
+                    <input type="passwordconf" class="form-control"  required-err-type="fieldRequired" required>
                   </div>
             </div>
           </div>
@@ -133,47 +129,47 @@
         <div class="col-md-2 col-md-offset-1 p-r-60 p-l-30 p-t-40 p-b-40">
             <h2 class="no-m-t">Intereses: (Mín 5)</h2>
         </div>
-       </div>       
+       </div>
       <div class="row">
 
         <div class="col-md-2 form-group col-md-offset-1 p-r-60 p-l-30 p-t-40 p-b-40">
-          <h3 class="no-m-t">Futuro</h3>         
-              <input type="checkbox" name="interest" ng-model="user.interest" value="emprendimiento">Emprendimiento<br>        
-              <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">Trabajo<br>           
+          <h3 class="no-m-t">Futuro</h3>
+              <input type="checkbox" name="interest" ng-model="user.interest" value="emprendimiento">Emprendimiento<br>
+              <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">Trabajo<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="becas">Becas y prácticas<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="cursos">Cursos<br>           
+              <input type="checkbox" name="interest" ng-model="user.interest" value="cursos">Cursos<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="idiomas">Idiomas
         </div>
         <div class="col-md-2 form-group p-r-60 p-l-30 p-t-40 p-b-40">
           <h3 class="no-m-t">Economía</h3>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="bancos">Bancos<br>        
-              <input type="checkbox" name="interest" ng-model="user.interest" value="telefonia">Telefonía<br>           
+              <input type="checkbox" name="interest" ng-model="user.interest" value="bancos">Bancos<br>
+              <input type="checkbox" name="interest" ng-model="user.interest" value="telefonia">Telefonía<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="transporte">Transporte<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="alojamiento">Alojamiento<br>           
+              <input type="checkbox" name="interest" ng-model="user.interest" value="alojamiento">Alojamiento<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="ofertas">Ofertas
         </div>
         <div class="col-md-2 form-group p-r-60 p-l-30 p-t-40 p-b-40">
           <h3 class="no-m-t">Cuerpo y mente</h3>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="alimentacion">Alimentación<br>        
-              <input type="checkbox" name="interest" ng-model="user.interest" value="belleza">Belleza<br>           
+              <input type="checkbox" name="interest" ng-model="user.interest" value="alimentacion">Alimentación<br>
+              <input type="checkbox" name="interest" ng-model="user.interest" value="belleza">Belleza<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="deporte">Deporte<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="salud">Salud<br>           
+              <input type="checkbox" name="interest" ng-model="user.interest" value="salud">Salud<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="meet">Conocer gente
         </div>
         <div class="col-md-2 form-group p-r-60 p-l-30 p-t-40 p-b-40">
           <h3 class="no-m-t">Experiencias</h3>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="tecnologia">Tecnología<br>        
-              <input type="checkbox" name="interest" ng-model="user.interest" value="musica">Conciertos/Música<br>           
+              <input type="checkbox" name="interest" ng-model="user.interest" value="tecnologia">Tecnología<br>
+              <input type="checkbox" name="interest" ng-model="user.interest" value="musica">Conciertos/Música<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="fiesta">Fiesta<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="viajes">Viajes<br>           
+              <input type="checkbox" name="interest" ng-model="user.interest" value="viajes">Viajes<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="aventura">Aventura
         </div>
         <div class="col-md-2 form-group p-r-60 p-l-30 p-t-40 p-b-40">
           <h3 class="no-m-t">Cultura</h3>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="libros">Libros<br>        
-              <input type="checkbox" name="interest" ng-model="user.interest" value="tv">Tv/Series<br>           
+              <input type="checkbox" name="interest" ng-model="user.interest" value="libros">Libros<br>
+              <input type="checkbox" name="interest" ng-model="user.interest" value="tv">Tv/Series<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="cine">Cine<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="teatro">Teatro<br>           
+              <input type="checkbox" name="interest" ng-model="user.interest" value="teatro">Teatro<br>
               <input type="checkbox" name="interest" ng-model="user.interest" value="arte">Arte
         </div>
     </div>
@@ -183,7 +179,7 @@
       <div class="row">
         <div class="card-content">
             <div class="form-group" style="text-align: center;">
-              <input type="checkbox" name="legalterms" value="bool" ng-model="user.legalterms" required>Acepto los términos y condiciones de Uso<br>        
+              <input type="checkbox" name="legalterms" value="bool" ng-model="user.legalterms" required>Acepto los términos y condiciones de Uso<br>
             </div>
         </div>
       </div>
@@ -233,7 +229,7 @@
           <a href="">
            <b>
              Quienes somos?
-           </b> 
+           </b>
           </a>
         </li>
         <li class="pull-left">
@@ -249,10 +245,10 @@
     <div class="col-lg-12">
       <ul class="nav navbar-nav">
         <li class="pull-left">
-          <a href="">Copyright 2015 - NoEsperesColas</a> 
+          <a href="">Copyright 2015 - NoEsperesColas</a>
         </li>
         <li class="pull-left">
-          <a href="">Politicas de Privacidad</a> 
+          <a href="">Politicas de Privacidad</a>
         </li>
         <li class="pull-left">
           <a href="">Terminos Legales</a>
@@ -261,5 +257,3 @@
     </div>
   </div>
 </footer>
-
-

@@ -1,190 +1,181 @@
-<script>
-$('#btn').toggle(
-  function() {
-    $('#mySidenav').css('width', '10px');
-    $('#main').css('margin-left', '0px');
-  }, function(){
-    $('#mySidenav').css('width', '250px');
-    $('#main').css('margin-left', '250px');
-});
-</script>
-<header class="navbar navbar-default"  style="z-index: 2;" ng-class="{scroll: (scroll>10)}">
-  <div class="container-fluid">
-    <div class="navbar-header pull-left">
-      <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
-    </div>
-    <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
-      <p class="">Hola "nombre de usuario"</p>
-    </div>
-  </div>
-</header>
-
-<div id="mySidenav" style="z-index: 0;" class="sidenav">
-
-  <div class="closebtn" id="btn" >&times;</div>
-    <a ui-sref="anon.copyshopprofile">Perfil</a>
-    <a ui-sref="anon.management">Gestión de pedidos</a>
-    <a ui-sref="anon.addcopyshop">Añadir copistería</a>
-    <a ui-sref="anon.login">Cerrar sesión</a>
-  </div>
-<form class="form-floating" name="form" ng-submit="signUp(form)" novalidate="">
-  <fieldset>
-<div id="main" class="center">
-  <div class="card bordered"  style="margin: 0; width:100%;">
-      <div class="row">
-        <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
-          <h1>Nombre de la copistería</h1>
-        </div>
-        <div class="col-md-12 p-r-30 p-l-60 ">
-          <h2>Responsable</h2>
-        </div>
-        <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
-          <div id="forms-validation-container">
-            <div class="form-group">
-              <label class="control-label">Nombre</label>
-              <input type="text" class="form-control" ng-model="user.companyname">
-            </div>
-            <div class="form-group">
-              <label class="control-label">DNI</label>
-              <input type="text" class="form-control" ng-model="user.dni">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
-          <div id="forms-validation-container">
-            <div class="form-group">
-              <label class="control-label">Apellidos</label>
-              <input type="text" class="form-control" ng-model="user.lastname">
-            </div>
-            <div class="form-group">
-              <label class="control-label">Email</label>
-              <input type="email" class="form-control" ng-model="user.email">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 p-r-30 p-l-60 ">
-          <h2>Copistería</h2>
-        </div>
-        <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
-          <img src="img/emptyMME.gif">
-        </div>
-        <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
-          <div id="forms-validation-container">
-            <div class="form-group">
-              <label class="control-label">Nombre</label>
-              <input type="text" class="form-control" ng-model="copyshop.name">
-            </div>
-            <div class="form-group">
-              <label class="control-label">CIF</label>
-              <input type="text" class="form-control" ng-model="copyshop.cif">
-            </div>
-            <div class="form-group">
-              <label class="control-label">Email</label>
-              <input type="email" class="form-control" ng-model="copyshop.email">
-            </div>
-            <div class="form-group">
-              <label class="control-label">Dirección</label>
-              <input type="email" class="form-control" ng-model="copyshop.address">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
-          <div class="form-group">
-            <label class="control-label">Teléfono</label>
-            <input type="email" class="form-control" ng-model="copyshop.phone">
-          </div>
-          <div class="form-group">
-            <label class="control-label">Localidad</label>
-            <input type="email" class="form-control" ng-model="copyshop.location">
-          </div>
-          <div class="form-group">
-            <label class="control-label">Provincia</label>
-            <input type="email" class="form-control" ng-model="copyshop.provice">
-          </div>
-          <div id="forms-validation-container">
-            <div class="form-group">
-              <label class="control-label">Código postal</label>
-              <input type="text" class="form-control" ng-model="copyshop.postalcode">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-10 col-md-offset-1 text-center">
-          <div class="forms-validation-container">
-            <div class="form-group">
-              <label class="control-label">Numero de cuenta donde ingresaremos el dinero</label>
-              <input type="text" class="form-control" ng-model="user.bankaccount" required-err-type="fieldRequired" required>
-            </div>
-          </div>
-          <br>
-        </div>
-        <div class="col-md-3 col-md-offset-1 ">Horarios de lunes a jueves</div>
-        <div class="col-md-3 text-center">
-          <input type="time" ng-model="user.time" required-err-type="fieldRequired" required> a
-          <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-          <br>
-          <br>
-          Viernes   <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">si
-          <br>
-          <br>
-           Sábados    <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">si
-        </div>
-        <div class="col-md-1">
-        y
-        </div>
-        <div class="col-md-3">
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-         a
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-        <br><br>
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-         a
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-        <br><br>
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-         a
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-        </div>
-
-        <div class="col-md-5 col-md-offset-5 text center">
-        <h3>Encuadernado</h3>
-        </div>
-        <div class="col-md-1 col-md-offset-2">
-          <p>De</p>
-        </div>
-        <div class="col-md-1 col-md-offset-2">
-          <input type="number" value="0" readonly/>
-        </div>
-        <div class="col-md-1 ">
-          <p>a</p>
-        </div>
-        <div class="col-md-1 col-md-offset-">
-          <input type="number" value="1"/>
-        </div>
-
-          <div class="col-md-12">
-            <div class="card-content">
-                <div class="form-group" style="text-align: center;">
-                  <input type="checkbox" name="legalterms" value="bool" ng-model="user.legalterms" required>Acepto los términos y condiciones de Uso<br>
-                </div>
-            </div>
-          </div>
-
-          <div class="col-md-12">
-            <div class="card-content">
-                <div class="form-group" style="text-align: center;">
-                  <button type="submit" class="btn btn-primary">Enviar</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    </div>
+<div id="navbar-wrapper">
+  <nav class="navbar navbar-default"  style="z-index: 2;" ng-class="{scroll: (scroll>10)}">
+    <div class="container-fluid">
+      <div class="navbar-header pull-left">
+        <a ui-sref="anon.home">
+          <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
+        </a>
+      </div>
+      <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
+        <p class="">Hola "nombre de usuario"</p>
       </div>
     </div>
+  </nav>
+</div>
+<div id="wrapper">
+  <div id="sidebar-wrapper">
+    <aside id="sidebar">
+      <ul id="sidemenu" class="sidebar-nav">
+        <li><a ui-sref="anon.copyshopprofile">Perfil</a></li>
+        <li><a ui-sref="anon.management">Gestión de pedidos</a></li>
+        <li><a ui-sref="anon.addcopyshop">Añadir copistería</a></li>
+        <li><a ui-sref="anon.login">Cerrar sesión</a></li>
+      </aside>
+    </div>
+    <main id="page-content-wrapper" role="main">
+      <div class="card bordered"  style="margin: 0; width:100%;">
+          <div class="row">
+            <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
+              <h1>Nombre de la copistería</h1>
+            </div>
+            <div class="col-md-12 p-r-30 p-l-60 ">
+              <h2>Responsable</h2>
+            </div>
+            <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
+              <div id="forms-validation-container">
+                <div class="form-group">
+                  <label class="control-label">Nombre</label>
+                  <input type="text" class="form-control" ng-model="user.companyname">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">DNI</label>
+                  <input type="text" class="form-control" ng-model="user.dni">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
+              <div id="forms-validation-container">
+                <div class="form-group">
+                  <label class="control-label">Apellidos</label>
+                  <input type="text" class="form-control" ng-model="user.lastname">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Email</label>
+                  <input type="email" class="form-control" ng-model="user.email">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 p-r-30 p-l-60 ">
+              <h2>Copistería</h2>
+            </div>
+            <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
+              <img src="img/emptyMME.gif">
+            </div>
+            <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
+              <div id="forms-validation-container">
+                <div class="form-group">
+                  <label class="control-label">Nombre</label>
+                  <input type="text" class="form-control" ng-model="copyshop.name">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">CIF</label>
+                  <input type="text" class="form-control" ng-model="copyshop.cif">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Email</label>
+                  <input type="email" class="form-control" ng-model="copyshop.email">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Dirección</label>
+                  <input type="email" class="form-control" ng-model="copyshop.address">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
+              <div class="form-group">
+                <label class="control-label">Teléfono</label>
+                <input type="email" class="form-control" ng-model="copyshop.phone">
+              </div>
+              <div class="form-group">
+                <label class="control-label">Localidad</label>
+                <input type="email" class="form-control" ng-model="copyshop.location">
+              </div>
+              <div class="form-group">
+                <label class="control-label">Provincia</label>
+                <input type="email" class="form-control" ng-model="copyshop.provice">
+              </div>
+              <div id="forms-validation-container">
+                <div class="form-group">
+                  <label class="control-label">Código postal</label>
+                  <input type="text" class="form-control" ng-model="copyshop.postalcode">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-10 col-md-offset-1 text-center">
+              <div class="forms-validation-container">
+                <div class="form-group">
+                  <label class="control-label">Numero de cuenta donde ingresaremos el dinero</label>
+                  <input type="text" class="form-control" ng-model="user.bankaccount" required-err-type="fieldRequired" required>
+                </div>
+              </div>
+              <br>
+            </div>
+            <div class="col-md-3 col-md-offset-1 ">Horarios de lunes a jueves</div>
+            <div class="col-md-3 text-center">
+              <input type="time" ng-model="user.time" required-err-type="fieldRequired" required> a
+              <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
+              <br>
+              <br>
+              Viernes   <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">si
+              <br>
+              <br>
+               Sábados    <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">si
+            </div>
+            <div class="col-md-1">
+            y
+            </div>
+            <div class="col-md-3">
+            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
+             a
+            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
+            <br><br>
+            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
+             a
+            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
+            <br><br>
+            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
+             a
+            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
+            </div>
+
+            <div class="col-md-5 col-md-offset-5 text center">
+            <h3>Encuadernado</h3>
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+              <p>De</p>
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+              <input type="number" value="0" readonly/>
+            </div>
+            <div class="col-md-1 ">
+              <p>a</p>
+            </div>
+            <div class="col-md-1 col-md-offset-">
+              <input type="number" value="1"/>
+            </div>
+
+              <div class="col-md-12">
+                <div class="card-content">
+                    <div class="form-group" style="text-align: center;">
+                      <input type="checkbox" name="legalterms" value="bool" ng-model="user.legalterms" required>Acepto los términos y condiciones de Uso<br>
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="card-content">
+                    <div class="form-group" style="text-align: center;">
+                      <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </main>
   </div>
-</fieldset>
-</form>
-<footer class="well white site-footer"  style="z-index: 2;">
+
+<footer class="well white site-footer">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">
