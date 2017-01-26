@@ -15,12 +15,13 @@ $('#btn').toggle(
       <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
     </div>
     <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
-      <p class="">Hola "nombre de usuario"</p>
+      <p class="" ng-if="isLoggedIn">Hola {{user.student.names}}</p>
+      <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
     </div>
   </div>
 </header>
 
-<div id="mySidenav" style="z-index: 0;" class="sidenav">
+<div id="mySidenav" style="z-index: 0;" class="sidenav" ng-if="isLoggedIn">
 
   <div class="closebtn" id="btn" >&times;</div>
     <a ui-sref="anon.profile">Perfil</a>
@@ -43,29 +44,7 @@ $('#btn').toggle(
           </form>
      </div>
      <hr class="no-m-b">
-      <div class="row" style="margin: auto;">
-        <div class="col-md-3 no-p border-light">
-          <img src="img/emptyMME.gif" class="img-responsive">
-        </div>
-        <div class="col-md-3 no-p border-light">
-          <img src="img/emptyMME.gif" class="img-responsive">
-        </div>
-        <div class="col-md-3 no-p border-light">
-          <img src="img/emptyMME.gif" class="img-responsive">
-        </div>
-        <div class="col-md-3 no-p border-light">
-          <img src="img/emptyMME.gif" class="img-responsive">
-        </div>
-
-        <div class="col-md-3 no-p border-light">
-          <img src="img/emptyMME.gif" class="img-responsive">
-        </div>
-        <div class="col-md-3 no-p border-light">
-          <img src="img/emptyMME.gif" class="img-responsive">
-        </div>
-        <div class="col-md-3 no-p border-light">
-          <img src="img/emptyMME.gif" class="img-responsive">
-        </div>
+      <div class="row" style="margin: auto;" ng-init="getCopyshops()">
         <div class="col-md-3 no-p border-light">
           <img src="img/emptyMME.gif" class="img-responsive">
         </div>

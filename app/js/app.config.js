@@ -116,7 +116,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         .state('anon.orders', {
             url: '/user/seleccionarcopisteria',
             templateUrl: 'tpl/pages/user/selectcopyshop.html',
-            controller: 'HomeController'
+            controller: 'CopyshopController'
         })
         .state('anon.profile', {
             url: '/user/perfil',
@@ -131,7 +131,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         .state('anon.userorders', {
             url: '/user/pedido',
             templateUrl: 'tpl/pages/user/order.html',
-            controller: 'HomeController'
+            controller: 'CopyshopController'
         })
         .state('anon.legalterms', {
             url: '/legalterms',
@@ -432,7 +432,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 // set constants
 .run(['$state', '$rootScope', 'APP', 'Auth', function ($state, $rootScope, APP, Auth) {
   $rootScope.APP = APP;
-
+  $rootScope.$watch( Auth.isLoggedIn, function ( isLoggedIn ) {
+    $rootScope.isLoggedIn = isLoggedIn;
+    $rootScope.currentUser = Auth.user;
+    $rootScope.token = Auth.token;
+  });
   $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
         if(!('data' in toState) || !('access' in toState.data)){
             $rootScope.error = "Access undefined for this state";

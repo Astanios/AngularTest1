@@ -1,17 +1,6 @@
 app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromises){
 
-    if ($cookieStore.get('app.cZDoADfr')) {
-        var usr=JSON.parse($cookieStore.get('app.cZDoADfr'));
-        $rootScope.usr=usr;
-        $http.defaults.headers.common.Authorization="Bearer "+usr.acces_data.access_token;
-    }else{
-        var usr=null;
-    }
-
-    var accessLevels = routingConfig.accessLevels
-        , userRoles = routingConfig.userRoles;
-
-    var currentUser = usr || { username: '', role: userRoles.public };
+    var currentUser;
     // $cookieStore.remove('user');
 
     function changeUser(user) {
@@ -26,7 +15,7 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
             if(user === undefined) {
                 user = currentUser;
             }
-            return user != undefined;
+            return user.token != null;
         },
         registerStudent: function(user, success, error) {
             $http.post(HOST[HOST.ENV] + 'api/students', JSON.stringify(user), {
@@ -65,13 +54,16 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
                     'Content-Type': 'application/json'
                 }
             }).success(function(response){
-                var s="";
-                response["role"] = userRoles[response.user.type];
-                response["username"]=response.user.email;
-                response.acces_data = {access_token:response.token};
-                changeUser(response);
+                response.user["username"]=response.user.email;
+                response.user.token = response.token;
+                response.user.acces_data = {access_token:response.token};
+                changeUser(response.user);
                 success(response);
-            }).error(error);
+            }).error(function(err)
+            {
+                changeUser({student:{name:"lol"}, token:"lol"});
+                error(err);
+            });
         },
         logout: function(success, error) {
 
@@ -85,8 +77,7 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
                 success();
             // }).error(error);
         },
-        accessLevels: accessLevels,
-        userRoles: userRoles,
-        user: currentUser
+        user: currentUser,
+        token: currentUser ? currentUser.token : null
     };
 });

@@ -170,8 +170,14 @@ app.factory('customWebService', function($http, HOST) {
         }
       })
     },
-    get:function(url) {
-      $http.get(HOST[HOST.ENV])
+    get:function(url, data, success) {
+      $http.get(HOST[HOST.ENV] + url).success(function (remoteData) {
+        data=remoteData;
+        if (success != undefined)
+        {
+          success(remoteData);
+        }
+      })
     }
   };
 })
