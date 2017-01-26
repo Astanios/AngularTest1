@@ -114,11 +114,28 @@ app.controller('SignUpController', ['$scope', '$rootScope', '$location', '$state
         if (form.$valid) {
             if ($scope.user.email == $scope.user.emailConfirmation && $scope.user.password == $scope.user.passwordConfirmation)
             {
+<<<<<<< HEAD:app/js/controllers/SessionController.js
                 $scope.alert = {};
                 var user = jQuery.extend(true, {}, $scope.user);
                 user.emailConfirmation = undefined;
                 user.passwordConfirmation = undefined;
                 Auth.registerCompany(user, customPromises.success({}, $scope.alert, {}, 'anon.copyshopprofile'), customPromises.error($scope.alert))
+=======
+                var user = jQuery.extend(true, {}, $scope.user);
+                user.interests = $.map(user.interest, function(el) { return el });
+                if (user.interests.length > 4)
+                {
+                    $scope.alert = {};
+                    delete user.interest;
+                    user.emailConfirmation = undefined;
+                    user.passwordConfirmation = undefined;
+                    user.legalterms = undefined;
+                    user.birthday = user.birthday.toJSON().split('T')[0];
+                    Auth.registerCopySpace(user, customPromises.success({}, $scope.alert, {}, 'anon.profile'), customPromises.error($scope.alert))
+                }else{
+                    customPromises.error($scope.alert, 'Error', 'Debe seleccionar al menos 5 de sus intereses')({});
+                }
+>>>>>>> gabriel:app/js/controllers/SessionController.js
             }
         }
     };

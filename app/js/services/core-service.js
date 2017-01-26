@@ -170,6 +170,7 @@ app.factory('customWebService', function($http, HOST) {
         }
       })
     },
+<<<<<<< HEAD
     get:function(url, data, success) {
       $http.get(HOST[HOST.ENV] + url).success(function (remoteData) {
         data=remoteData;
@@ -178,6 +179,10 @@ app.factory('customWebService', function($http, HOST) {
           success(remoteData);
         }
       })
+=======
+    get:function(url) {
+      $http.get(HOST[HOST.ENV])
+>>>>>>> gabriel
     }
   };
 })
