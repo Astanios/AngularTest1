@@ -1,68 +1,75 @@
-<div id="navbar-wrapper">
-  <nav class="navbar navbar-default"  style="z-index: 2;" ng-class="{scroll: (scroll>10)}">
-    <div class="container-fluid">
-      <div class="navbar-header pull-left">
-        <a ui-sref="anon.home">
-          <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
-        </a>
-      </div>
-      <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
-        <p class="">Hola "nombre de usuario"</p>
-      </div>
+<script>
+$('#btn').toggle(
+  function() {
+    $('#mySidenav').css('width', '10px');
+    $('#main').css('margin-left', '0px');
+  }, function(){
+    $('#mySidenav').css('width', '250px');
+    $('#main').css('margin-left', '250px');
+});
+</script>
+<header class="navbar navbar-default"  style="z-index: 2;" ng-class="{scroll: (scroll>10)}">
+  <div class="container-fluid">
+    <div class="navbar-header pull-left">
+      <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
     </div>
-  </nav>
-</div>
-<div id="wrapper">
-  <div id="sidebar-wrapper">
-    <aside id="sidebar">
-      <ul id="sidemenu" class="sidebar-nav">
-        <li><a href="#">Perfil</a></li>
-        <li><a href="#">Historial de pedidos</a></li>
-        <li><a href="#">Hacer pedido</a></li>
-        <li><a href="#">Cerrar sesión</a></li>
-      </aside>
+    <div ng-init="main()" class="nav navbar-nav navbar-right navbar-right-no-collapse">
+      <p class="" ng-if="isLoggedIn">Hola {{user.student.names}}</p>
+      <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
     </div>
-    <main id="page-content-wrapper" role="main">
-      <div class="card bordered "  style="margin: 0; width:100%;">
-        <div class="row">
-              <div class="col-md-4 col-md-offset-1 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
-                <h1>Copistería tipo</h1>
-                <textarea rows="2" cols="50" readonly>Información sobre la copistería</textarea>
-                <p><span>Teléfono:</span> XXX-XXX-XXX</p>
-                <p><span>Horario:</span> XX:XX - XX:XX</p>
-              </div>
-              <div class="col-md-6 col-md-offset-1 p-r-30 p-l-60 p-t-40 p-b-40">
-                <img src="img\malaga.PNG" class="img-responsive" style="width: 530px;">
-              </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40">
-              <div class="well">
-              </div>
-              <div class="text-center" id="forms-validation-container">
-                <input type="checkbox" value="emprendimiento">B/N
-                <input type="checkbox" value="trabajo">Color
-                <input type="checkbox" value="becas">Doble cara
-                <input type="checkbox" value="cursos">Encuadernado
-              </div>
-            </div>
-            <div class="text-center">
-              <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Precio NoWait</a>
-              <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Precio Copisteria</a>
-            </div>
-            <!--<div class="text-center">
-              <h2>TOTAL: 1,30€</h2>
-            </div>
-            <div class="text-center">
-              <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Pagar</a>
-            </div>-->
-            <br><br>
-          </div>
-        </div>
-    </main>
+  </div>
+</header>
+
+<div id="mySidenav" style="z-index: 0;" class="sidenav" ng-if="isLoggedIn">
+
+  <div class="closebtn" id="btn" >&times;</div>
+    <a ui-sref="anon.profile">Perfil</a>
+    <a ui-sref="anon.record">Historial de pedidos</a>
+    <a ui-sref="anon.orders">Hacer pedido</a>
+    <a ui-sref="anon.login">Cerrar sesión</a>
   </div>
 
-<footer class="well white site-footer">
+<div id="main" class="center">
+  <div class="card bordered "  style="margin: 0; width:100%;">
+    <div class="row">
+          <div class="col-md-4 col-md-offset-1 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
+            <h1>Copistería tipo</h1>
+            <textarea rows="2" cols="50" readonly>Información sobre la copistería</textarea>
+            <p><span>Teléfono:</span> XXX-XXX-XXX</p>
+            <p><span>Horario:</span> XX:XX - XX:XX</p>
+          </div>
+          <div class="col-md-6 col-md-offset-1 p-r-30 p-l-60 p-t-40 p-b-40">
+            <img src="img\malaga.PNG" class="img-responsive" style="width: 530px;">
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40">
+          <div class="well">
+          </div>
+          <div class="text-center" id="forms-validation-container">
+            <input type="checkbox" value="emprendimiento">B/N
+            <input type="checkbox" value="trabajo">Color
+            <input type="checkbox" value="becas">Doble cara
+            <input type="checkbox" value="cursos">Encuadernado
+          </div>
+        </div>
+        <div class="text-center">
+          <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Precio NoWait</a>
+          <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Precio Copisteria</a>
+        </div>
+        <!--<div class="text-center">
+          <h2>TOTAL: 1,30€</h2>
+        </div>
+        <div class="text-center">
+          <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Pagar</a>
+        </div>-->
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="well white site-footer"  style="z-index: 2;">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">

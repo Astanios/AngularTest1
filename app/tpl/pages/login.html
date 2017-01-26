@@ -6,15 +6,9 @@
 </a>
     </div>
     <ul class="nav navbar-nav navbar-right navbar-right-no-collapse">
-      <li class="dropdown pull-right">
-        <ui-select ng-model="mode.selected" theme="select2" title="Modo" search-enabled="false">
-          <ui-select-match placeholder="Modo de Usuario">{{$select.selected.title}}</ui-select-match>
-          <ui-select-choices repeat="item in modes | filter: $select.search">
-            <div ng-bind-html="item.title | highlight: $select.search"></div>
-            <!-- <small ng-bind-html="item.email | highlight: $select.search"></small> -->
-          </ui-select-choices>
-        </ui-select>
-      </li>
+        <a ui-sref="anon.login" class="btn btn-primary white-text">
+          Iniciar Sesión
+        </a>
     </ul>
   </div>
 </header>

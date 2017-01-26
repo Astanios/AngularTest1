@@ -1,4 +1,3 @@
-
 <header class="navbar navbar-default" ng-class="{scroll: (scroll>10)}">
   <div class="container-fluid">
     <div class="navbar-header pull-left">
@@ -57,10 +56,8 @@
           <div class="col-md-4 col-md-offset-1">
             <div id="forms-validation-container">
                   <div class="form-group">
-                    <label class="control-label">Nombre</label>
-                    <input type="text" name="name" class="form-control" ng-model="user.name" required-err-type="fieldRequired" required>
-                    <!-- <p \
-                    g-show="form.username.$invalid && !form.username.$pristine" class="help-block">El defaultErrorMessageResolverusuardefaultErrorMessageResolverdefaultErrorMessageResolverio de ser un nombre alphanumerico de al menos 4 caracteres.</p> -->
+                    <label class="control-label">Nombres</label>
+                    <input type="text" name="names" class="form-control" ng-model="user.names" required-err-type="fieldRequired" required>
                   </div>
                   <div class="form-group">
                     <!--<label class="control-label">Fecha de nacimiento</label>-->
@@ -69,11 +66,22 @@
 
                   <div class="form-group">
                     <label class="control-label">Estudios</label>
-                    <select name="degree" class="form-control" ng-model="user.degree" required-err-type="fieldRequired" required>
-                        <option value="volvo">ESO</option>
-                        <option value="saab">Bachillerato</option>
-                        <option value="fiat">FP</option>
-                        <option value="audi">Grado</option>
+                    <select name="grade" class="form-control" ng-model="user.grade" required-err-type="fieldRequired" required>
+                        <option value="ESO">ESO</option>
+                        <option value="Bachillerato">Bachillerato</option>
+                        <option value="FP">FP</option>
+                        <option value="Grado">Grado</option>
+                      </select>
+                    <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Carrera universitaria</label>
+                    <select name="estudies" class="form-control" ng-model="user.estudies" required-err-type="fieldRequired" required>
+                        <option value="Computacion">Computacion</option>
+                        <option value="Filosofia">Filosofia</option>
+                        <option value="Medicina">Medicina</option>
+                        <option value="Derecho">Derecho</option>
                       </select>
                     <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
                   </div>
@@ -86,7 +94,7 @@
 
                   <div class="form-group">
                     <label class="control-label">Contraseña</label>
-                    <input type="password" class="form-control"  required-err-type="fieldRequired" required>
+                    <input type="password" class="form-control" ng-model="user.password"  required-err-type="fieldRequired" required>
                   </div>
             </div>
           </div>
@@ -94,7 +102,7 @@
       <div id="forms-validation-container">
                    <div class="form-group">
                     <label class="control-label">Apellidos</label>
-                    <input type="lastname" class="form-control" ng-model="user.lastname"  required-err-type="fieldRequired" required>
+                    <input type="surnames" class="form-control" ng-model="user.surnames"  required-err-type="fieldRequired" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Telefono</label>
@@ -102,19 +110,21 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label">Sexo</label>
-                    <select name="degree" class="form-control" ng-model="user.degree" required-err-type="fieldRequired" required>
-                        <option value="fiat">Femenino</option>
-                        <option value="audi">Masculino</option>
+                    <select name="gender" class="form-control" ng-model="user.gender" required-err-type="fieldRequired" required>
+                        <option value="female">Femenino</option>
+                        <option value="male">Masculino</option>
                       </select>
                     <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
                   </div>
                   <div class="form-group">
                     <label class="control-label">Confirmación email</label>
-                    <input type="emailconf" class="form-control"  required-err-type="fieldRequired" required>
+                    <input type="email" class="form-control" ng-model="user.emailConfirmation"  required-err-type="fieldRequired" required>
+                    <div class="alert alert-danger" ng-if="(user.emailConfirmation != user.email)"><p>Emails deben coincidir</p></div>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Confirmacion contraseña</label>
-                    <input type="passwordconf" class="form-control"  required-err-type="fieldRequired" required>
+                    <input type="password" class="form-control" ng-model="user.passwordConfirmation"  required-err-type="fieldRequired" required>
+                    <div class="alert alert-danger" ng-if="(user.passwordConfirmation != user.password)"><p>Contraseñas deben coincidir</p></div>
                   </div>
             </div>
           </div>
@@ -129,48 +139,48 @@
         <div class="col-md-2 col-md-offset-1 p-r-60 p-l-30 p-t-40 p-b-40">
             <h2 class="no-m-t">Intereses: (Mín 5)</h2>
         </div>
-       </div>
+       </div>       
       <div class="row">
 
         <div class="col-md-2 form-group col-md-offset-1 p-r-60 p-l-30 p-t-40 p-b-40">
-          <h3 class="no-m-t">Futuro</h3>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="emprendimiento">Emprendimiento<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">Trabajo<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="becas">Becas y prácticas<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="cursos">Cursos<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="idiomas">Idiomas
+          <h3 class="no-m-t">Futuro</h3>         
+              <input type="checkbox" name="interest[0]" ng-model="user.interest[0]" ng-true-value="'emprendimiento'">Emprendimiento<br>        
+              <input type="checkbox" name="interest[1]" ng-model="user.interest[1]" ng-true-value="'trabajo'">Trabajo<br>           
+              <input type="checkbox" name="interest[2]" ng-model="user.interest[2]" ng-true-value="'becas'">Becas y prácticas<br>
+              <input type="checkbox" name="interest[3]" ng-model="user.interest[3]" ng-true-value="'cursos'">Cursos<br>           
+              <input type="checkbox" name="interest[4]" ng-model="user.interest[4]" ng-true-value="'idiomas'">Idiomas
         </div>
         <div class="col-md-2 form-group p-r-60 p-l-30 p-t-40 p-b-40">
           <h3 class="no-m-t">Economía</h3>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="bancos">Bancos<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="telefonia">Telefonía<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="transporte">Transporte<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="alojamiento">Alojamiento<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="ofertas">Ofertas
+              <input type="checkbox" name="interest[5]" ng-model="user.interest[5]" ng-true-value="'bancos'">Bancos<br>        
+              <input type="checkbox" name="interest[6]" ng-model="user.interest[6]" ng-true-value="'telefonia'">Telefonía<br>           
+              <input type="checkbox" name="interest[7]" ng-model="user.interest[7]" ng-true-value="'transporte'">Transporte<br>
+              <input type="checkbox" name="interest[8]" ng-model="user.interest[8]" ng-true-value="'alojamiento'">Alojamiento<br>           
+              <input type="checkbox" name="interest[9]" ng-model="user.interest[9]" ng-true-value="'ofertas'">Ofertas
         </div>
         <div class="col-md-2 form-group p-r-60 p-l-30 p-t-40 p-b-40">
           <h3 class="no-m-t">Cuerpo y mente</h3>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="alimentacion">Alimentación<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="belleza">Belleza<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="deporte">Deporte<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="salud">Salud<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="meet">Conocer gente
+              <input type="checkbox" name="interest[10]" ng-model="user.interest[10]" ng-true-value="'alimentacion'">Alimentación<br>        
+              <input type="checkbox" name="interest[11]" ng-model="user.interest[11]" ng-true-value="'belleza'">Belleza<br>           
+              <input type="checkbox" name="interest[12]" ng-model="user.interest[12]" ng-true-value="'deporte'">Deporte<br>
+              <input type="checkbox" name="interest[13]" ng-model="user.interest[13]" ng-true-value="'salud'">Salud<br>           
+              <input type="checkbox" name="interest[14]" ng-model="user.interest[14]" ng-true-value="'meet'">Conocer gente
         </div>
         <div class="col-md-2 form-group p-r-60 p-l-30 p-t-40 p-b-40">
           <h3 class="no-m-t">Experiencias</h3>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="tecnologia">Tecnología<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="musica">Conciertos/Música<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="fiesta">Fiesta<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="viajes">Viajes<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="aventura">Aventura
+              <input type="checkbox" name="interest[15]" ng-model="user.interest[15]" ng-true-value="'tecnologia'">Tecnología<br>        
+              <input type="checkbox" name="interest[16]" ng-model="user.interest[16]" ng-true-value="'musica'">Conciertos/Música<br>           
+              <input type="checkbox" name="interest[17]" ng-model="user.interest[17]" ng-true-value="'fiesta'">Fiesta<br>
+              <input type="checkbox" name="interest[18]" ng-model="user.interest[18]" ng-true-value="'viajes'">Viajes<br>           
+              <input type="checkbox" name="interest[24]" ng-model="user.interest[24]" ng-true-value="'aventura'">Aventura
         </div>
         <div class="col-md-2 form-group p-r-60 p-l-30 p-t-40 p-b-40">
           <h3 class="no-m-t">Cultura</h3>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="libros">Libros<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="tv">Tv/Series<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="cine">Cine<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="teatro">Teatro<br>
-              <input type="checkbox" name="interest" ng-model="user.interest" value="arte">Arte
+              <input type="checkbox" name="interest[19]" ng-model="user.interest[19]" ng-true-value="'libros'">Libros<br>        
+              <input type="checkbox" name="interest[20]" ng-model="user.interest[20]" ng-true-value="'tv'">Tv/Series<br>           
+              <input type="checkbox" name="interest[21]" ng-model="user.interest[21]" ng-true-value="'cine'">Cine<br>
+              <input type="checkbox" name="interest[22]" ng-model="user.interest[22]" ng-true-value="'teatro'">Teatro<br>           
+              <input type="checkbox" name="interest[23]" ng-model="user.interest[23]" ng-true-value="'arte'">Arte
         </div>
     </div>
   </div>
@@ -179,12 +189,23 @@
       <div class="row">
         <div class="card-content">
             <div class="form-group" style="text-align: center;">
-              <input type="checkbox" name="legalterms" value="bool" ng-model="user.legalterms" required>Acepto los términos y condiciones de Uso<br>
+              <input type="checkbox" name="legalterms" value="bool" ng-model="user.legalterms" required-err-type="fieldRequired" required>Acepto los términos y condiciones de Uso<br>        
             </div>
         </div>
       </div>
     </div>
-
+    <div class="row" ng-if="alert.show">
+    <div class="col-lg-12">
+      <div class="bs-component">
+        <div class="alert alert-dismissible" ng-class="{'alert-success':alert.success, 'alert-danger':!alert.success}">
+          <button type="button" ng-click="close()" class="close">×</button>
+          <h4>{{alert.title}}!</h4>
+          <p>{{alert.message}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
     <div class="card bordered z-depth-1"  style="margin: 0; width:100%;">
       <div class="row">
         <div class="card-content">
@@ -229,7 +250,7 @@
           <a href="">
            <b>
              Quienes somos?
-           </b>
+           </b> 
           </a>
         </li>
         <li class="pull-left">
@@ -245,10 +266,10 @@
     <div class="col-lg-12">
       <ul class="nav navbar-nav">
         <li class="pull-left">
-          <a href="">Copyright 2015 - NoEsperesColas</a>
+          <a href="">Copyright 2015 - NoEsperesColas</a> 
         </li>
         <li class="pull-left">
-          <a href="">Politicas de Privacidad</a>
+          <a href="">Politicas de Privacidad</a> 
         </li>
         <li class="pull-left">
           <a href="">Terminos Legales</a>
@@ -257,3 +278,5 @@
     </div>
   </div>
 </footer>
+
+

@@ -3708,10 +3708,7 @@ dt {
 
 dd {
   margin-left: 0; }
-footer .{
-  z-index: 1000;
-  position: relative;
-}
+
 .dl-horizontal dd:before, .dl-horizontal dd:after {
   content: " ";
   display: table; }
@@ -24051,7 +24048,6 @@ input[type=number]:focus, .theme-deep-orange
      }
 
      #sidebar-wrapper {
-         z-index: -1;
          position: fixed;
          left: 225px;
          width: 0;
@@ -24135,4 +24131,11 @@ input[type=number]:focus, .theme-deep-orange
              width: 200px;
              height: 0;
          }
+     }
+     footer {
+       z-index: 1000;
+       position: relative;
+     }
+     aside{
+       z-index: 0;
      }
