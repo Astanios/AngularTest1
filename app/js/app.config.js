@@ -129,9 +129,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             controller: 'HomeController'
         })
         .state('anon.userorders', {
-            url: '/user/pedido',
+            url: '/user/pedido/:id',
             templateUrl: 'tpl/pages/user/order.html',
-            controller: 'CopyshopController'
+            controller: 'CopyshopController',
+            params:{
+                id:null
+            }
         })
         .state('anon.legalterms', {
             url: '/legalterms',
@@ -381,7 +384,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
                     responseError: function(rejection){
                         if (rejection.status === 401) {
-                            $injector.get('$state').go('anon.login');
+                            /*$injector.get('$state').go('anon.login');*/
                         }
                         return $q.reject(rejection);
                     }
@@ -430,7 +433,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
   $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 }])
 // set constants
-.run(['$state', '$rootScope', 'APP', 'Auth', function ($state, $rootScope, APP, Auth) {
+.run(['$state', '$rootScope', 'APP', 'Auth', '$http', function ($state, $rootScope, APP, Auth, $http) {
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + Auth.token;
   $rootScope.APP = APP;
   $rootScope.$watch( Auth.isLoggedIn, function ( isLoggedIn ) {
     $rootScope.isLoggedIn = isLoggedIn;

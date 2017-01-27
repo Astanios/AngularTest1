@@ -8,7 +8,6 @@ app.controller('SessionController', ['$scope', '$rootScope', '$state', '$locatio
     });
 
     $scope.activation=false;
-
     $scope.modes=[{id:1, title:"Soy Estudiante"},{id:2, title:"Soy Copisteria"},{id:3, title:"Soy Anunciante"}];
 
     if ($stateParams.code){

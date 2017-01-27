@@ -14,7 +14,7 @@ $('#btn').toggle(
     <div class="navbar-header pull-left">
       <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
     </div>
-    <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
+    <div class="nav navbar-nav navbar-right navbar-right-no-collapse" ng-init="main()">
       <p class="" ng-if="isLoggedIn">Hola {{user.student.names}}</p>
       <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
     </div>
@@ -31,28 +31,40 @@ $('#btn').toggle(
   </div>
 
   <div id="main" class="center">
+      <div class="row" ng-if="alert.show">
+        <div class="col-lg-12">
+          <div class="bs-component">
+            <div class="alert alert-dismissible" ng-class="{'alert-success':alert.success, 'alert-danger':!alert.success}">
+              <button type="button" ng-click="close()" class="close">×</button>
+              <h4>{{alert.title}}!</h4>
+              <p>{{alert.message}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     <div class="card bordered z-depth-2"  style="margin: 0; width:100%;">
      <div class="p-l-20">
-          <form class="search-form form-inline" ng-submit="submitNavbarSearch()">
+          <form class="search-form form-inline" ng-submit="serarchCopy()">
             <div class="form-group" style="width: 50%;">
               <div class="input-group" style="width: 50%;">
                 <span class="input-group-addon no-p-r p-l-20" style="font-size: 25px;"><i class="zmdi zmdi-search-in-page zmdi-hc-3x"></i></span>
                 <label class="sr-only" for="search-input">Busqueda</label>
-                <input type="text" class="form-control" id="search-input" placeholder="Busqueda" autofocus="">
+                <input type="text" class="form-control" id="search-input" placeholder="Busqueda" ng-model="query.name" autofocus="">
               </div>
             </div>
           </form>
      </div>
+
      <hr class="no-m-b">
       <div class="row" style="margin: auto;" ng-init="getCopyshops()">
-        <div class="col-md-3 no-p border-light">
-          <img src="img/emptyMME.gif" class="img-responsive">
+        <div class="col-md-3 no-p border-light" ng-repeat='copy in copyshops | filter:query.name' ui-sref="anon.userorders({id:copy['_id']})">
+          <img ng-src="{{url + copy.photo}}" class="img-responsive">
         </div>
       </div>
     </div>
 
       </div>
-    </div>
 
 <footer class="well white site-footer"  style="z-index: 2;">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">

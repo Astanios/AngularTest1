@@ -1,10 +1,22 @@
-app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromises){
+app.service('CurrentUser', function($cookieStore) {
+    return{
+        getUser:function() {
+            return $cookieStore.get('currentUser');
+        },
+        setUser:function(user) {
+            $cookieStore.put('currentUser', user);
+        }
 
-    var currentUser;
-    // $cookieStore.remove('user');
+    }
+})
+app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromises, CurrentUser){
 
     function changeUser(user) {
-        currentUser = user;
+        CurrentUser.setUser(user);
+        $http.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
+    }
+    function getUser() {
+        return CurrentUser.getUser();
     }
 
     return {
@@ -13,7 +25,7 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
         },
         isLoggedIn: function(user) {
             if(user === undefined) {
-                user = currentUser;
+                user = getUser();
             }
             return user.token != null;
         },
@@ -66,18 +78,12 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
             });
         },
         logout: function(success, error) {
-
-            // $http.post('/logout').success(function(){
-                changeUser({
-                    username: '',
-                    role: userRoles.public
-                });
-                $cookieStore.remove('app.cZDoADfr');
-                // $cookieStore.remove('alias');
-                success();
-            // }).error(error);
+                $cookieStore.remove('currentUser');
+                $http.defaults.headers.common['Authorization'] = null;
+                success(success);
+                error(error);
         },
-        user: currentUser,
-        token: currentUser ? currentUser.token : null
+        user: CurrentUser.getUser(),
+        token: CurrentUser.getUser() ? CurrentUser.getUser().token : null
     };
 });

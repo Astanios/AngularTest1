@@ -212,3 +212,21 @@ section.cards{
 .back-full-img{
     background-image: url(../img/emptyMME.gif);
 }
+
+div[dropzone] {
+    border: 2px dashed #bbb;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    font: 20pt bold;
+    color: #bbb;
+    margin-bottom: 20px;
+}
+#drop-file-input
+{
+    position: absolute;top: o;left: 0;bottom: 0;right: 0;
+}
+.drop-file-area
+{
+    position: relative;
+}

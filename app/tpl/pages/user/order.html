@@ -29,14 +29,18 @@ $('#btn').toggle(
     <a ui-sref="anon.login">Cerrar sesión</a>
   </div>
 
-<div id="main" class="center">
+<div id="main" class="center" ng-init="getCopyshop()">
   <div class="card bordered "  style="margin: 0; width:100%;">
     <div class="row">
           <div class="col-md-4 col-md-offset-1 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
             <h1>Copistería tipo</h1>
             <textarea rows="2" cols="50" readonly>Información sobre la copistería</textarea>
-            <p><span>Teléfono:</span> XXX-XXX-XXX</p>
-            <p><span>Horario:</span> XX:XX - XX:XX</p>
+            <p><b>Teléfono:</b> {{copyshop.phone}}</p>
+            <p>
+              <b>Horario:</b> Lunes a jueves en la mañana de {{copyshop.schedule.mon_thurs.morning}}, en la tarde de {{copyshop.schedule.mon_thurs.afternoon}}.
+              <span ng-if="copyshop.schedule.friday.enable">Viernes de {{copyshop.schedule.friday.from}} a {{copyshop.schedule.friday.to}}.</span>
+              <span ng-if="copyshop.schedule.saturday.enable">Sábado de {{copyshop.schedule.saturday.from}} a {{copyshop.schedule.saturday.to}}.</span>
+            </p>
           </div>
           <div class="col-md-6 col-md-offset-1 p-r-30 p-l-60 p-t-40 p-b-40">
             <img src="img\malaga.PNG" class="img-responsive" style="width: 530px;">
@@ -44,8 +48,15 @@ $('#btn').toggle(
       </div>
       <div class="row">
         <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40">
-          <div class="well">
+          <upload to="" ng-model="order.image"></upload>
+          <div dropzone><i class="glyphicon glyphicon-upload"></i>Arrastrar</div>
+          <label for="file" ng-show="true" class="drop-file-area">
+              <div class="well drop-zone" nv-file-over="" over-class="drop-over" uploader="uploader" ng-click="fileChooser()">
+                  Drag & Drop files to upload / Click box to select files
+              </div>
+              <input type="file" id="drop-file-input" name="file" multiple id="file-input-hide" /><br/>
           </div>
+              
           <div class="text-center" id="forms-validation-container">
             <input type="checkbox" value="emprendimiento">B/N
             <input type="checkbox" value="trabajo">Color
