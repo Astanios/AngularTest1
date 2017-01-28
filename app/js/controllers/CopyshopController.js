@@ -49,7 +49,10 @@ app.controller('CopyshopController', ['$scope', '$rootScope', '$state', '$locati
         fd.append('coments', order.coments);
         fd.append('user', Auth.user['_id']);
         fd.append('status', 'received');
-        fd.append('files', $scope.realFiles);
+        for (i=0;i<$scope.realFiles.length; i++)
+        {
+            fd.append('files', $scope.realFiles[i]);
+        }
         fd.append('total_price', order.total_price);
         fd.append('publicity', order.publicity);
         fd.append('copyspace', $scope.copyshop._id);
@@ -67,7 +70,7 @@ app.controller('CopyshopController', ['$scope', '$rootScope', '$state', '$locati
         data.copyspace =  $scope.copyshop._id;
 
         $http.post(HOST[HOST.ENV] + 'api/orders', fd, {
-            
+            headers: {'Content-Type': undefined}
         })
         .success(function(data){
             var t = data;
