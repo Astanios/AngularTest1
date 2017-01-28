@@ -93,6 +93,7 @@ app.controller('CopyshopController', ['$scope', '$rootScope', '$state', '$locati
             $scope.files.push({name:obj.files[i].name});
         }
         $scope.realFiles = obj.files;
+        $scope.$apply();
     }
 
 }]);
