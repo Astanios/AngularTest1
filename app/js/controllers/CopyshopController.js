@@ -67,8 +67,7 @@ app.controller('CopyshopController', ['$scope', '$rootScope', '$state', '$locati
         data.copyspace =  $scope.copyshop._id;
 
         $http.post(HOST[HOST.ENV] + 'api/orders', fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
+            
         })
         .success(function(data){
             var t = data;
