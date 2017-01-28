@@ -64,7 +64,7 @@ $('#btn').toggle(
           </div>
         </div>
         <div class="text-center">
-          <a type="button" class="btn btn-primary btn-lg white-text" ng-class='{"order-type-active":order.publicity}' ng-click='order.publicity = true'>Precio NoWait</a>
+          <a type="button" class="btn btn-primary btn-lg white-text" ng-class='{"order-type-active":order.publicity, "disabled":order.type != "bn"}' ng-click='order.publicity = true' title="Solo aplica para impresiones en blanco y negro">Precio NoWait</a>
           <a type="button" class="btn btn-primary btn-lg white-text" ng-class='{"order-type-active":order.publicity === false}' ng-click='order.publicity = false'>Precio Copisteria</a>
         </div>
         <div ng-show="order.publicity != undefined">
