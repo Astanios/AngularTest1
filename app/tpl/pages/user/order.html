@@ -34,7 +34,7 @@ $('#btn').toggle(
     <div class="row">
           <div class="col-md-4 col-md-offset-1 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
             <h1>Copistería tipo</h1>
-            <textarea rows="2" cols="50" readonly>Información sobre la copistería</textarea>
+            <textarea rows="2" cols="50" ng-model='order.coments'></textarea>
             <p><b>Teléfono:</b> {{copyshop.phone}}</p>
             <p>
               <b>Horario:</b> Lunes a jueves en la mañana de {{copyshop.schedule.mon_thurs.morning}}, en la tarde de {{copyshop.schedule.mon_thurs.afternoon}}.
@@ -48,32 +48,33 @@ $('#btn').toggle(
       </div>
       <div class="row">
         <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40">
-          <upload to="" ng-model="order.image"></upload>
-          <div dropzone><i class="glyphicon glyphicon-upload"></i>Arrastrar</div>
           <label for="file" ng-show="true" class="drop-file-area">
-              <div class="well drop-zone" nv-file-over="" over-class="drop-over" uploader="uploader" ng-click="fileChooser()">
-                  Drag & Drop files to upload / Click box to select files
+              <div ng-if="!hasFiles()" class="well drop-zone" nv-file-over="" over-class="drop-over">
+                  <i class="glyphicon glyphicon-upload"></i> Arrastrar
               </div>
-              <input type="file" id="drop-file-input" name="file" multiple id="file-input-hide" /><br/>
+              <div ng-repeat='file in files'><i class="glyphicon glyphicon-file"></i> {{file.name}}</div>
+              <input type="file" id="drop-file-input" name="file" multiple id="file-input-hide" onchange="angular.element(this).scope().fileNameChanged(this)" /><br/>
           </div>
               
           <div class="text-center" id="forms-validation-container">
-            <input type="checkbox" value="emprendimiento">B/N
-            <input type="checkbox" value="trabajo">Color
-            <input type="checkbox" value="becas">Doble cara
-            <input type="checkbox" value="cursos">Encuadernado
+            <input type="checkbox" ng-model='order.type' ng-true-value='"bn"' value="emprendimiento">B/N
+            <input type="checkbox" ng-model='order.type' ng-true-value='"color"' value="trabajo">Color
+            <input type="checkbox" ng-model='order.double_sided' value="becas">Doble cara
+            <input type="checkbox" ng-model='order.bound' value="cursos">Encuadernado
           </div>
         </div>
         <div class="text-center">
-          <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Precio NoWait</a>
-          <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Precio Copisteria</a>
+          <a type="button" class="btn btn-primary btn-lg white-text" ng-class='{"order-type-active":order.publicity}' ng-click='order.publicity = true'>Precio NoWait</a>
+          <a type="button" class="btn btn-primary btn-lg white-text" ng-class='{"order-type-active":order.publicity === false}' ng-click='order.publicity = false'>Precio Copisteria</a>
         </div>
-        <!--<div class="text-center">
-          <h2>TOTAL: 1,30€</h2>
+        <div ng-show="order.publicity != undefined">
+          <div class="text-center" >
+            <h2>TOTAL: {{order.total_price}}€</h2>
+          </div>
+          <div class="text-center">
+            <a ng-click='createOrder()' type="button" class="btn btn-primary btn-lg white-text">Pagar</a>
+          </div>
         </div>
-        <div class="text-center">
-          <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Pagar</a>
-        </div>-->
         <br><br>
       </div>
     </div>

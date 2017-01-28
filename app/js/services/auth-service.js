@@ -35,7 +35,7 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
                     'Content-Type': 'application/json'
                 }}).success(function(res) {
                 changeUser(user);
-                success(success);
+                success(res);
             }).error(error);
         },
         registerCopySpace: function(user, success, error) {
@@ -44,7 +44,7 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
                     'Content-Type': 'application/json'
                 }}).success(function(res) {
                 changeUser(user);
-                success(success);
+                success(res);
             }).error(error);
         },
         registerCompany: function(user, success, error) {
@@ -53,7 +53,7 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
                     'Content-Type': 'application/json'
                 }}).success(function(res) {
                 changeUser(user);
-                success(success);
+                success(res);
             }).error(error);
         },
         login: function(user, success, error) {
@@ -80,8 +80,8 @@ app.factory('Auth', function($http, $rootScope, HOST, $cookieStore, customPromis
         logout: function(success, error) {
                 $cookieStore.remove('currentUser');
                 $http.defaults.headers.common['Authorization'] = null;
-                success(success);
-                error(error);
+                success({});
+                error({});
         },
         user: CurrentUser.getUser(),
         token: CurrentUser.getUser() ? CurrentUser.getUser().token : null
