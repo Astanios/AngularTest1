@@ -42,7 +42,7 @@ app.controller('CopyshopController', ['$scope', '$rootScope', '$state', '$locati
         var fd = new FormData();
         var data = {};
 
-        /*fd.append('date_order', (new Date()).toJSON().split('T')[0]);
+        fd.append('date_order', (new Date()).toJSON().split('T')[0]);
         fd.append('type', order.type);
         fd.append('bound', order.bound);
         fd.append('double_sided', order.double_sided);
@@ -52,7 +52,7 @@ app.controller('CopyshopController', ['$scope', '$rootScope', '$state', '$locati
         fd.append('files', $scope.realFiles);
         fd.append('total_price', order.total_price);
         fd.append('publicity', order.publicity);
-        fd.append('copyspace', $scope.copyshop._id);*/
+        fd.append('copyspace', $scope.copyshop._id);
 
         data.date_order =  (new Date()).toJSON().split('T')[0];
         data.type =  order.type;
