@@ -6,8 +6,9 @@
           <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
         </a>
       </div>
-      <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
-        <p class="">Hola "nombre de usuario"</p>
+      <div ng-init="main()" class="nav navbar-nav navbar-right navbar-right-no-collapse">
+        <p class="" ng-if="isLoggedIn">Hola {{user.resp_comp.names}}</p>
+        <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
       </div>
     </div>
   </nav>
@@ -16,13 +17,13 @@
   <div id="sidebar-wrapper">
     <aside id="sidebar">
       <ul id="sidemenu" class="sidebar-nav">
-        <li><a href="#">Perfil</a></li>
-        <li><a href="#">Historial de pedidos</a></li>
-        <li><a href="#">Hacer pedido</a></li>
-        <li><a href="#">Cerrar sesión</a></li>
+        <li><a ui-sref="anon.companyprofile">Perfil</a></li>
+        <li><a ui-sref="anon.companyrecord">Historial de pedidos</a></li>
+        <li><a ui-sref="anon.selectpack">Hacer pedido</a></li>
+        <li><a ui-sref="anon.login" ng-click="logout()">Cerrar sesión</a></li>
       </aside>
     </div>
-    <main id="page-content-wrapper" role="main">
+    <main id="page-content-wrapper" ng-init="getCompanyHistory()" role="main">
       <div class="card bordered "  style="margin: 0; width:100%;">
         <div class="row">
           <div class="col-md-12">
@@ -35,21 +36,13 @@
                 <th>Stock</th>
                 <th>Fecha Fin Stock</th>
               </tr>
-              <tr>
-                <td>3/02/17</td>
-                <td>Be Creative</td>
-                <td>2000</td>
-                <td>145,20€</td>
-                <td>169</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>15/01/17</td>
-                <td>Be Yourself</td>
-                <td>5000</td>
-                <td>632,75€</td>
-                <td>0</td>
-                <td>2/2/17</td>
+              <tr ng-repeat="orden in orders">
+                <td>{{orden.date_order.toString().substring(0,10) }}</td>
+                <td>{{ orden.user.student.names }}</td>
+                <td>{{ orden.order }}</td>
+                <td>{{ orden.files.length }}</td>
+                <td>{{ orden.type }}</td>
+                <td>{{ orden.bound }}</td>
               </tr>
             </table>
           </div>
@@ -58,7 +51,7 @@
     </main>
   </div>
 
-<footer class="well white site-footer">
+<footer id="footer" class="well white site-footer">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">

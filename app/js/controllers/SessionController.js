@@ -8,20 +8,19 @@ app.controller('SessionController', ['$scope', '$rootScope', '$state', '$locatio
     });
 
     $scope.activation=false;
-
     $scope.modes=[{id:1, title:"Soy Estudiante"},{id:2, title:"Soy Copisteria"},{id:3, title:"Soy Anunciante"}];
 
     if ($stateParams.code){
         Activation.get({token:$stateParams.code}, function(response){
                 $scope.activation=true;
-                $location.hash("top");        
+                $location.hash("top");
                 $anchorScroll();
-        }, function(response){    
+        }, function(response){
             console.log(response);
             var firstKey = Object.keys(response.data)[0];
             $scope.msgError="Su codigo de activacion de cuenta, esta incorrecto!";
-            $scope.flagError=true;    
-            $location.hash("top");        
+            $scope.flagError=true;
+            $location.hash("top");
             $anchorScroll();
         });
     }
@@ -45,15 +44,15 @@ app.controller('SessionController', ['$scope', '$rootScope', '$state', '$locatio
             },
             function(res) {
                 switch(res.user.type){
-                    case "student":
-                        $state.go('anon.profile');
-                    break;
-                    case "company":
-                        $state.go('anon.companyprofile');
-                    break;
-                    default:
-                        $state.go('anon.copyshopprofile');
-                    break
+                  case "student":
+                      $state.go('anon.profile');
+                  break;
+                  case "resp_copi":
+                      $state.go('anon.copyshopprofile');
+                  break
+                  default:
+                      $state.go('anon.companyprofile');
+                  break;
                 }
             }, customPromises.error($scope.alert));
         }
@@ -68,13 +67,12 @@ app.controller('SignUpController', ['$scope', '$rootScope', '$location', '$state
         errorMessages['emailValidate'] = 'Ingrese un correo electronico valido.';
     });
 
-    
+
     $scope.user={};
     $scope.alert = {};
     $scope.close = function(){
         $scope.alert.show=false;
     };
-
     $scope.signUp = function(form) {
         if (form.$valid) {
             if ($scope.user.email == $scope.user.emailConfirmation && $scope.user.password == $scope.user.passwordConfirmation)
@@ -114,28 +112,11 @@ app.controller('SignUpController', ['$scope', '$rootScope', '$location', '$state
         if (form.$valid) {
             if ($scope.user.email == $scope.user.emailConfirmation && $scope.user.password == $scope.user.passwordConfirmation)
             {
-<<<<<<< HEAD:app/js/controllers/SessionController.js
                 $scope.alert = {};
                 var user = jQuery.extend(true, {}, $scope.user);
                 user.emailConfirmation = undefined;
                 user.passwordConfirmation = undefined;
-                Auth.registerCompany(user, customPromises.success({}, $scope.alert, {}, 'anon.copyshopprofile'), customPromises.error($scope.alert))
-=======
-                var user = jQuery.extend(true, {}, $scope.user);
-                user.interests = $.map(user.interest, function(el) { return el });
-                if (user.interests.length > 4)
-                {
-                    $scope.alert = {};
-                    delete user.interest;
-                    user.emailConfirmation = undefined;
-                    user.passwordConfirmation = undefined;
-                    user.legalterms = undefined;
-                    user.birthday = user.birthday.toJSON().split('T')[0];
-                    Auth.registerCopySpace(user, customPromises.success({}, $scope.alert, {}, 'anon.profile'), customPromises.error($scope.alert))
-                }else{
-                    customPromises.error($scope.alert, 'Error', 'Debe seleccionar al menos 5 de sus intereses')({});
-                }
->>>>>>> gabriel:app/js/controllers/SessionController.js
+                Auth.registerCopyspaceManager(user, customPromises.success({}, $scope.alert, {}, 'anon.copyshopprofile'), customPromises.error($scope.alert))
             }
         }
     };
@@ -161,11 +142,11 @@ app.controller('ResetController', ['$scope', '$rootScope', '$location', '$state'
     $scope.recovery = function(form) {
         if (form.$valid) {
             Recovery.save($scope.user, function(response){
-                $scope.flagSuccess=true;    
+                $scope.flagSuccess=true;
                 $scope.flagError=false;
-                $location.hash("top");        
+                $location.hash("top");
                 $anchorScroll();
-            }, function(response){    
+            }, function(response){
                 console.log(response);
                 var firstKey = Object.keys(response.data)[0];
                 if(response.status==-1){
@@ -173,8 +154,8 @@ app.controller('ResetController', ['$scope', '$rootScope', '$location', '$state'
                 }else{
                     $scope.msgError="Posiblemente el usuario ingresado no existe!";
                 }
-                $scope.flagError=true;    
-                $location.hash("top");        
+                $scope.flagError=true;
+                $location.hash("top");
                 $anchorScroll();
             })
         }
@@ -183,11 +164,11 @@ app.controller('ResetController', ['$scope', '$rootScope', '$location', '$state'
     $scope.reset = function(form) {
         if (form.$valid) {
             Reset.save($scope.user, function(response){
-                $scope.flagSuccess=true;    
+                $scope.flagSuccess=true;
                 $scope.flagError=false;
-                $location.hash("top");        
+                $location.hash("top");
                 $anchorScroll();
-            }, function(response){    
+            }, function(response){
                 console.log(response);
                 var firstKey = Object.keys(response.data)[0];
                 if(response.status==-1){
@@ -195,8 +176,8 @@ app.controller('ResetController', ['$scope', '$rootScope', '$location', '$state'
                 }else{
                     $scope.msgError="Posiblemente, su codigo de cambio de contraseña no es valido!";
                 }
-                $scope.flagError=true;    
-                $location.hash("top");        
+                $scope.flagError=true;
+                $location.hash("top");
                 $anchorScroll();
             })
         }

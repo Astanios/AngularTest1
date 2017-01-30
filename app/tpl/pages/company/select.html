@@ -6,8 +6,9 @@
           <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
         </a>
       </div>
-      <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
-        <p class="">Hola "nombre de usuario"</p>
+      <div ng-init="main()" class="nav navbar-nav navbar-right navbar-right-no-collapse">
+        <p class="" ng-if="isLoggedIn">Hola {{user.resp_comp.names}}</p>
+        <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
       </div>
     </div>
   </nav>
@@ -16,10 +17,10 @@
   <div id="sidebar-wrapper">
     <aside id="sidebar">
       <ul id="sidemenu" class="sidebar-nav">
-        <li><a href="#">Perfil</a></li>
-        <li><a href="#">Historial de pedidos</a></li>
-        <li><a href="#">Hacer pedido</a></li>
-        <li><a href="#">Cerrar sesión</a></li>
+        <li><a ui-sref="anon.companyprofile">Perfil</a></li>
+        <li><a ui-sref="anon.companyrecord">Historial de pedidos</a></li>
+        <li><a ui-sref="anon.selectpack">Hacer pedido</a></li>
+        <li><a ui-sref="anon.login" ng-click="logout()">Cerrar sesión</a></li>
       </aside>
     </div>
     <main id="page-content-wrapper" role="main">
@@ -37,7 +38,9 @@
               </div>
             </div>
             <div class="col-md-3 text-center">
-              <button class="btn">Comprar</button>
+              <a ui-sref="anon.becreative" class="btn btn-primary white-text">
+                Comprar
+              </a>
             </div>
           </div>
           <br>
@@ -51,7 +54,9 @@
               </div>
             </div>
             <div class="col-md-3 text-center">
-              <button class="btn">Comprar</button>
+              <a ui-sref="anon.beproductive" class="btn btn-primary white-text">
+                comprar
+              </a>
             </div>
           </div>
           <br>
@@ -65,7 +70,9 @@
               </div>
             </div>
             <div class="col-md-3 text-center">
-              <button class="btn">Comprar</button>
+              <a ui-sref="anon.beyourself" class="btn btn-primary white-text">
+                Comprar
+              </a>
             </div>
           </div>
           <br>
@@ -74,7 +81,7 @@
     </main>
   </div>
 
-<footer class="well white site-footer">
+<footer id="footer" class="well white site-footer">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">

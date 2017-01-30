@@ -7,7 +7,7 @@
         </a>
       </div>
       <div ng-init="main()" class="nav navbar-nav navbar-right navbar-right-no-collapse">
-        <p class="" ng-if="isLoggedIn">Hola {{user.student.names}}</p>
+        <p class="" ng-if="isLoggedIn">Hola {{user.resp_comp.names}}</p>
         <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
       </div>
     </div>
@@ -17,42 +17,43 @@
   <div id="sidebar-wrapper">
     <aside id="sidebar">
       <ul id="sidemenu" class="sidebar-nav">
-          <li><a ui-sref="anon.profile">Perfil</a></li>
-          <li><a ui-sref="anon.record">Historial de pedidos</a></li>
-          <li><a ui-sref="anon.orders">Hacer pedido</a></li>
-          <li><a ui-sref="anon.login" ng-click="logout()">Cerrar sesión</a></li>
+        <li><a ui-sref="anon.companyprofile">Perfil</a></li>
+        <li><a ui-sref="anon.companyrecord">Historial de pedidos</a></li>
+        <li><a ui-sref="anon.selectpack">Hacer pedido</a></li>
+        <li><a ui-sref="anon.login" ng-click="logout()">Cerrar sesión</a></li>
       </aside>
     </div>
     <main id="page-content-wrapper" role="main">
-  <div class="card bordered "  style="margin: 0; width:100%;">
-    <div class="row" ng-init="getHistory()">
-      <div class="col-md-12">
-        <table class="form-group text-center">
-          <tr>
-            <th>Fecha</th>
-            <th>ID Pedido</th>
-            <th>Estado</th>
-            <th>Precio</th>
-            <th>Hora de recogida</th>
-          </tr>
-          <tr ng-repeat='order in orders | filter:query.name'>
+      <div class="card bordered"  style="margin: 0; width:100%;">
+          <div class="row">
+            <div class="col-md-6 p-l-60 p-t-40 p-b-40 ">
+              <img src="img/emptyMME.gif" class="img-responsive">
+            </div>
+            <div class="col-md-6  p-l-60 p-t-40 p-b-40  text-center">
+              <div class="text-center">
+                <h2>2000 folios</h2>
+              </div>
+              <br>
+              <div class="well text-center">
+                <label for="file" ng-show="true" class="drop-file-area">
+                    <div ng-if="!hasFiles()" class="well drop-zone" nv-file-over="" over-class="drop-over">
+                        <i class="glyphicon glyphicon-upload"></i> Arrastrar
+                    </div>
+                    <div ng-repeat='file in files'><i class="glyphicon glyphicon-file"></i> {{file.name}}</div>
+                    <input type="file" id="drop-file-input" name="file" multiple id="file-input-hide" onchange="angular.element(this).scope().fileNameChanged(this)" /><br/>
+              </div>
+              <div class="text-center">
+                <p>142€</p>
+                <button class="btn">Pagar</button>
+              </div>
+            </div>
 
-            <th>{{order.date_order}}</th>
-            <th>{{order.order}}</th>
-            <th>{{order.status}}</th>
-            <th>-</th>
-            <th>-</th>
-
-
-          </tr>
-        </table>
+          </div>
       </div>
-      </div>
-    </div>
-  </main>
+    </main>
   </div>
 
-<footer id="footer" class="well white site-footer"  style="z-index: 2;">
+<footer id="footer" class="well white site-footer">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">

@@ -6,8 +6,9 @@
           <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
         </a>
       </div>
-      <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
-        <p class="">Hola "nombre de usuario"</p>
+      <div ng-init="main()" class="nav navbar-nav navbar-right navbar-right-no-collapse">
+        <p class="" ng-if="isLoggedIn">Hola {{user.resp_comp.names}}</p>
+        <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
       </div>
     </div>
   </nav>
@@ -16,14 +17,14 @@
   <div id="sidebar-wrapper">
     <aside id="sidebar">
       <ul id="sidemenu" class="sidebar-nav">
-        <li><a href="#">Perfil</a></li>
-        <li><a href="#">Historial de pedidos</a></li>
-        <li><a href="#">Hacer pedido</a></li>
-        <li><a href="#">Cerrar sesión</a></li>
+        <li><a ui-sref="anon.companyprofile">Perfil</a></li>
+        <li><a ui-sref="anon.companyrecord">Historial de pedidos</a></li>
+        <li><a ui-sref="anon.selectpack">Hacer pedido</a></li>
+        <li><a ui-sref="anon.login" ng-click="logout()">Cerrar sesión</a></li>
       </aside>
     </div>
     <main id="page-content-wrapper" role="main">
-      <div class="card bordered"  style="margin: 0; width:100%;">
+      <div class="card bordered" ng-init="getCompany()"  style="margin: 0; width:100%;">
           <div class="row">
 
             <div class="col-md-12 p-r-30 p-l-60 ">
@@ -33,40 +34,40 @@
               <div id="forms-validation-container">
                 <div class="form-group">
                   <label class="control-label">Nombre</label>
-                  <input type="text" class="form-control" ng-model="copyshop.name" readonly>
+                  <input type="text" class="form-control" ng-model="company.resp_comp.comp_resp.name" readonly>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Email</label>
-                  <input type="email" class="form-control" ng-model="copyshop.email" readonly>
+                  <input type="email" class="form-control" ng-model="company.resp_comp.comp_resp.email" readonly>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Dirección</label>
-                  <input type="email" class="form-control" ng-model="copyshop.address" readonly>
+                  <input type="email" class="form-control" ng-model="company.resp_comp.comp_resp.address" readonly>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Provincia</label>
-                  <input type="email" class="form-control" ng-model="copyshop.provice" readonly>
+                  <input type="email" class="form-control" ng-model="company.resp_comp.comp_resp.province" readonly>
                 </div>
               </div>
             </div>
             <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
               <div class="form-group">
                 <label class="control-label">CIF</label>
-                <input type="text" class="form-control" ng-model="copyshop.cif" readonly>
+                <input type="text" class="form-control" ng-model="company.resp_comp.comp_resp.cif" readonly>
               </div>
               <div class="form-group">
                 <label class="control-label">Teléfono</label>
-                <input type="email" class="form-control" ng-model="copyshop.phone" readonly>
+                <input type="email" class="form-control" ng-model="company.resp_comp.comp_resp.phone" readonly>
               </div>
               <div class="form-group">
                 <label class="control-label">Localidad</label>
-                <input type="email" class="form-control" ng-model="copyshop.location" readonly>
+                <input type="email" class="form-control" ng-model="company.resp_comp.comp_resp.location" readonly>
               </div>
 
               <div id="forms-validation-container">
                 <div class="form-group">
                   <label class="control-label">Código postal</label>
-                  <input type="text" class="form-control" ng-model="copyshop.postalcode" readonly>
+                  <input type="text" class="form-control" ng-model="company.resp_comp.comp_resp.postal_code" readonly>
                 </div>
               </div>
             </div>
@@ -77,11 +78,11 @@
               <div id="forms-validation-container">
                 <div class="form-group">
                   <label class="control-label">Nombre</label>
-                  <input type="text" class="form-control" ng-model="user.companyname" readonly>
+                  <input type="text" class="form-control" ng-model="user.resp_comp.names" readonly>
                 </div>
                 <div class="form-group">
                   <label class="control-label">DNI</label>
-                  <input type="text" class="form-control" ng-model="user.dni" readonly>
+                  <input type="text" class="form-control" ng-model="user.resp_comp.dni" readonly>
                 </div>
               </div>
             </div>
@@ -89,7 +90,7 @@
               <div id="forms-validation-container">
                 <div class="form-group">
                   <label class="control-label">Apellidos</label>
-                  <input type="text" class="form-control" ng-model="user.lastname" readonly>
+                  <input type="text" class="form-control" ng-model="user.resp_comp.surnames" readonly>
                 </div>
 
               </div>
@@ -99,7 +100,7 @@
     </main>
   </div>
 
-<footer class="well white site-footer">
+<footer id="footer" class="well white site-footer">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">

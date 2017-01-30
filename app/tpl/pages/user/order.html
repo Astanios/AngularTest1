@@ -1,42 +1,40 @@
-<script>
-$('#btn').toggle(
-  function() {
-    $('#mySidenav').css('width', '10px');
-    $('#main').css('margin-left', '0px');
-  }, function(){
-    $('#mySidenav').css('width', '250px');
-    $('#main').css('margin-left', '250px');
-});
-</script>
-<header class="navbar navbar-default"  style="z-index: 2;" ng-class="{scroll: (scroll>10)}">
-  <div class="container-fluid">
-    <div class="navbar-header pull-left">
-      <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
+<div id="navbar-wrapper">
+  <nav class="navbar navbar-default"  style="z-index: 2;" ng-class="{scroll: (scroll>10)}">
+    <div class="container-fluid">
+      <div class="navbar-header pull-left">
+        <a ui-sref="anon.home">
+          <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
+        </a>
+      </div>
+      <div ng-init="main()" class="nav navbar-nav navbar-right navbar-right-no-collapse">
+        <p class="" ng-if="isLoggedIn">Hola {{user.student.names}}</p>
+        <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
+      </div>
     </div>
-    <div ng-init="main()" class="nav navbar-nav navbar-right navbar-right-no-collapse">
-      <p class="" ng-if="isLoggedIn">Hola {{user.student.names}}</p>
-      <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
+  </nav>
+</div>
+<div id="wrapper">
+  <div id="sidebar-wrapper">
+    <aside id="sidebar">
+      <ul id="sidemenu" class="sidebar-nav">
+          <li><a ui-sref="anon.profile">Perfil</a></li>
+          <li><a ui-sref="anon.record">Historial de pedidos</a></li>
+          <li><a ui-sref="anon.orders">Hacer pedido</a></li>
+          <li><a ui-sref="anon.login" ng-click="logout()">Cerrar sesión</a></li>
+      </aside>
     </div>
-  </div>
-</header>
-
-<div id="mySidenav" style="z-index: 0;" class="sidenav" ng-if="isLoggedIn">
-
-  <div class="closebtn" id="btn" >&times;</div>
-    <a ui-sref="anon.profile">Perfil</a>
-    <a ui-sref="anon.record">Historial de pedidos</a>
-    <a ui-sref="anon.orders">Hacer pedido</a>
-    <a ui-sref="anon.login">Cerrar sesión</a>
-  </div>
-
-<div id="main" class="center">
+<main id="page-content-wrapper" ng-init="getCopyshop()" role="main">
   <div class="card bordered "  style="margin: 0; width:100%;">
     <div class="row">
           <div class="col-md-4 col-md-offset-1 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
             <h1>Copistería tipo</h1>
-            <textarea rows="2" cols="50" readonly>Información sobre la copistería</textarea>
-            <p><span>Teléfono:</span> XXX-XXX-XXX</p>
-            <p><span>Horario:</span> XX:XX - XX:XX</p>
+            <textarea rows="2" cols="50" ng-model='order.coments'></textarea>
+            <p><b>Teléfono:</b> {{copyshop.phone}}</p>
+            <p>
+              <b>Horario:</b> Lunes a jueves en la mañana de {{copyshop.schedule.mon_thurs.morning}}, en la tarde de {{copyshop.schedule.mon_thurs.afternoon}}.
+              <span ng-if="copyshop.schedule.friday.enable">Viernes de {{copyshop.schedule.friday.from}} a {{copyshop.schedule.friday.to}}.</span>
+              <span ng-if="copyshop.schedule.saturday.enable">Sábado de {{copyshop.schedule.saturday.from}} a {{copyshop.schedule.saturday.to}}.</span>
+            </p>
           </div>
           <div class="col-md-6 col-md-offset-1 p-r-30 p-l-60 p-t-40 p-b-40">
             <img src="img\malaga.PNG" class="img-responsive" style="width: 530px;">
@@ -44,32 +42,40 @@ $('#btn').toggle(
       </div>
       <div class="row">
         <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40">
-          <div class="well">
+          <label for="file" ng-show="true" class="drop-file-area">
+              <div ng-if="!hasFiles()" class="well drop-zone" nv-file-over="" over-class="drop-over">
+                  <i class="glyphicon glyphicon-upload"></i> Arrastrar
+              </div>
+              <div ng-repeat='file in files'><i class="glyphicon glyphicon-file"></i> {{file.name}}</div>
+              <input type="file" id="drop-file-input" name="file" multiple id="file-input-hide" onchange="angular.element(this).scope().fileNameChanged(this)" /><br/>
           </div>
+
           <div class="text-center" id="forms-validation-container">
-            <input type="checkbox" value="emprendimiento">B/N
-            <input type="checkbox" value="trabajo">Color
-            <input type="checkbox" value="becas">Doble cara
-            <input type="checkbox" value="cursos">Encuadernado
+            <input type="checkbox" ng-model='order.type' ng-true-value='"bn"' value="emprendimiento">B/N
+            <input type="checkbox" ng-model='order.type' ng-true-value='"color"' value="trabajo">Color
+            <input type="checkbox" ng-model='order.double_sided' value="becas">Doble cara
+            <input type="checkbox" ng-model='order.bound' value="cursos">Encuadernado
           </div>
         </div>
         <div class="text-center">
-          <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Precio NoWait</a>
-          <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Precio Copisteria</a>
+          <a type="button" class="btn btn-primary btn-lg white-text" ng-class='{"order-type-active":order.publicity, "disabled":order.type != "bn"}' ng-click='order.publicity = true' title="Solo aplica para impresiones en blanco y negro">Precio NoWait</a>
+          <a type="button" class="btn btn-primary btn-lg white-text" ng-class='{"order-type-active":order.publicity === false}' ng-click='order.publicity = false'>Precio Copisteria</a>
         </div>
-        <!--<div class="text-center">
-          <h2>TOTAL: 1,30€</h2>
+        <div ng-show="order.publicity != undefined">
+          <div class="text-center" >
+            <h2>TOTAL: {{order.total_price}}€</h2>
+          </div>
+          <div class="text-center">
+            <a ng-click='createOrder()' type="button" class="btn btn-primary btn-lg white-text">Pagar</a>
+          </div>
         </div>
-        <div class="text-center">
-          <a ui-sref="anon.registercompany" type="button" class="btn btn-primary btn-lg white-text">Pagar</a>
-        </div>-->
         <br><br>
       </div>
+    </main>
     </div>
-  </div>
-</div>
 
-<footer class="well white site-footer"  style="z-index: 2;">
+
+<footer id="footer" class="well white site-footer"  style="z-index: 2;">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">

@@ -78,41 +78,65 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
             templateUrl: 'tpl/pages/dummyview.html',
             controller: 'HomeController'
         })
-        .state('anon.management', {
-            url: '/company/management',
-            templateUrl: 'tpl/pages/copyshop/management.html',
-            controller: 'HomeController'
+        //---------------
+        //company routes
+        .state('anon.becreative', {
+            url: '/company/becreative',
+            templateUrl: 'tpl/pages/company/becreative.html',
+            controller: 'CopyshopController'
         })
-        .state('anon.info', {
-            url: '/company/info',
-            templateUrl: 'tpl/pages/company/info.html',
-            controller: 'HomeController'
+        .state('anon.beproductive', {
+            url: '/company/beproductive',
+            templateUrl: 'tpl/pages/company/beproductive.html',
+            controller: 'CopyshopController'
+        })
+        .state('anon.beyourself', {
+            url: '/company/beyourself',
+            templateUrl: 'tpl/pages/company/beyourself.html',
+            controller: 'CopyshopController'
         })
         .state('anon.selectpack', {
             url: '/company/selectpack',
             templateUrl: 'tpl/pages/company/select.html',
-            controller: 'HomeController'
+            controller: 'CopyshopController'
         })
         .state('anon.companyrecord', {
             url: '/company/record',
             templateUrl: 'tpl/pages/company/record.html',
-            controller: 'HomeController'
+            controller: 'CopyshopController'
         })
         .state('anon.companyprofile', {
             url: '/company/profile',
             templateUrl: 'tpl/pages/company/profile.html',
-            controller: 'HomeController'
+            controller: 'CopyshopController'
+        })
+        //---------------
+        //copyshop routes
+        .state('anon.management', {
+            url: '/copyshop/gestion/:id',
+            templateUrl: 'tpl/pages/copyshop/management.html',
+            controller: 'CopyshopController',
+            params:{
+                id:null
+            }
         })
         .state('anon.copyshopprofile', {
             url: '/copyshop/perfil',
             templateUrl: 'tpl/pages/copyshop/profile.html',
-            controller: 'HomeController'
+            controller: 'CopyshopController'
         })
         .state('anon.addcopyshop', {
             url: '/copyshop/anadir',
             templateUrl: 'tpl/pages/copyshop/addcopyshop.html',
-            controller: 'HomeController'
+            controller: 'CopyshopController'
         })
+        .state('anon.copyshoppool', {
+            url: '/copyshop/seleccionarcopisteria',
+            templateUrl: 'tpl/pages/copyshop/selectcopyshop.html',
+            controller: 'CopyshopController'
+        })
+        //---------------
+        //user routes
         .state('anon.orders', {
             url: '/user/seleccionarcopisteria',
             templateUrl: 'tpl/pages/user/selectcopyshop.html',
@@ -121,18 +145,23 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
         .state('anon.profile', {
             url: '/user/perfil',
             templateUrl: 'tpl/pages/user/profile.html',
-            controller: 'HomeController'
+            controller: 'CopyshopController'
         })
         .state('anon.record', {
             url: '/user/historial',
             templateUrl: 'tpl/pages/user/record.html',
-            controller: 'HomeController'
-        })
-        .state('anon.userorders', {
-            url: '/user/pedido',
-            templateUrl: 'tpl/pages/user/order.html',
             controller: 'CopyshopController'
         })
+        .state('anon.userorders', {
+            url: '/user/pedido/:id',
+            templateUrl: 'tpl/pages/user/order.html',
+            controller: 'CopyshopController',
+            params:{
+                id:null
+            }
+        })
+        //---------------
+        //Anonymous routes
         .state('anon.legalterms', {
             url: '/legalterms',
             templateUrl: 'tpl/pages/legalterms.html',
@@ -381,7 +410,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 
                     responseError: function(rejection){
                         if (rejection.status === 401) {
-                            $injector.get('$state').go('anon.login');
+                            /*$injector.get('$state').go('anon.login');*/
                         }
                         return $q.reject(rejection);
                     }
@@ -430,7 +459,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
   $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 }])
 // set constants
-.run(['$state', '$rootScope', 'APP', 'Auth', function ($state, $rootScope, APP, Auth) {
+.run(['$state', '$rootScope', 'APP', 'Auth', '$http', function ($state, $rootScope, APP, Auth, $http) {
+    $http.defaults.headers.common['Authorization'] = 'Bearer ' + Auth.token;
   $rootScope.APP = APP;
   $rootScope.$watch( Auth.isLoggedIn, function ( isLoggedIn ) {
     $rootScope.isLoggedIn = isLoggedIn;

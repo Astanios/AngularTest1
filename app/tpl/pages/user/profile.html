@@ -6,8 +6,9 @@
           <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
         </a>
       </div>
-      <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
-        <p class="">Hola "nombre de usuario"</p>
+      <div ng-init="main()" class="nav navbar-nav navbar-right navbar-right-no-collapse">
+        <p class="" ng-if="isLoggedIn">Hola {{user.student.names}}</p>
+        <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
       </div>
     </div>
   </nav>
@@ -19,71 +20,71 @@
           <li><a ui-sref="anon.profile">Perfil</a></li>
           <li><a ui-sref="anon.record">Historial de pedidos</a></li>
           <li><a ui-sref="anon.orders">Hacer pedido</a></li>
-          <li><a ui-sref="anon.login">Cerrar sesión</a></li>
+          <li><a ui-sref="anon.login" ng-click="logout()">Cerrar sesión</a></li>
       </aside>
     </div>
-    <main id="page-content-wrapper" role="main">
-      <div class="card bordered "  style="margin: 0; width:100%;">
-        <div class="row">
-              <div class="col-md-4 col-md-offset-3 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
-                <img src="img/emptyMME.gif" class="center medium-img">
-                <h3>Foto</h3>
-              </div>
-              <div class="col-md-2 pull-right p-r-60 p-l-30 p-t-40 p-b-40">
-                <button> Editar</button>
-              </div>
+<main id="page-content-wrapper" role="main">
+  <div class="card bordered" ng-init="main()"  style="margin: 0; width:100%;">
+    <div class="row">
+          <div class="col-md-4 col-md-offset-3 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
+            <img src="img/emptyMME.gif" class="center medium-img">
+            <h3>Foto</h3>
           </div>
-          <div class="row">
-            <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
-              <div id="forms-validation-container">
-                <div class="form-group">
-                  <label class="control-label">Nombre</label>
-                  <input type="text" class="form-control" ng-model="user.companyname" value="Norway" readonly>
-                </div>
-                 <div class="form-group">
-                  <label class="control-label">Fecha de nacimiento</label>
-                  <input type="date" class="form-control" ng-model="user.birthday" value="Norway" value="12-03-1993" readonly>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Estudio</label>
-                  <input type="province" class="form-control" ng-model="user.province"  value="Norway" readonly>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Email</label>
-                  <input type="email" class="form-control" ng-model="user.email" value="Norway" readonly>
-                  <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
-                </div>
-
-
-              </div>
+          <div class="col-md-2 pull-right p-r-60 p-l-30 p-t-40 p-b-40">
+            <button> Editar</button>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
+          <div id="forms-validation-container">
+            <div class="form-group">
+              <label class="control-label">Nombre</label>
+              <input type="text" class="form-control" placeholder="{{user.student.names}}" readonly>
             </div>
-            <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
-              <div id="forms-validation-container">
-                <div class="form-group">
-                  <label class="control-label">Apellidos</label>
-                  <input type="text" class="form-control" ng-model="user.lastname" value="Norway" readonly>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Teléfono</label>
-                  <input type="email" class="form-control" ng-model="user.phone" value="Norway" readonly>
-                  <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Sexo</label>
-                  <input type="address" class="form-control" ng-model="user.sex" value="Norway" readonly>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Intereses</label>
-                  <input type="province" class="form-control" ng-model="user.interests"  value="Norway" readonly>
-                </div>
-              </div>
+             <div class="form-group">
+              <label class="control-label">Fecha de nacimiento</label>
+              <input type="date" class="form-control" value="{{user.student.birthday.substring(0, 10)}}" readonly>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Estudio</label>
+              <input type="province" class="form-control" placeholder="{{user.student.studies}}" readonly>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Email</label>
+              <input type="email" class="form-control" placeholder="{{user.email}}"  readonly>
+              <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
+            </div>
+
+
+          </div>
+        </div>
+        <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
+          <div id="forms-validation-container">
+            <div class="form-group">
+              <label class="control-label">Apellidos</label>
+              <input type="text" class="form-control" placeholder="{{user.student.surnames}}" readonly>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Teléfono</label>
+              <input type="email" class="form-control" placeholder="{{user.student.phone}}" readonly>
+              <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
+            </div>
+            <div class="form-group">
+              <label class="control-label">Sexo</label>
+              <input type="address" class="form-control" placeholder="{{user.student.gender}}" readonly>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Intereses</label>
+              <input type="province" class="form-control" placeholder="{{user.student.interests}}" readonly>
             </div>
           </div>
         </div>
-    </main>
-  </div>
+      </div>
+    </div>
+</main>
+</div>
 
-<footer class="well white site-footer">
+<footer id="footer" class="well white site-footer"  style="z-index: 2;">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">

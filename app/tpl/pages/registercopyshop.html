@@ -47,8 +47,7 @@
   </a>
 </div>
 
-<form class="form-floating" name="form" ng-submit="signUp(form)" novalidate="">
-  <fieldset>
+<form class="form-floating" name="form" ng-submit="signUpCopySpace(form)" novalidate="">
     <div class="card bordered z-depth-1"  style="margin: 0; width:100%;">
       <div class="row">
         <div class="card-content">
@@ -65,7 +64,7 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label">DNI</label>
-                    <input type="id" class="form-control" ng-model="user.id" required-err-type="fieldRequired" required>
+                    <input type="id" class="form-control" ng-model="user.dni" required-err-type="fieldRequired" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Email</label>
@@ -83,7 +82,7 @@
       <div id="forms-validation-container">
                    <div class="form-group">
                     <label class="control-label">Apellidos</label>
-                    <input type="lastname" class="form-control" ng-model="user.lastname"  required-err-type="fieldRequired" required>
+                    <input type="lastname" class="form-control" ng-model="user.surnames"  required-err-type="fieldRequired" required>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Telefono</label>
@@ -91,133 +90,41 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label">Confirmación email</label>
-                    <input type="emailconf" class="form-control" ng-model="user.email"  required-err-type="fieldRequired" required>
+                    <input type="email" class="form-control" ng-model="user.emailConfirmation"  required-err-type="fieldRequired" required>
+                    <div class="alert alert-danger" ng-if="(user.emailConfirmation != user.email)"><p>Emails deben coincidir</p></div>
                   </div>
                   <div class="form-group">
                     <label class="control-label">Confirmacion contraseña</label>
-                    <input type="passwordconf" class="form-control" ng-model="user.password"  required-err-type="fieldRequired" required>
+                    <input type="password" class="form-control" ng-model="user.passwordConfirmation"  required-err-type="fieldRequired" required>
+                    <div class="alert alert-danger" ng-if="(user.passwordConfirmation != user.password)"><p>Contraseñas deben coincidir</p></div>
                   </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="card bordered z-depth-1"  style="margin: 0; width:100%;">
-
-    <div class="row">
-      <div class="card-content">
-
-          <div class="col-md-11 col-md-offset-1" style="margin-bottom:0">
-        <h1>
-          <i class="md md-input"></i>
-          Datos de tu copistería
-        </h1>
-      </div>
-        <div class="col-md-4 col-md-offset-1">
-    <div id="forms-validation-container">
-
-                <div class="form-group">
-                  <label class="control-label">Nombre</label>
-                  <input type="text" name="companyname" class="form-control" ng-model="user.companyname" required-err-type="fieldRequired" required>
-                  <!-- <p \
-                  g-show="form.username.$invalid && !form.username.$pristine" class="help-block">El defaultErrorMessageResolverusuardefaultErrorMessageResolverdefaultErrorMessageResolverio de ser un nombre alphanumerico de al menos 4 caracteres.</p> -->
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Email</label>
-                  <input type="email" class="form-control" ng-model="user.email" required-err-type="fieldRequired" email-err-type="emailValidate" required>
-                  <!-- <p class="help-block hint-block">Correo Electronico del usuario</p> -->
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Dirección</label>
-                  <input type="address" class="form-control" ng-model="user.address" required-err-type="fieldRequired" required>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Provincia</label>
-                  <input type="province" class="form-control" ng-model="user.province"  required-err-type="fieldRequired" required>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Código postal</label>
-                  <input type="postalcode" class="form-control" ng-model="user.postalcode"  required-err-type="fieldRequired" required>
-                </div>
-          </div>
-        </div>
-            <div class="col-md-4 col-md-offset-1">
-              <div id="forms-validation-container">
-                <div class="form-group">
-                  <input type="file" class="form-control" ng-model="user.file"  required-err-type="fieldRequired" required>
-                </div>                  
-                <div class="form-group">
-                    <label class="control-label">Confirmación email</label>
-                    <input type="emailconf" class="form-control" ng-model="user.email"  required-err-type="fieldRequired" required>
-                  </div>                 
-                <div class="form-group">
-                  <label class="control-label">CIF</label>
-                  <input type="cif" class="form-control" ng-model="user.cif"  required-err-type="fieldRequired" required>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Telefono</label>
-                  <input type="companyphone" class="form-control" ng-model="user.companyphone"  required-err-type="fieldRequired" required>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Localidad</label>
-                  <input type="location" class="form-control" ng-model="user.location"  required-err-type="fieldRequired" required>
-                </div>
-
-          </div>
-        </div>
-      </div>
-      <div class="col-md-9 col-md-offset-1 text-center">
-        <div class="forms-validation-container">
-          <div class="form-group">
-            <label class="control-label">Numero de cuenta donde ingresaremos el dinero</label>
-            <input type="text" class="form-control" ng-model="user.bankaccount" required-err-type="fieldRequired" required>
-          </div>
-        </div>
-        <br>
-      </div>
-        <div class="col-md-3 col-md-offset-1">Horarios de lunes a jueves</div>
-        <div class="col-md-3 text-center">
-          <input type="time" ng-model="user.time" required-err-type="fieldRequired" required> a
-          <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-          <br>
-          <br>
-          Viernes   <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">si
-          <br>
-          <br>
-           Sábados    <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">si
-        </div>
-        <div class="col-md-1">
-        y
-        </div>
-        <div class="col-md-3">
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-         a 
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-        <br><br>
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-         a 
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-        <br><br>
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-         a 
-        <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-        </div>
-        <div>
-          Precio Color 
-        </div>
-    </div>
     </div>
 
     <div class="card bordered z-depth-1"  style="margin: 0; width:100%;">
       <div class="row">
         <div class="card-content">
             <div class="form-group" style="text-align: center;">
-              <input type="checkbox" name="legalterms" value="bool" ng-model="user.legalterms" required>Acepto los términos y condiciones de Uso<br>        
+              <input type="checkbox" name="legalterms" value="bool" ng-model="user.legalterms" required>Acepto los términos y condiciones de Uso<br>
             </div>
         </div>
       </div>
     </div>
-
+    <div class="row" ng-if="alert.show">
+    <div class="col-lg-12">
+      <div class="bs-component">
+        <div class="alert alert-dismissible" ng-class="{'alert-success':alert.success, 'alert-danger':!alert.success}">
+          <button type="button" ng-click="close()" class="close">×</button>
+          <h4>{{alert.title}}!</h4>
+          <p>{{alert.message}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
     <div class="card bordered z-depth-1"  style="margin: 0; width:100%;">
       <div class="row">
         <div class="card-content">
@@ -227,10 +134,9 @@
         </div>
       </div>
     </div>
-  </fieldset>
 </form>
 
-<footer class="well white site-footer">
+<footer id="footer" class="well white site-footer">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">
@@ -262,7 +168,7 @@
           <a href="">
            <b>
              Quienes somos?
-           </b> 
+           </b>
           </a>
         </li>
         <li class="pull-left">
@@ -278,10 +184,10 @@
     <div class="col-lg-12">
       <ul class="nav navbar-nav">
         <li class="pull-left">
-          <a href="">Copyright 2015 - NoEsperesColas</a> 
+          <a href="">Copyright 2015 - NoEsperesColas</a>
         </li>
         <li class="pull-left">
-          <a href="">Politicas de Privacidad</a> 
+          <a href="">Politicas de Privacidad</a>
         </li>
         <li class="pull-left">
           <a href="">Terminos Legales</a>
@@ -290,5 +196,3 @@
     </div>
   </div>
 </footer>
-
-

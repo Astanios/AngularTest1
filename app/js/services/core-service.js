@@ -163,26 +163,21 @@ app.factory('UsersPublic', ['$resource', 'HOST', function ($resource, HOST) {
 app.factory('customWebService', function($http, HOST) {
   return{
     post:function(action, data) {
-      $http.post(HOST[HOST.ENV] + action, $.param(data),
+      return $http.post(HOST[HOST.ENV] + action, $.param(data),
       {
         headers:{
             'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
     },
-<<<<<<< HEAD
     get:function(url, data, success) {
-      $http.get(HOST[HOST.ENV] + url).success(function (remoteData) {
+      return $http.get(HOST[HOST.ENV] + url).success(function (remoteData) {
         data=remoteData;
         if (success != undefined)
         {
           success(remoteData);
         }
       })
-=======
-    get:function(url) {
-      $http.get(HOST[HOST.ENV])
->>>>>>> gabriel
     }
   };
 })

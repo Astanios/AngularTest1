@@ -1,3 +1,56 @@
+<style>
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+</style>
+
 <div id="navbar-wrapper">
   <nav class="navbar navbar-default"  style="z-index: 2;" ng-class="{scroll: (scroll>10)}">
     <div class="container-fluid">
@@ -17,305 +70,216 @@
     <aside id="sidebar">
       <ul id="sidemenu" class="sidebar-nav">
         <li><a ui-sref="anon.copyshopprofile">Perfil</a></li>
-        <li><a ui-sref="anon.management">Gestión de pedidos</a></li>
+        <li><a ui-sref="anon.copyshoppool">Gestión de pedidos</a></li>
         <li><a ui-sref="anon.addcopyshop">Añadir copistería</a></li>
-        <li><a ui-sref="anon.login">Cerrar sesión</a></li>
+        <li><a ui-sref="anon.login" ng-click="logout()">Cerrar sesión</a></li>
       </aside>
     </div>
-    <main id="page-content-wrapper" role="main">
+    <main id="page-content-wrapper" ng-init="getCopyshopHistory()" role="main">
       <div class="card bordered "  style="margin: 0; width:100%;">
         <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-tabs" data-tabs="tabs">
-                  <li class="active"><a data-toggle="tab" href="#home">Recibido</a></li>
-                  <li><a data-toggle="tab" href="#menu1">En proceso</a></li>
-                  <li><a data-toggle="tab" href="#menu2">Realizado</a></li>
-                  <li><a data-toggle="tab" href="#menu3">Entregado</a></li>
-                </ul>
+
+            <ul class="tab">
+              <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Recibido')">Recibido</a></li>
+              <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Proceso')">En proceso</a></li>
+              <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Realizado')">Realizado</a></li>
+              <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Entregado')">Entregado</a></li>
+            </ul>
+
+            <div id="Recibido" class="tabcontent">
+              <div class="col-md-3">
+                <button class="btn">Seleccionar pedido</button>
+                <button class="btn" disabled>En proceso</button>
+              </div>
+
+              <div class="col-md-3">
+                <p>Mostrar pedidos por:</p>
+                <select name="orden">
+                  <option value="dia">Dia</option>
+                  <option value="mes">Mes</option>
+                  <option value="ano">Año</option>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <p>Seleccionar fecha:</P>
+                <input type="date" name="bday">
+              </div>
+
+              <div class="col-md-12">
+                <table class="text-center">
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Usuario</th>
+                    <th>Pedido</th>
+                    <th>Archivos</th>
+                    <th>Tipo</th>
+                    <th>Encuadernado</th>
+                    <th>Doble cara</th>
+                    <th>Comentario</th>
+                  </tr>
+                  <tr ng-repeat="orden in orders | filter: {status: 'received'}">
+                    <td>{{orden.date_order.toString().substring(0,10) }}</td>
+                    <td>{{orden.date_order.toString().substring(11,16) }}</td>
+                    <td>{{ orden.user.student.names }}</td>
+                    <td>{{ orden.order }}</td>
+                    <td>{{ orden.files.length }}</td>
+                    <td>{{ orden.type }}</td>
+                    <td>{{ orden.bound }}</td>
+                    <td>{{ orden.double_sided }}</td>
+                    <td>{{ order.comment }}</td>
+                  </tr>
+
+                </table>
+              </div>
             </div>
-                <div class="tab-content">
-                  <div id="home" class="tab-pane fade in active">
-                    <div class="col-md-3">
-                      <button class="btn">Seleccionar pedido</button>
-                      <button class="btn" disabled>En proceso</button>
-                    </div>
 
-                    <div class="col-md-3">
-                      <p>Mostrar pedidos por:</p>
-                      <select name="orden">
-                        <option value="dia">Dia</option>
-                        <option value="mes">Mes</option>
-                        <option value="ano">Año</option>
-                      </select>
-                    </div>
+            <div id="Proceso" class="tabcontent">
+              <div class="col-md-3">
+                <button class="btn">Seleccionar pedido</button>
+                <button class="btn" disabled>Realizado</button>
+              </div>
 
-                    <div class="col-md-3">
-                      <p>Seleccionar fecha:</P>
-                      <input type="date" name="bday">
-                    </div>
+              <div class="col-md-3">
+                <p>Mostrar pedidos por:</p>
+                <select name="orden">
+                  <option value="dia">Dia</option>
+                  <option value="mes">Mes</option>
+                  <option value="ano">Año</option>
+                </select>
+              </div>
 
-                    <div class="col-md-12">
-                      <table class="text-center">
-                        <tr>
-                          <th>Fecha</th>
-                          <th>Hora</th>
-                          <th>Usuario</th>
-                          <th>Pedido</th>
-                          <th>Archivos</th>
-                          <th>Tipo</th>
-                          <th>Encuadernado</th>
-                          <th>Doble cara</th>
-                          <th>Comentario</th>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>10:00</td>
-                          <td>Marco Ibañez</td>
-                          <td>00578</td>
-                          <td>-</td>
-                          <td>B/N</td>
-                          <td>Si</td>
-                          <td>Si</td>
-                          <td>La tapa rosa</td>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>10:03</td>
-                          <td>Juan Perez</td>
-                          <td>00580</td>
-                          <td>-</td>
-                          <td>Color</td>
-                          <td>No</td>
-                          <td>Si</td>
-                          <td>-</td>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>10:05</td>
-                          <td>Lucia Martin</td>
-                          <td>00581</td>
-                          <td>-</td>
-                          <td>B/N</td>
-                          <td>Si</td>
-                          <td>Si</td>
-                          <td>-</td>
-                        </tr>
-                      </table>
-                    </div>
+              <div class="col-md-3">
+                <p>Seleccionar fecha:</P>
+                <input type="date" name="bday">
+              </div>
 
-                  </div>
-                  <div id="menu1" class="tab-pane fade">
-                    <div class="col-md-3">
-                      <button class="btn">Seleccionar pedido</button>
-                      <button class="btn" disabled>Realizado</button>
-                    </div>
+              <div class="col-md-12">
+                <table class="text-center">
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Usuario</th>
+                    <th>Pedido</th>
+                    <th>Archivos</th>
+                    <th>Tipo</th>
+                    <th>Encuadernado</th>
+                    <th>Doble cara</th>
+                    <th>Comentario</th>
+                  </tr>
+                  <tr ng-repeat="orden in orders | filter: {status: 'in_process'}">
+                    <td>{{orden.date_order.toString().substring(0,10) }}</td>
+                    <td>{{orden.date_order.toString().substring(11,16) }}</td>
+                    <td>{{ orden.user.student.names }}</td>
+                    <td>{{ orden.order }}</td>
+                    <td>{{ orden.files.length }}</td>
+                    <td>{{ orden.type }}</td>
+                    <td>{{ orden.bound }}</td>
+                    <td>{{ orden.double_sided }}</td>
+                    <td>{{ order.comment }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
 
-                    <div class="col-md-3">
-                      <p>Mostrar pedidos por:</p>
-                      <select name="orden">
-                        <option value="dia">Dia</option>
-                        <option value="mes">Mes</option>
-                        <option value="ano">Año</option>
-                      </select>
-                    </div>
+            <div id="Realizado" class="tabcontent">
+              <div class="col-md-3">
+                <button class="btn">Seleccionar pedido</button>
+                <button class="btn" disabled>Entregado</button>
+              </div>
 
-                    <div class="col-md-3">
-                      <p>Seleccionar fecha:</P>
-                      <input type="date" name="bday">
-                    </div>
+              <div class="col-md-3">
+                <p>Mostrar pedidos por:</p>
+                <select name="orden">
+                  <option value="dia">Dia</option>
+                  <option value="mes">Mes</option>
+                  <option value="ano">Año</option>
+                </select>
+              </div>
 
-                    <div class="col-md-12">
-                      <table class="text-center">
-                        <tr>
-                          <th>Fecha</th>
-                          <th>Hora</th>
-                          <th>Usuario</th>
-                          <th>Pedido</th>
-                          <th>Archivos</th>
-                          <th>Tipo</th>
-                          <th>Encuadernado</th>
-                          <th>Doble cara</th>
-                          <th>Comentario</th>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>10:00</td>
-                          <td>Javier López</td>
-                          <td>00560</td>
-                          <td>-</td>
-                          <td>B/N</td>
-                          <td>Si</td>
-                          <td>Si</td>
-                          <td>La tapa negra</td>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>9:43</td>
-                          <td>Fran Ramirez</td>
-                          <td>00558</td>
-                          <td>-</td>
-                          <td>Color</td>
-                          <td>No</td>
-                          <td>Si</td>
-                          <td>-</td>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>10:05</td>
-                          <td>Lucas Perez</td>
-                          <td>00555</td>
-                          <td>-</td>
-                          <td>B/N</td>
-                          <td>Si</td>
-                          <td>Si</td>
-                          <td>-</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div id="menu2" class="tab-pane fade">
-                    <div class="col-md-3">
-                      <button class="btn">Seleccionar pedido</button>
-                      <button class="btn" disabled>Entregado</button>
-                    </div>
+              <div class="col-md-3">
+                <p>Seleccionar fecha:</P>
+                <input type="date" name="bday">
+              </div>
 
-                    <div class="col-md-3">
-                      <p>Mostrar pedidos por:</p>
-                      <select name="orden">
-                        <option value="dia">Dia</option>
-                        <option value="mes">Mes</option>
-                        <option value="ano">Año</option>
-                      </select>
-                    </div>
+              <div class="col-md-12">
+                <table class="text-center">
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Usuario</th>
+                    <th>Pedido</th>
+                    <th>Archivos</th>
+                    <th>Tipo</th>
+                    <th>Encuadernado</th>
+                    <th>Doble cara</th>
+                    <th>Comentario</th>
+                  </tr>
+                  <tr ng-repeat="orden in orders | filter: {status: 'done'}">
+                    <td>{{orden.date_order.toString().substring(0,10) }}</td>
+                    <td>{{orden.date_order.toString().substring(11,16) }}</td>
+                    <td>{{ orden.user.student.names }}</td>
+                    <td>{{ orden.order }}</td>
+                    <td>{{ orden.files.length }}</td>
+                    <td>{{ orden.type }}</td>
+                    <td>{{ orden.bound }}</td>
+                    <td>{{ orden.double_sided }}</td>
+                    <td>{{ order.comment }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
 
-                    <div class="col-md-3">
-                      <p>Seleccionar fecha:</P>
-                      <input type="date" name="bday">
-                    </div>
+            <div id="Entregado" class="tabcontent">
+              <div class="col-md-3 col-md-offset-3">
+                <p>Mostrar pedidos por:</p>
+                <select name="orden">
+                  <option value="dia">Dia</option>
+                  <option value="mes">Mes</option>
+                  <option value="ano">Año</option>
+                </select>
+              </div>
 
-                    <div class="col-md-12">
-                      <table class="text-center">
-                        <tr>
-                          <th>Fecha</th>
-                          <th>Hora</th>
-                          <th>Usuario</th>
-                          <th>Pedido</th>
-                          <th>Archivos</th>
-                          <th>Tipo</th>
-                          <th>Encuadernado</th>
-                          <th>Doble cara</th>
-                          <th>Comentario</th>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>9:35</td>
-                          <td>Emilio Ruiz</td>
-                          <td>00548</td>
-                          <td>-</td>
-                          <td>B/N</td>
-                          <td>Si</td>
-                          <td>Si</td>
-                          <td>La tapa negra</td>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>9:33</td>
-                          <td>Mar Rodriguez</td>
-                          <td>00545</td>
-                          <td>-</td>
-                          <td>Color</td>
-                          <td>No</td>
-                          <td>Si</td>
-                          <td>-</td>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>9:30</td>
-                          <td>Carmen Pereira</td>
-                          <td>00537</td>
-                          <td>-</td>
-                          <td>B/N</td>
-                          <td>Si</td>
-                          <td>Si</td>
-                          <td>-</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <div id="menu3" class="tab-pane fade">
+              <div class="col-md-3">
+                <p>Seleccionar fecha:</P>
+                <input type="date" name="bday">
+              </div>
 
-                    <div class="col-md-3 col-md-offset-3">
-                      <p>Mostrar pedidos por:</p>
-                      <select name="orden">
-                        <option value="dia">Dia</option>
-                        <option value="mes">Mes</option>
-                        <option value="ano">Año</option>
-                      </select>
-                    </div>
-
-                    <div class="col-md-3">
-                      <p>Seleccionar fecha:</P>
-                      <input type="date" name="bday">
-                    </div>
-
-                    <div class="col-md-12">
-                      <table class="text-center">
-                        <tr>
-                          <th>Fecha</th>
-                          <th>Hora</th>
-                          <th>Usuario</th>
-                          <th>Pedido</th>
-                          <th>Archivos</th>
-                          <th>Tipo</th>
-                          <th>Encuadernado</th>
-                          <th>Doble cara</th>
-                          <th>Comentario</th>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>10:00</td>
-                          <td>Marco Ibañez</td>
-                          <td>00578</td>
-                          <td>-</td>
-                          <td>B/N</td>
-                          <td>Si</td>
-                          <td>Si</td>
-                          <td>La tapa rosa</td>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>10:03</td>
-                          <td>Juan Perez</td>
-                          <td>00580</td>
-                          <td>-</td>
-                          <td>Color</td>
-                          <td>No</td>
-                          <td>Si</td>
-                          <td>-</td>
-                        </tr>
-                        <tr>
-                          <td>17/12/2016</td>
-                          <td>10:05</td>
-                          <td>Lucia Martin</td>
-                          <td>00581</td>
-                          <td>-</td>
-                          <td>B/N</td>
-                          <td>Si</td>
-                          <td>Si</td>
-                          <td>-</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-
+              <div class="col-md-12">
+                <table class="text-center">
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Usuario</th>
+                    <th>Pedido</th>
+                    <th>Archivos</th>
+                    <th>Tipo</th>
+                    <th>Encuadernado</th>
+                    <th>Doble cara</th>
+                    <th>Comentario</th>
+                  </tr>
+                  <tr ng-repeat="orden in orders | filter: {status: 'deliveres'}">
+                    <td>{{orden.date_order.toString().substring(0,10) }}</td>
+                    <td>{{orden.date_order.toString().substring(11,16) }}</td>
+                    <td>{{ orden.user.student.names }}</td>
+                    <td>{{ orden.order }}</td>
+                    <td>{{ orden.files.length }}</td>
+                    <td>{{ orden.type }}</td>
+                    <td>{{ orden.bound }}</td>
+                    <td>{{ orden.double_sided }}</td>
+                    <td>{{ order.comment }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
     </main>
   </div>
 
-<footer class="well white site-footer">
+<footer id="footer" class="well white site-footer">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">
@@ -374,3 +338,19 @@
     </div>
   </div>
 </footer>
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+openCity(event, 'Recibido');
+</script>

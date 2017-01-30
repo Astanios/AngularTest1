@@ -6,8 +6,9 @@
           <img src="img/emptyMME.gif" class="img-bar-logo"> <span class="title-bar">noesperecolas</span>
         </a>
       </div>
-      <div class="nav navbar-nav navbar-right navbar-right-no-collapse">
-        <p class="">Hola "nombre de usuario"</p>
+      <div ng-init="main()" class="nav navbar-nav navbar-right navbar-right-no-collapse">
+        <p class="" ng-if="isLoggedIn">Hola {{user.resp_copi.names}}</p>
+        <button ng-if="!isLoggedIn" ui-sref="anon.login">Iniciar session</button>
       </div>
     </div>
   </nav>
@@ -17,165 +18,208 @@
     <aside id="sidebar">
       <ul id="sidemenu" class="sidebar-nav">
         <li><a ui-sref="anon.copyshopprofile">Perfil</a></li>
-        <li><a ui-sref="anon.management">Gestión de pedidos</a></li>
+        <li><a ui-sref="anon.copyshoppool">Gestión de pedidos</a></li>
         <li><a ui-sref="anon.addcopyshop">Añadir copistería</a></li>
-        <li><a ui-sref="anon.login">Cerrar sesión</a></li>
+        <li><a ui-sref="anon.login" ng-click="logout()">Cerrar sesión</a></li>
       </aside>
     </div>
     <main id="page-content-wrapper" role="main">
       <div class="card bordered"  style="margin: 0; width:100%;">
           <div class="row">
-            <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
-              <h1>Nombre de la copistería</h1>
+            <div ng-init="main()" class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
+              <h1> {{user.resp_copi.names}}</h1>
             </div>
             <div class="col-md-12 p-r-30 p-l-60 ">
               <h2>Responsable</h2>
+              <h3>Yo <input type="checkbox" ng-model="ownCopy" ng-init="ownCopy=true" ></h3>
             </div>
-            <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
-              <div id="forms-validation-container">
-                <div class="form-group">
-                  <label class="control-label">Nombre</label>
-                  <input type="text" class="form-control" ng-model="user.companyname">
+            <form class="form-floating" name="form" ng-submit="addCopyspace(form)" novalidate="">
+              <div ng-if="!ownCopy">
+                <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
+                  <div id="forms-validation-container">
+                    <div class="form-group">
+                      <label class="control-label">Nombre</label>
+                      <input type="text" class="form-control" ng-model="copy.resp_names">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Email</label>
+                      <input type="email" class="form-control" ng-model="copy.email" required-err-type="fieldRequired" email-err-type="emailValidate" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Contraseña</label>
+                      <input type="password" class="form-control" ng-model="copy.password"  required-err-type="fieldRequired" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">DNI</label>
+                      <input type="text" class="form-control" ng-model="copy.resp_dni">
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label">DNI</label>
-                  <input type="text" class="form-control" ng-model="user.dni">
+                <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
+                  <div id="forms-validation-container">
+                    <div class="form-group">
+                      <label class="control-label">Apellidos</label>
+                      <input type="text" class="form-control" ng-model="copy.resp_surnames">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Confirmación email</label>
+                      <input type="email" class="form-control" ng-model="copy.emailConfirmation"  required-err-type="fieldRequired" required>
+                      <div class="alert alert-danger" ng-if="(copy.emailConfirmation != copy.email)"><p>Emails deben coincidir</p></div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Confirmacion contraseña</label>
+                      <input type="password" class="form-control" ng-model="copy.passwordConfirmation"  required-err-type="fieldRequired" required>
+                      <div class="alert alert-danger" ng-if="(copy.passwordConfirmation != copy.password)"><p>Contraseñas deben coincidir</p></div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Teléfono</label>
+                      <input type="tel" class="form-control" ng-model="copy.resp_phone">
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
-              <div id="forms-validation-container">
-                <div class="form-group">
-                  <label class="control-label">Apellidos</label>
-                  <input type="text" class="form-control" ng-model="user.lastname">
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Email</label>
-                  <input type="email" class="form-control" ng-model="user.email">
-                </div>
-              </div>
-            </div>
             <div class="col-md-12 p-r-30 p-l-60 ">
               <h2>Copistería</h2>
             </div>
             <div class="col-md-12 p-r-30 p-l-60 p-t-40 p-b-40 text-center">
-              <img src="img/emptyMME.gif">
+              <div class="form-group">
+                <label class="control-label">Foto</label>
+                <input type="file" class="form-control" ng-model="copy.files">
+              </div>
             </div>
             <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
               <div id="forms-validation-container">
                 <div class="form-group">
                   <label class="control-label">Nombre</label>
-                  <input type="text" class="form-control" ng-model="copyshop.name">
+                  <input type="text" class="form-control" ng-model="copy.copy_name">
                 </div>
                 <div class="form-group">
                   <label class="control-label">CIF</label>
-                  <input type="text" class="form-control" ng-model="copyshop.cif">
+                  <input type="text" class="form-control" ng-model="copy.copy_cif">
                 </div>
                 <div class="form-group">
                   <label class="control-label">Email</label>
-                  <input type="email" class="form-control" ng-model="copyshop.email">
+                  <input type="email" class="form-control" ng-model="copy.copy_email">
                 </div>
                 <div class="form-group">
                   <label class="control-label">Dirección</label>
-                  <input type="email" class="form-control" ng-model="copyshop.address">
+                  <input type="text" class="form-control" ng-model="copy.copy_address">
                 </div>
               </div>
             </div>
             <div class="col-md-6 p-r-30 p-l-60 p-t-40 p-b-40">
+              <div id="forms-validation-container">
               <div class="form-group">
                 <label class="control-label">Teléfono</label>
-                <input type="email" class="form-control" ng-model="copyshop.phone">
+                <input type="text" class="form-control" ng-model="copy.copy_phone">
               </div>
               <div class="form-group">
                 <label class="control-label">Localidad</label>
-                <input type="email" class="form-control" ng-model="copyshop.location">
+                <input type="text" class="form-control" ng-model="copy.copy_location">
               </div>
               <div class="form-group">
                 <label class="control-label">Provincia</label>
-                <input type="email" class="form-control" ng-model="copyshop.provice">
+                <input type="text" class="form-control" ng-model="copy.copy_province">
               </div>
-              <div id="forms-validation-container">
                 <div class="form-group">
                   <label class="control-label">Código postal</label>
-                  <input type="text" class="form-control" ng-model="copyshop.postalcode">
+                  <input type="text" class="form-control" ng-model="copy.copy_postalcode">
                 </div>
               </div>
             </div>
             <div class="col-md-10 col-md-offset-1 text-center">
-              <div class="forms-validation-container">
+              <div id="forms-validation-container">
                 <div class="form-group">
                   <label class="control-label">Numero de cuenta donde ingresaremos el dinero</label>
-                  <input type="text" class="form-control" ng-model="user.bankaccount" required-err-type="fieldRequired" required>
+                  <input type="text" class="form-control" ng-model="copy.copy_money_account" required-err-type="fieldRequired" required>
                 </div>
               </div>
               <br>
+            <div class="col-md-3 col-md-offset-1 form-group">Horarios de lunes a viernes</div>
+            <div class="col-md-3 text-center form-group">
+              <input type="time" ng-model="copy_schedule_morning_from" class="form-control" required-err-type="fieldRequired" required> a
+              <input type="time" ng-model="copy_schedule_morning_to" class="form-control" required-err-type="fieldRequired" required>
             </div>
-            <div class="col-md-3 col-md-offset-1 ">Horarios de lunes a jueves</div>
-            <div class="col-md-3 text-center">
-              <input type="time" ng-model="user.time" required-err-type="fieldRequired" required> a
-              <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-              <br>
-              <br>
-              Viernes   <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">si
-              <br>
-              <br>
-               Sábados    <input type="checkbox" name="interest" ng-model="user.interest" value="trabajo">si
+            <div class="col-md-3 form-group">
+              <input type="time" ng-model="copy_schedule_afternoon_from" class="form-control" required-err-type="fieldRequired" required> a
+              <input type="time" ng-model="copy_schedule_afternoon_to" class="form-control" required-err-type="fieldRequired" required>
             </div>
-            <div class="col-md-1">
-            y
             </div>
-            <div class="col-md-3">
-            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-             a
-            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-            <br><br>
-            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-             a
-            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-            <br><br>
-            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
-             a
-            <input type="time" ng-model="user.time" required-err-type="fieldRequired" required>
             </div>
 
-            <div class="col-md-5 col-md-offset-5 text center">
-            <h3>Encuadernado</h3>
-            </div>
-            <div class="col-md-1 col-md-offset-2">
-              <p>De</p>
-            </div>
-            <div class="col-md-1 col-md-offset-2">
-              <input type="number" value="0" readonly/>
-            </div>
-            <div class="col-md-1 ">
-              <p>a</p>
-            </div>
-            <div class="col-md-1 col-md-offset-">
-              <input type="number" value="1"/>
+            <div class ="row">
+              <div class="col-md-3 col-md-offset-4 text-center">
+                <br>
+                 Sábados  <input class="form-group" type="checkbox" ng-model="copy_schedule_saturday" ng-init="copy_schedule_saturday=false">
+                 <br>
+              </div>
+              <div class="col-md-3 form-group">
+                  <div ng-if="copy_schedule_saturday">
+                    <br><br>
+                    <input type="time" ng-model="copy_schedule_saturday_from" class="form-control" required-err-type="fieldRequired" required>
+                     a
+                    <input type="time" ng-model="copy_schedule_saturday_to" class="form-control" required-err-type="fieldRequired" required>
+                  </div>
+              </div>
             </div>
 
-              <div class="col-md-12">
-                <div class="card-content">
-                    <div class="form-group" style="text-align: center;">
-                      <input type="checkbox" name="legalterms" value="bool" ng-model="user.legalterms" required>Acepto los términos y condiciones de Uso<br>
-                    </div>
+            <div clas="row">
+              <div id="forms-validation-container">
+                <div class="col-md-5 col-md-offset-2 form-group">
+                  <h3>Color (€/copia):</h3><input type="number" class="form-group" ng-model="copy.price_color" required-err-type="fieldRequired" required>
+                </div>
+                <div class="col-md-5 form-group">
+                  <h3>Blanco y negro (€/copia):</h3><input type="number" class="form-group" ng-model="copy.price_bn " required-err-type="fieldRequired" required>
                 </div>
               </div>
-
-              <div class="col-md-12">
-                <div class="card-content">
-                    <div class="form-group" style="text-align: center;">
-                      <button type="submit" class="btn btn-primary">Enviar</button>
-                    </div>
+            </div>
+            <div class ="row">
+              <div id="forms-validation-container">
+                <div class="col-md-8 col-md-offset-5 text center">
+                <h3>Encuadernado</h3>
                 </div>
+                <div class="col-md-1 col-md-offset-1 form-group">
+                  <p>De</p>
+                </div>
+                <div class="col-md-1 col-md-offset-1 form-group">
+                  <input type="number" value="0" readonly/>
+                </div>
+                <div class="col-md-1 col-md-offset-1 form-group">
+                  <p>a</p>
+                </div>
+                <div class="col-md-1 col-md-offset-1 form-group">
+                  <input type="number" value="50"/>
+                </div>
+                <div class="col-md-1 col-md-offset-1 form-group">
+                  <input type="number" ng-model="copy.price_enc" required-err-type="fieldRequired" required><p>(€/copia)</p>
+                </div>
+              </div>
             </div>
 
-        </div>
+            <div class ="row">
+              <div id="forms-validation-container">
+                <div class="col-md-12">
+                  <div class="card-content">
+                      <div class="form-group" style="text-align: center;">
+                        <input type="checkbox" name="legalterms" value="bool" required>Acepto los términos y condiciones de Uso<br>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="card-content">
+                  <div class="form-group" style="text-align: center;">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                  </div>
+              </div>
+            </div>
+            </form>
         </div>
     </main>
   </div>
 
-<footer class="well white site-footer">
+<footer id="footer" class="well white site-footer">
   <div class="row p-b-10" style="border-bottom: 1px #ddd solid;">
     <div class="col-lg-5">
       <ul class="nav navbar-nav">

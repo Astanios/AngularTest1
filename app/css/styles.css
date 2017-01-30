@@ -212,3 +212,52 @@ section.cards{
 .back-full-img{
     background-image: url(../img/emptyMME.gif);
 }
+
+div[dropzone] {
+    border: 2px dashed #bbb;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    font: 20pt bold;
+    color: #bbb;
+    margin-bottom: 20px;
+}
+#drop-file-input
+{
+    position: absolute;top: 0;left: 0;bottom: 0;right: 0;
+    opacity: 0;
+}
+.overlay
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,.5);
+    z-index: 2;
+}
+.overlay .glyphicon
+{
+    position: absolute;
+    top: 50%;
+    display: block;
+    margin: 0 auto;
+}
+.drop-file-area
+{
+    position: relative;
+    border: 2px dashed #bbb;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    font: 20pt bold;
+    color: #bbb;
+    margin-bottom: 20px;
+    overflow: hidden;
+    width: 100%;
+}
+.order-type-active
+{
+    background-color: #124975 !important;
+}

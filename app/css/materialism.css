@@ -8887,6 +8887,7 @@ h5 {
   font-size: 14px;
   color: #9B9B9B; }
 
+
   main .main-container {
     flex: 1; }
     main .main-container .main-content {
@@ -9544,9 +9545,7 @@ aside.sidebar {
   .card .card-action {
     padding: 20px; }
   .card.bordered .card-action {
-    border-top: 1px solid #F0F0F0;
-    padding-left: 20px;
-   }
+    border-top: 1px solid #F0F0F0; }
   .card.bordered .card-header {
     border-bottom: 1px solid #F0F0F0; }
   .card .card-reveal {
@@ -23992,7 +23991,6 @@ input[type=number]:focus, .theme-deep-orange
       background: #ffca28; }
     .theme-picker .theme-item.theme-deep-orange .theme-color-4 {
       background: #ffb300; }
-
       table {
           font-family: arial, sans-serif;
           border-collapse: collapse;
@@ -24043,8 +24041,12 @@ input[type=number]:focus, .theme-deep-orange
          }
      }
 
-     #sidebar-wrapper {
-         border-right: 1px solid #e7e7e7;
+     #footer{
+       border-top: 1px solid #e7e7e7;
+     }
+
+     #page-content-wrapper{
+       border-left: 1px solid #e7e7e7;
      }
 
      #sidebar-wrapper {
@@ -24135,7 +24137,11 @@ input[type=number]:focus, .theme-deep-orange
      footer {
        z-index: 1000;
        position: relative;
+       border: 10px #000;
      }
      aside{
        z-index: 0;
+     }
+     main{
+       min-height: 600px;
      }
